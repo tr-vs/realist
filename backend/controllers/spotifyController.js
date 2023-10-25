@@ -1,3 +1,18 @@
+const querystring = require('querystring');
+
+const stateKey = 'spotify_auth_state';
+
+const generateRandomString = function (length) {
+    var text = '';
+    var possible =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (var i = 0; i < length; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+};
+
 const userAuth = async (req, res) => {
     let state = generateRandomString(16);
     res.cookie(stateKey, state);

@@ -5,3 +5,5 @@ const router = express.Router();
 
 // user auth route
 router.get('/auth', userAuth);
+
+module.exports = router;
