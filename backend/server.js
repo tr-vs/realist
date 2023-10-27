@@ -4,12 +4,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/users');
 const spotifyRoutes = require('./routes/spotify');
+const cookieParser = require('cookie-parser');
 
 // express app
 const app = express();
 
 // middleware
-app.use(express.json());
+app.use(express.json()).use(cookieParser());
 
 app.use((req, res, next) => {
     console.log(req.path, req.method);

@@ -1,13 +1,14 @@
 const querystring = require('querystring');
+const fetch = require('node-fetch');
 
 const stateKey = 'spotify_auth_state';
 
-const generateRandomString = function (length) {
-    var text = '';
-    var possible =
+const generateRandomString = (length) => {
+    let text = '';
+    const possible =
         'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-    for (var i = 0; i < length; i++) {
+    for (let i = 0; i < length; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
@@ -25,13 +26,109 @@ const userAuth = async (req, res) => {
             querystring.stringify({
                 response_type: 'code',
                 client_id: process.env.SPOTIFY_CLIENT_ID,
-                scope: scope,
+                scope,
                 redirect_uri: process.env.SPOTIFY_REDIRECT_URI,
-                state: state,
+                state,
             })
     );
 };
 
+const callback = async (req, res) => {
+    // your application requests refresh and access tokens
+    // after checking the state parameter
+    const code = req.query.code || null;
+    let state = req.query.state || null;
+    let storedState = req.cookies ? req.cookies[stateKey] : null;
+
+    if (state === null || state !== storedState) {
+        res.redirect(
+            '/#' +
+                querystring.stringify({
+                    error: 'state_mismatch',
+                })
+        );
+    } else {
+        res.clearCookie(stateKey);
+
+        const authOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                Authorization:
+                    'Basic ' +
+                    Buffer.from(
+                        process.env.SPOTIFY_CLIENT_ID +
+                            ':' +
+                            process.env.SPOTIFY_CLIENT_SECRET
+                    ).toString('base64'),
+            },
+            body: `code=${code}&redirect_uri=${process.env.SPOTIFY_REDIRECT_URI}&grant_type=authorization_code`,
+            json: true,
+        };
+
+        await fetch('https://accounts.spotify.com/api/token', authOptions)
+            .then((response) => {
+                if (response.status === 200) {
+                    response.json().then((data) => {
+                        let access_token = data.access_token;
+                        let refresh_token = data.refresh_token;
+                        res.redirect(
+                            '/#' +
+                                querystring.stringify({
+                                    access_token,
+                                    refresh_token,
+                                })
+                        );
+                    });
+                } else {
+                    res.redirect(
+                        '/#' +
+                            querystring.stringify({
+                                error: 'invalid_token',
+                            })
+                    );
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+};
+
+const refreshToken = async (req, res) => {
+    const refresh_token = req.query.refresh_token;
+
+    const authOptions = {
+        method: 'POST',
+        headers: {
+            Authorization:
+                'Basic ' +
+                Buffer.from(
+                    process.env.SPOTIFY_CLIENT_ID +
+                        ':' +
+                        process.env.SPOTIFY_CLIENT_SECRET
+                ).toString('base64'),
+            body: `grant_type=refresh_token&refresh_token=${refresh_token}`,
+        },
+    };
+
+    fetch('https://accounts.spotify.com/api/token', authOptions)
+        .then((response) => {
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    const access_token = data.access_token;
+                    res.send({ access_token });
+                });
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            res.send(error);
+        });
+};
+
 module.exports = {
     userAuth,
+    callback,
+    refreshToken,
 };
