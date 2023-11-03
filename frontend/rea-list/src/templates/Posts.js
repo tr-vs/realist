@@ -9,8 +9,6 @@ const Posts = (props) => {
     return (
         <div className="profile-content">
             <img src={links[props.num]} alt="" />
-
-            <p>Lorem ipsum Something something</p>
         </div>
     );
 };
