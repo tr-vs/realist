@@ -13,7 +13,4 @@ router.get('/auth', userAuth);
 // callback route
 router.get('/call_back', callback);
 
-// token refresh route
-router.post('/token_refresh', refreshToken);
-
 module.exports = router;
