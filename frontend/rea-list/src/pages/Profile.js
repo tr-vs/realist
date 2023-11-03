@@ -1,6 +1,6 @@
 const Profile = () => {
     return (
-        <a href="http://localhost:4000/api/spotify/auth">
+        <a href="http://localhost:3000/api/spotify/auth">
             <button>Connect to Spotify</button>
         </a>
     );
