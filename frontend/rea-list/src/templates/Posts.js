@@ -19,6 +19,7 @@ const Posts = (props) => {
                 <h3>Song Name</h3>
                 <h3>Artist:</h3>
                 <h5>Reaction: </h5>
+                {/* comment */}
             </div>
         </div>
         
