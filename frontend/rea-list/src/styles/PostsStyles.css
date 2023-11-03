@@ -7,3 +7,8 @@ img {
 .profile-content {
     display: flex;
 }
+
+.song-info {
+   padding: 20px;
+
+}
