@@ -4,3 +4,6 @@ img {
     padding-bottom: 50px;
     padding-left: 70px;
 }
+.profile-content {
+    display: flex;
+}
