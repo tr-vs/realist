@@ -95,40 +95,7 @@ const callback = async (req, res) => {
     }
 };
 
-const refreshToken = async (req, res) => {
-    const refresh_token = req.query.refresh_token;
-
-    const authOptions = {
-        method: 'POST',
-        headers: {
-            Authorization:
-                'Basic ' +
-                Buffer.from(
-                    process.env.SPOTIFY_CLIENT_ID +
-                        ':' +
-                        process.env.SPOTIFY_CLIENT_SECRET
-                ).toString('base64'),
-            body: `grant_type=refresh_token&refresh_token=${refresh_token}`,
-        },
-    };
-
-    fetch('https://accounts.spotify.com/api/token', authOptions)
-        .then((response) => {
-            if (response.status === 200) {
-                response.json().then((data) => {
-                    const access_token = data.access_token;
-                    res.send({ access_token });
-                });
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-            res.send(error);
-        });
-};
-
 module.exports = {
     userAuth,
     callback,
-    refreshToken,
 };
