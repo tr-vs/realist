@@ -15,7 +15,7 @@ import '../styles/SignUp.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-// import { useSpring, animated } from 'react-spring';
+
 
 
 
@@ -42,13 +42,6 @@ export default function SignUp() {
   const [showPassReq, setShowPassReq] = useState(false);
   const navigate = useNavigate();
 
-  // const passwordReqAnimation = useSpring({
-  //   opacity: showPassReq ? 1 : 0,
-  //   transform: showPassReq ? 'translateY(0)' : 'translateY(-20px)',
-  // });
-  
-  
-  
   // Add new user to database
   const createUser = async (event) => {
     event.preventDefault();
