@@ -32,7 +32,7 @@ MONGO_URI=mongodb+srv://travis:JMxgVeyOw00Wn8V9@cs35lproj.thwxz2g.mongodb.net/?r
 SECRET=eCYnhZr.u!_L6qXvLXU@u*YZWFXJNMLqx7@TP4iw
 SPOTIFY_CLIENT_ID=a8a847ca5ed14e64b16219206363ee5a
 SPOTIFY_CLIENT_SECRET=61793825b72d4c0bbf03bd316a672486
-SPOTIFY_REDIRECT_URI=https://localhost:3000/callback
+SPOTIFY_REDIRECT_URI=http://localhost:3000/api/spotify/call_back
 ```
 
 #### Run It!
