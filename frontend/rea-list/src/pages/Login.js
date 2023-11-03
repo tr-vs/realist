@@ -1,6 +1,11 @@
+import SignUp from "../templates/SignUp"
+
 const Login  = () => {
     return (
-        <h1>Sign Up or Sign in </h1>
+        
+        <div className = "full-container" >
+            <SignUp/>
+        </div>
     )
 }
 
