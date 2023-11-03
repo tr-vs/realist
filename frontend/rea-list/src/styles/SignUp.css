@@ -1,0 +1,21 @@
+ul {
+    list-style-type: none; 
+    padding: 0px;
+    font-size: 14px;
+    margin: 0px;
+    font-style: italic;
+
+    
+}
+
+.password-requirement {
+    opacity: 1;
+    transition: opacity 1s ease-in-out; 
+    color: black;
+  }
+
+
+ 
+
+
+  
