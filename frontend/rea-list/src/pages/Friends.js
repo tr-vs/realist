@@ -4,6 +4,7 @@ import '../styles/FriendsPage.css'
 const Friends = () => {
     return (
         <div className="post-contents">
+            {/* Map through all friends in database, pass values as props for post */}
             <h1>Friends Music</h1>
             <Posts num={0}></Posts>
             <Posts num={1}></Posts>

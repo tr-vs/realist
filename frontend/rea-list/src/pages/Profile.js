@@ -1,8 +1,13 @@
+import UserStats from "../templates/UserStats";
 const Profile = () => {
     return (
-        <a href="http://localhost:3000/api/spotify/auth">
-            <button>Connect to Spotify</button>
-        </a>
+        <div>
+            <a href="http://localhost:3000/api/spotify/auth">
+                <button>Connect to Spotify</button>
+            </a>
+            <UserStats></UserStats>
+        </div>
+        
     );
 };
 
