@@ -3,7 +3,9 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
-import Login from './pages/Login';
+import SignUpPage from './pages/SignUpPage';
+import SignUp from './templates/SignUp';
+import LoginPage from './pages/LoginPage';
 
 
 
@@ -14,7 +16,9 @@ function App() {
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/login" element={<Login/>} />
+            <Route path="/signup" element={<SignUpPage/>} />
+            <Route path="/login" element={<LoginPage/>} />
+
             
         </Routes>
       </BrowserRouter>
