@@ -12,7 +12,7 @@ const Posts = (props) => {
 
     return (
         <div className="profile-content">
-            <img src={links[props.num]} alt="" />
+            <img className = 'cover-images' src={links[props.num]} alt="" />
             <div className="song-info">
                 <h4>Username</h4>
                 <h3>Song Name</h3>
