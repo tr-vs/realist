@@ -1,6 +1,6 @@
 import SignUp from "../templates/SignUp"
 
-const Login  = () => {
+const SignUpPage  = () => {
     return (
         
         <div className = "full-container" >
@@ -9,4 +9,4 @@ const Login  = () => {
     )
 }
 
-export default Login
+export default SignUpPage
