@@ -1,5 +1,7 @@
 const querystring = require('querystring');
 const fetch = require('node-fetch');
+const { rootCertificates } = require('tls');
+const { access } = require('fs');
 
 const stateKey = 'spotify_auth_state';
 
@@ -72,13 +74,10 @@ const callback = async (req, res) => {
                     response.json().then((data) => {
                         let access_token = data.access_token;
                         let refresh_token = data.refresh_token;
-                        res.redirect(
-                            '/#' +
-                                querystring.stringify({
-                                    access_token,
-                                    refresh_token,
-                                })
-                        );
+                        console.log(access_token);
+                        console.log('\n');
+                        console.log(refresh_token);
+                        res.redirect('http://localhost:3001/profile');
                     });
                 } else {
                     res.redirect(
