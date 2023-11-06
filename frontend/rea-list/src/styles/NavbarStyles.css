@@ -1,6 +1,6 @@
 .navbar {
     display: flex;
-    padding: 4px 10px 4px 10px;
+    padding: 10px 10px 4px 10px;
     
 }
 
@@ -67,3 +67,24 @@
     height: 20px; 
     margin: 10px 10px 10px 10px;
 }
+
+.search-bar {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    background-color: white; /* Dark gray background color */
+    border: 1px solid #55595e; /* Dark gray border color */
+    border-radius: 25px; /* Slightly larger border radius */
+    padding: 10px 10px; /* Increased padding for height and width */
+    width: 185px !important; /* Increased width */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
+    justify-content: center;
+    font-size: 16px;
+    margin: 10px 0px 10px 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: black;
+    font-style: bold;
+    font-weight: bold;
+    height: 20px;
+  }

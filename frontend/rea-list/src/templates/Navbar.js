@@ -1,8 +1,10 @@
 
 import '../styles/NavbarStyles.css'
+import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
 
 const Navbar = ( {isCommunityClicked, isFriendsClicked, setIsCommunityClicked, setIsFriendsClicked}) => {
+    
     const handleCommunityButtonClick = () => {
         if (isFriendsClicked) {
             setIsCommunityClicked(!isCommunityClicked);
@@ -15,6 +17,15 @@ const Navbar = ( {isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
             setIsFriendsClicked(!isFriendsClicked)
         }
     };
+    const handleSearchFocus = (event) => {
+        // Clear the placeholder when the input is focused
+        event.target.placeholder = '';
+      };
+    const handleSearchBlur = (event) => {
+    // Restore the placeholder when the input is blurred
+    event.target.placeholder = '🔍 Search...';
+    };
+    
 
     return(
         <div className="navbar">
@@ -28,6 +39,14 @@ const Navbar = ( {isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
             className={`community-button ${isCommunityClicked ? 'clicked' : ''}`}
             onClick={handleCommunityButtonClick} 
             >Community</button>
+
+            <input
+                className='search-bar'
+                type='text'
+                placeholder='&#128269;  Search...'
+                onFocus={handleSearchFocus}
+                onBlur={handleSearchBlur}
+            />
 
         </div>
         
