@@ -15,7 +15,7 @@ import '../styles/SignUp.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { create } from 'd3';
+
 
 
 
