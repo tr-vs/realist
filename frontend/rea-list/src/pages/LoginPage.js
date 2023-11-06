@@ -1,9 +1,12 @@
-import { color } from "d3"
+import SignIn from "../templates/SignIn"
 
-const LoginPage = () => {
-    return ( 
-        <h1>Test</h1>
+const SignInPage  = () => {
+    return (
+        
+        <div className = "full-container" >
+            <SignIn/>
+        </div>
     )
 }
 
-export default LoginPage
+export default SignInPage
