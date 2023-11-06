@@ -78,7 +78,7 @@ export default function SignIn() {
             fontSize: '2rem'
             }}
           >
-            Sign in
+            Sign In
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
