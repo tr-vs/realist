@@ -11,7 +11,7 @@ ul {
 .password-requirement {
     opacity: 1;
     transition: opacity 1s ease-in-out; 
-    color: black;
+    color: white;
   }
 
 

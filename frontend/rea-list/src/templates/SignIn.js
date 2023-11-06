@@ -11,6 +11,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import '../styles/SignUp.css'
+// change to sign in.cc
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function Copyright(props) {
@@ -28,7 +30,13 @@ function Copyright(props) {
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
-const defaultTheme = createTheme();
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
+const lightTheme = createTheme(); 
 
 export default function SignIn() {
   const handleSubmit = (event) => {
@@ -41,7 +49,7 @@ export default function SignIn() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -50,14 +58,27 @@ export default function SignIn() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            border: 'solid 3px transparent' ,
+            borderRadius: '15px',
+            padding: '35px',
+            borderImage: 'linear-gradient(to bottom, #61f4de, #6e78ff)',
+            borderImageSlice: 1, 
+            
           }}
         >
           {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar> */}
           {/* i removed the avatar image above*/}
-          <Typography component="h1" variant="h5">
-            Sign in
+          <Typography component="h1" variant="h5"           
+          sx={{
+            mt: 3,
+            mb: 2,
+            fontWeight: 'bold', 
+            fontSize: '2rem'
+            }}
+          >
+            Sign In
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -100,7 +121,7 @@ export default function SignIn() {
               </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"Sign Up"}
                 </Link>
               </Grid>
             </Grid>
