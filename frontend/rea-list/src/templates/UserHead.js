@@ -12,7 +12,6 @@ const UserHead = () => {
             <div className='follower-stats'>
                 <h2 className='followers'>Followers: 10</h2>
                 <h2 className='following'>Following: 100</h2>
-
             </div>
         </div> 
         

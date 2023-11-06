@@ -15,6 +15,8 @@ import '../styles/SignUp.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { create } from 'd3';
+
 
 
 
@@ -24,7 +26,7 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="/">
         ReaList
       </Link>{' '}
       {new Date().getFullYear()}
@@ -35,7 +37,13 @@ function Copyright(props) {
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
-const defaultTheme = createTheme();
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
+const lightTheme = createTheme(); 
 
 
 export default function SignUp() {
@@ -76,8 +84,7 @@ export default function SignUp() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme} >
-
+    <ThemeProvider theme={darkTheme} >
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -86,13 +93,26 @@ export default function SignUp() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            border: 'solid 1px',
+            border: 'solid 3px transparent' ,
             borderRadius: '15px',
-            padding: '25px'
+            padding: '35px',
+            borderImage: 'linear-gradient(to bottom, #61f4de, #6e78ff)',
+            borderImageSlice: 1, 
+            
           }}
+          
         >
           
-          <Typography component="h1" variant="h5">
+          <Typography 
+          component="h1" 
+          variant="h5"
+          sx={{
+            mt: 3,
+            mb: 2,
+            fontWeight: 'bold', 
+            fontSize: '2rem'
+          }}
+          >
             Sign Up
           </Typography>
           <Box component="form" onSubmit={createUser} noValidate sx={{ mt: 1 }}>
@@ -172,7 +192,7 @@ export default function SignUp() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/loginpage" variant="body2">
                   {"Sign In"}
                 </Link>
               </Grid>
