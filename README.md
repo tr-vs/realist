@@ -16,6 +16,7 @@ cd realist
 ### Backend Setup
 
 Set up dependencies for the backend by running:
+- Whitelist IP Address in Mongo.db to access spotify.
 
 ```
 cd backend
@@ -36,6 +37,7 @@ SPOTIFY_REDIRECT_URI=http://localhost:3000/api/spotify/call_back
 ```
 
 #### Run It!
+
 
 ```
 cd backend
