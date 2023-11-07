@@ -115,24 +115,49 @@ const getNowPlaying = async (token, refresh_token) => {
         });
 };
 
+
+const getUserProfilePic = async (token, refresh_token) => {
+    await fetch(`https://api.spotify.com/v1/me/`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then(async (response) => {
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    console.log(data.images[0].url) // grabs url of image
+                    // for small prof pics, images are set to 64x64 pixels
+                    // for enlarged pics, spotify arranges them to 200x200 pixels.
+                });
+            } 
+        })
+        .catch((error) => {
+            console.error(error);
+            res.send(error);
+        });
+};
+
+
+const TOKEN = "BQBPt4KGbAHd4wHqFwIY2DstAZ7uFVwrlIL2bPPCfO_PFRqKBNpyf7enILcorl_ebfxJKfyGw_rZ3FA4nTY3a8mWu28nrv1GjyypHH8OEtpSpnj-wTJ9CSjUxUHVSy_QmZb4JrFMuEqS6q6wXqKWjKa-CHGXCGrWlxlpcC4mWJYsU9gFrljSdRoDQddH24oZ3M9WxZmsoxP0ZsB4uw"
+const REFRESH = "AQAhGH0F7mHhSSNjZQBVmT921Pw3nDDH5swZ23652mgzN9LpBY1-eppvTsZGd10EizwMnlQiBPAI5s778MBBv0Bg_-50dBZrODFFVCw94MLw6FNCT8b_McXbLwGiUeEkqCw"
 getTop(
-    'BQDuV2EkceX6_Wzz7ftjJBwMqVQuiI85yfoY_1Tke6qI31jDxPNx4vQEFqM42nr2HffzBFJjHGW9fAd_Bmhnf1pvBoQy0fob3dqWwX6YDeArobk0RC6MnSD-wf_EaoRAPgH4tKQMqv2U4Pkr_r301TiPXRNqt77eTnH8Od9ms4WXS1pvzCh8oy9Azq4P9xefqqWMYQBXgkBWDnr6K-O-dQ',
-    'AQB_M-Tledv7iCq5RCxkc0maxBH4KCP_LtOMSbCtVprTmYtRW95ZYyqTjZQu_50pvSZVMjrsXJlptEWrmEfJm-OwBroAl5KFGdx3Eq_W4q4fSAFMa_i7aZFHs3j0sh8qxlQ',
+ TOKEN, REFRESH,
     'tracks',
     '10',
     'long_term'
 );
 
 getRecentlyPlayed(
-    'BQDuV2EkceX6_Wzz7ftjJBwMqVQuiI85yfoY_1Tke6qI31jDxPNx4vQEFqM42nr2HffzBFJjHGW9fAd_Bmhnf1pvBoQy0fob3dqWwX6YDeArobk0RC6MnSD-wf_EaoRAPgH4tKQMqv2U4Pkr_r301TiPXRNqt77eTnH8Od9ms4WXS1pvzCh8oy9Azq4P9xefqqWMYQBXgkBWDnr6K-O-dQ',
-    'AQB_M-Tledv7iCq5RCxkc0maxBH4KCP_LtOMSbCtVprTmYtRW95ZYyqTjZQu_50pvSZVMjrsXJlptEWrmEfJm-OwBroAl5KFGdx3Eq_W4q4fSAFMa_i7aZFHs3j0sh8qxlQ',
+TOKEN, REFRESH,
     '1'
 );
 
 getNowPlaying(
-    'BQDuV2EkceX6_Wzz7ftjJBwMqVQuiI85yfoY_1Tke6qI31jDxPNx4vQEFqM42nr2HffzBFJjHGW9fAd_Bmhnf1pvBoQy0fob3dqWwX6YDeArobk0RC6MnSD-wf_EaoRAPgH4tKQMqv2U4Pkr_r301TiPXRNqt77eTnH8Od9ms4WXS1pvzCh8oy9Azq4P9xefqqWMYQBXgkBWDnr6K-O-dQ',
-    'AQB_M-Tledv7iCq5RCxkc0maxBH4KCP_LtOMSbCtVprTmYtRW95ZYyqTjZQu_50pvSZVMjrsXJlptEWrmEfJm-OwBroAl5KFGdx3Eq_W4q4fSAFMa_i7aZFHs3j0sh8qxlQ'
+ TOKEN, REFRESH
 );
+
+getUserProfilePic(TOKEN, REFRESH);
 
 module.exports = {
     refreshToken,
