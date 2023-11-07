@@ -45,6 +45,7 @@ const getTop = async (token, refresh_token, type, limit, time_range) => {
             if (response.status === 200) {
                 response.json().then((data) => {
                     console.log(data.items.map((x) => x.name));
+                    return data.items;
                 });
             } else {
                 const errorHeader = response.headers.get('www-authenticate');
@@ -82,8 +83,9 @@ const getRecentlyPlayed = async (token, refresh_token, limit) => {
 
                     const tracks = data.items.map((x) => x.track).map((x) => x.name);
                     const ids = data.items.map((x) => x.track).map((x) => x.id);
-                    console.log(tracks[0]);
-                    console.log(ids[0]);
+                    // console.log(tracks[0]);
+                    // console.log(ids[0]);
+                    return data.items;
                     getTrackImage(token, refresh_token, ids[0]);
                 });
             } else {
@@ -116,7 +118,7 @@ const getNowPlaying = async (token, refresh_token) => {
         .then(async (response) => {
             if (response.status === 200) {
                 response.json().then((data) => {
-                    console.log(data.item.name);
+                    return data.items;
                     getTrackImage(token, refresh_token, data.item.id);
                 });
             } else if (response.status === 204) {
@@ -153,6 +155,8 @@ const getUserProfilePic = async (token, refresh_token) => {
             if (response.status === 200) {
                 response.json().then((data) => {
                     console.log(data.images[1].url) // grabs url of image that's 300x300
+                    return data.images;
+                    
                 });
             } else {
                 const errorHeader = response.headers.get('www-authenticate');
@@ -208,8 +212,8 @@ const getTrackImage = async (token, refresh_token, id) => {
 }
 
 
-const TOKEN = "BQA5cssRRxKpGZyMs4BI_b1m00iMZEvwp62jICv4NlEkggiMNoBXgu4w0fIxijf2q6id37FzZ_d6Dnva1jna-_qm6efkBsfRd8tqGIT3rUr2q-Y_XvKSxIw46Cr8RQhVC-1gr4XjhJIiy5HtlhDApn6i0t784Zi90hOQZqGrkJ_Klv4Aw8aVgAsQAet6-cjcwcgPmUKKl1_c4hCrGQ"
-const REFRESH = "AQByy55JbnZrRQ6Mmh5r8kbXKuWzWeS2Kp1vxJt22xzTKwka6dWgeFfQ-OYmHwA_OF-hr055uIU3N0LEAbBxqh6XLtCGP0caKZNEMTfgd75uqP0Lm7ybZazBC4C2GsRSpYs"
+const TOKEN = "BQAdnB2rgwG7ufXVEcOWL0NX4OHSraSCWlVAdhscCKpVjwjkR5dtbRcBBVWtkyC8jBSc5QJ7wKlA5-LQYl1BGqskLqPv-b4C7hO0ac-n6n5KY35Slsn9f6HP31lkv5pWpXDW20PRaUXfGdcfIV_n5SfYdQza3TdS51K8tQJzbW89yflgJFODsxy5A6D9CpCgp_jUdFWcA8epCwoMVg"
+const REFRESH = "AQDU0F2TMA6PQRwtB9bZ3UwLzG-HP17lroGsd1HAyCe7GFZTcZbz32_fY2gO5za7cSFmd4e-jPCFyx4irFG7XVhokEyJEJczUUnV3Zz95a7KUFsJDFPhVFGhOUbVop5P0Vo"
 
 getTop(
  TOKEN, REFRESH, 'tracks',

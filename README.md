@@ -17,6 +17,7 @@ cd realist
 
 Set up dependencies for the backend by running:
 - Whitelist IP Address in Mongo.db to access spotify.
+- "node mon"
 
 ```
 cd backend
