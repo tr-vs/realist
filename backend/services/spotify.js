@@ -79,9 +79,18 @@ const getRecentlyPlayed = async (token, refresh_token, limit) => {
         .then(async (response) => {
             if (response.status === 200) {
                 response.json().then((data) => {
+<<<<<<< Updated upstream
                     console.log(
                         data.items.map((x) => x.track).map((x) => x.name)
                     );
+=======
+
+                    const tracks = data.items.map((x) => x.track).map((x) => x.name);
+                    const ids = data.items.map((x) => x.track).map((x) => x.id);
+                    console.log(tracks);
+                    console.log(ids);
+                    getTrackImage(token, refresh_token, ids[0]); // set
+>>>>>>> Stashed changes
                 });
             } else {
                 console.log(response);
@@ -103,7 +112,16 @@ const getNowPlaying = async (token, refresh_token) => {
         .then(async (response) => {
             if (response.status === 200) {
                 response.json().then((data) => {
+                    // ad issue w/ null
+                    if(data.currently_playing_type == "ad"){
+                    getRecentlyPlayed(token, refresh_token, 1);
+                    }else{
                     console.log(data.item.name);
+<<<<<<< Updated upstream
+=======
+                    getTrackImage(token, refresh_token, data.item.id);
+                    }
+>>>>>>> Stashed changes
                 });
             } else if (response.status === 204) {
                 getRecentlyPlayed(token, refresh_token, 1);
@@ -138,6 +156,7 @@ const getUserProfilePic = async (token, refresh_token) => {
         });
 };
 
+<<<<<<< Updated upstream
 
 const TOKEN = "BQBPt4KGbAHd4wHqFwIY2DstAZ7uFVwrlIL2bPPCfO_PFRqKBNpyf7enILcorl_ebfxJKfyGw_rZ3FA4nTY3a8mWu28nrv1GjyypHH8OEtpSpnj-wTJ9CSjUxUHVSy_QmZb4JrFMuEqS6q6wXqKWjKa-CHGXCGrWlxlpcC4mWJYsU9gFrljSdRoDQddH24oZ3M9WxZmsoxP0ZsB4uw"
 const REFRESH = "AQAhGH0F7mHhSSNjZQBVmT921Pw3nDDH5swZ23652mgzN9LpBY1-eppvTsZGd10EizwMnlQiBPAI5s778MBBv0Bg_-50dBZrODFFVCw94MLw6FNCT8b_McXbLwGiUeEkqCw"
@@ -147,6 +166,50 @@ getTop(
     '10',
     'long_term'
 );
+=======
+const getTrackImage = async (token, refresh_token, id) => {
+    await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+    .then(async (response) => {
+        if (response.status === 200) {
+            response.json().then((data) => {
+                console.log(data.album.images[1]);
+            });
+        } else {
+            const errorHeader = response.headers.get('www-authenticate');
+            const strippedError = errorHeader.substring(
+                errorHeader.indexOf('error_description="') +
+                    'error_description="'.length,
+                errorHeader.length - 1
+            );
+
+            if (strippedError === 'The access token expired') {
+                const refreshedToken = await refreshToken(refresh_token);
+                console.log(refreshedToken);
+            }
+        }
+    })
+    .catch((error) => {
+        console.error(error);
+        res.send(error);
+    });
+
+}
+
+
+const TOKEN = "BQA5cssRRxKpGZyMs4BI_b1m00iMZEvwp62jICv4NlEkggiMNoBXgu4w0fIxijf2q6id37FzZ_d6Dnva1jna-_qm6efkBsfRd8tqGIT3rUr2q-Y_XvKSxIw46Cr8RQhVC-1gr4XjhJIiy5HtlhDApn6i0t784Zi90hOQZqGrkJ_Klv4Aw8aVgAsQAet6-cjcwcgPmUKKl1_c4hCrGQ"
+const REFRESH = "AQByy55JbnZrRQ6Mmh5r8kbXKuWzWeS2Kp1vxJt22xzTKwka6dWgeFfQ-OYmHwA_OF-hr055uIU3N0LEAbBxqh6XLtCGP0caKZNEMTfgd75uqP0Lm7ybZazBC4C2GsRSpYs"
+
+getTop(
+ TOKEN, REFRESH, 'tracks',
+    '10',
+    'long_term'
+);
+>>>>>>> Stashed changes
 
 getRecentlyPlayed(
 TOKEN, REFRESH,
@@ -157,7 +220,11 @@ getNowPlaying(
  TOKEN, REFRESH
 );
 
+<<<<<<< Updated upstream
 getUserProfilePic(TOKEN, REFRESH);
+=======
+getUserProfilePic(TOKEN, REFRESH); 
+>>>>>>> Stashed changes
 
 module.exports = {
     refreshToken,
