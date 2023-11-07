@@ -126,7 +126,7 @@ const getUserProfilePic = async (token, refresh_token) => {
         .then(async (response) => {
             if (response.status === 200) {
                 response.json().then((data) => {
-                    console.log(data.images[0].url) // grabs url of image
+                    console.log(data.images[1].url) // grabs url of image
                     // for small prof pics, images are set to 64x64 pixels
                     // for enlarged pics, spotify arranges them to 200x200 pixels.
                 });
