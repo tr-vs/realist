@@ -1,16 +1,12 @@
 const express = require('express');
-const {
-    userAuth,
-    callback,
-    refreshToken,
-} = require('../controllers/spotifyController');
+const { nowPlaying, callback } = require('../controllers/spotifyController');
 
 const router = express.Router();
 
-// user auth route
-router.get('/auth', userAuth);
+// require auth for all spotify api routes
+router.use(requireAuth);
 
-// callback route
-router.get('/call_back', callback);
+// user auth route
+router.get('/nowPlaying', userAuth);
 
 module.exports = router;

@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/users');
+const spotifyAuthRoutes = require('./routes/spotifyAuth');
 const spotifyRoutes = require('./routes/spotify');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -30,6 +31,7 @@ app.use(cors(corsOptions));
 // routes
 // update this to users
 app.use('/api/users', userRoutes);
+app.use('/api/spotifyAuth', spotifyAuthRoutes);
 app.use('/api/spotify', spotifyRoutes);
 
 // connect to db
