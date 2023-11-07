@@ -1,12 +1,11 @@
-import SignIn from "../templates/SignIn"
+import SignIn from '../templates/SignIn';
 
-const SignInPage  = () => {
+const SignInPage = () => {
     return (
-        
-        <div className = "full-container" >
-            <SignIn/>
+        <div className="full-container">
+            <SignIn />
         </div>
-    )
-}
+    );
+};
 
-export default SignInPage
+export default SignInPage;
