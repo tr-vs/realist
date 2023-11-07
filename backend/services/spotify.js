@@ -79,12 +79,25 @@ const getRecentlyPlayed = async (token, refresh_token, limit) => {
         .then(async (response) => {
             if (response.status === 200) {
                 response.json().then((data) => {
-                    console.log(
-                        data.items.map((x) => x.track).map((x) => x.name)
-                    );
+
+                    const tracks = data.items.map((x) => x.track).map((x) => x.name);
+                    const ids = data.items.map((x) => x.track).map((x) => x.id);
+                    console.log(tracks[0]);
+                    console.log(ids[0]);
+                    getTrackImage(token, refresh_token, ids[0]);
                 });
             } else {
-                console.log(response);
+                const errorHeader = response.headers.get('www-authenticate');
+                const strippedError = errorHeader.substring(
+                    errorHeader.indexOf('error_description="') +
+                        'error_description="'.length,
+                    errorHeader.length - 1
+                );
+
+                if (strippedError === 'The access token expired') {
+                    const refreshedToken = await refreshToken(refresh_token);
+                    console.log(refreshedToken);
+                }
             }
         })
         .catch((error) => {
@@ -104,9 +117,22 @@ const getNowPlaying = async (token, refresh_token) => {
             if (response.status === 200) {
                 response.json().then((data) => {
                     console.log(data.item.name);
+                    getTrackImage(token, refresh_token, data.item.id);
                 });
             } else if (response.status === 204) {
                 getRecentlyPlayed(token, refresh_token, 1);
+            }else {
+                const errorHeader = response.headers.get('www-authenticate');
+                const strippedError = errorHeader.substring(
+                    errorHeader.indexOf('error_description="') +
+                        'error_description="'.length,
+                    errorHeader.length - 1
+                );
+
+                if (strippedError === 'The access token expired') {
+                    const refreshedToken = await refreshToken(refresh_token);
+                    console.log(refreshedToken);
+                }
             }
         })
         .catch((error) => {
@@ -115,27 +141,96 @@ const getNowPlaying = async (token, refresh_token) => {
         });
 };
 
+
+const getUserProfilePic = async (token, refresh_token) => {
+    await fetch(`https://api.spotify.com/v1/me/`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+        .then(async (response) => {
+            if (response.status === 200) {
+                response.json().then((data) => {
+                    console.log(data.images[1].url) // grabs url of image that's 300x300
+                });
+            } else {
+                const errorHeader = response.headers.get('www-authenticate');
+                const strippedError = errorHeader.substring(
+                    errorHeader.indexOf('error_description="') +
+                        'error_description="'.length,
+                    errorHeader.length - 1
+                );
+
+                if (strippedError === 'The access token expired') {
+                    const refreshedToken = await refreshToken(refresh_token);
+                    console.log(refreshedToken);
+                }
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            res.send(error);
+        });
+};
+
+const getTrackImage = async (token, refresh_token, id) => {
+    await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+    .then(async (response) => {
+        if (response.status === 200) {
+            response.json().then((data) => {
+                console.log(data.album.images[1].url);
+            });
+        } else {
+            const errorHeader = response.headers.get('www-authenticate');
+            const strippedError = errorHeader.substring(
+                errorHeader.indexOf('error_description="') +
+                    'error_description="'.length,
+                errorHeader.length - 1
+            );
+
+            if (strippedError === 'The access token expired') {
+                const refreshedToken = await refreshToken(refresh_token);
+                console.log(refreshedToken);
+            }
+        }
+    })
+    .catch((error) => {
+        console.error(error);
+        res.send(error);
+    });
+
+}
+
+
+const TOKEN = "BQA5cssRRxKpGZyMs4BI_b1m00iMZEvwp62jICv4NlEkggiMNoBXgu4w0fIxijf2q6id37FzZ_d6Dnva1jna-_qm6efkBsfRd8tqGIT3rUr2q-Y_XvKSxIw46Cr8RQhVC-1gr4XjhJIiy5HtlhDApn6i0t784Zi90hOQZqGrkJ_Klv4Aw8aVgAsQAet6-cjcwcgPmUKKl1_c4hCrGQ"
+const REFRESH = "AQByy55JbnZrRQ6Mmh5r8kbXKuWzWeS2Kp1vxJt22xzTKwka6dWgeFfQ-OYmHwA_OF-hr055uIU3N0LEAbBxqh6XLtCGP0caKZNEMTfgd75uqP0Lm7ybZazBC4C2GsRSpYs"
+
 getTop(
-    'BQDuV2EkceX6_Wzz7ftjJBwMqVQuiI85yfoY_1Tke6qI31jDxPNx4vQEFqM42nr2HffzBFJjHGW9fAd_Bmhnf1pvBoQy0fob3dqWwX6YDeArobk0RC6MnSD-wf_EaoRAPgH4tKQMqv2U4Pkr_r301TiPXRNqt77eTnH8Od9ms4WXS1pvzCh8oy9Azq4P9xefqqWMYQBXgkBWDnr6K-O-dQ',
-    'AQB_M-Tledv7iCq5RCxkc0maxBH4KCP_LtOMSbCtVprTmYtRW95ZYyqTjZQu_50pvSZVMjrsXJlptEWrmEfJm-OwBroAl5KFGdx3Eq_W4q4fSAFMa_i7aZFHs3j0sh8qxlQ',
-    'tracks',
+ TOKEN, REFRESH, 'tracks',
     '10',
     'long_term'
 );
 
 getRecentlyPlayed(
-    'BQDuV2EkceX6_Wzz7ftjJBwMqVQuiI85yfoY_1Tke6qI31jDxPNx4vQEFqM42nr2HffzBFJjHGW9fAd_Bmhnf1pvBoQy0fob3dqWwX6YDeArobk0RC6MnSD-wf_EaoRAPgH4tKQMqv2U4Pkr_r301TiPXRNqt77eTnH8Od9ms4WXS1pvzCh8oy9Azq4P9xefqqWMYQBXgkBWDnr6K-O-dQ',
-    'AQB_M-Tledv7iCq5RCxkc0maxBH4KCP_LtOMSbCtVprTmYtRW95ZYyqTjZQu_50pvSZVMjrsXJlptEWrmEfJm-OwBroAl5KFGdx3Eq_W4q4fSAFMa_i7aZFHs3j0sh8qxlQ',
+TOKEN, REFRESH,
     '1'
 );
 
 getNowPlaying(
-    'BQDuV2EkceX6_Wzz7ftjJBwMqVQuiI85yfoY_1Tke6qI31jDxPNx4vQEFqM42nr2HffzBFJjHGW9fAd_Bmhnf1pvBoQy0fob3dqWwX6YDeArobk0RC6MnSD-wf_EaoRAPgH4tKQMqv2U4Pkr_r301TiPXRNqt77eTnH8Od9ms4WXS1pvzCh8oy9Azq4P9xefqqWMYQBXgkBWDnr6K-O-dQ',
-    'AQB_M-Tledv7iCq5RCxkc0maxBH4KCP_LtOMSbCtVprTmYtRW95ZYyqTjZQu_50pvSZVMjrsXJlptEWrmEfJm-OwBroAl5KFGdx3Eq_W4q4fSAFMa_i7aZFHs3j0sh8qxlQ'
+ TOKEN, REFRESH 
 );
+
+getUserProfilePic(TOKEN, REFRESH); 
 
 module.exports = {
     refreshToken,
     getTop,
     getNowPlaying,
+    getUserProfilePic
 };
