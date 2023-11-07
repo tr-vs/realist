@@ -153,7 +153,7 @@ export default function SignUp() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            // disabled={isLoading}
+                            disabled={isLoading}
                         >
                             Sign Up
                         </Button>
