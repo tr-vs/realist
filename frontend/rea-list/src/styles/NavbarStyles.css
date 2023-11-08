@@ -1,7 +1,9 @@
 .navbar {
     display: flex;
-    padding: 10px 10px 4px 10px;
-    
+    justify-content: space-between; /* Move the input and buttons apart */
+    align-items: center; /* Center vertically */
+    padding-top: 10px;
+    /* border-bottom: 1px solid #ebf4f5; 1px line with a black color */
 }
 
 .community-button {
@@ -61,11 +63,17 @@
 }
 
 .logo-name {
-    padding: 10px 5px;
-    font-size: 16px;
+    padding: 10px 20px;
+    font-size: 35px;
     transition: background-color 0.3s;
-    height: 20px; 
+    height: 40px;
     margin: 10px 10px 10px 10px;
+    cursor: pointer;
+    border-radius: 0px;
+    background-image: linear-gradient(45deg, #61f4de, #6e78ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
 }
 
 .search-bar {
@@ -87,4 +95,6 @@
     font-style: bold;
     font-weight: bold;
     height: 20px;
-  }
+    
+}
+
