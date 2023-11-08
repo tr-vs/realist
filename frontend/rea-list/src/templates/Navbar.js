@@ -29,17 +29,19 @@ const Navbar = ( {isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
 
     return(
         <div className="navbar">
-            {/* <div className='logo-name'>ReaList</div> */}
-            <button 
-            className={`community-button ${isFriendsClicked ? 'clicked' : ''}`}
-            onClick={handleFriendButtonClick}
-            >Friends</button>
+            <h1 className='logo-name'>ReaList</h1>
+            <div className='two-buttons'>
+                <button 
+                className={`community-button ${isFriendsClicked ? 'clicked' : ''}`}
+                onClick={handleFriendButtonClick}
+                >Friends</button>
 
-            <button 
-            className={`community-button ${isCommunityClicked ? 'clicked' : ''}`}
-            onClick={handleCommunityButtonClick} 
-            >Community</button>
-
+                <button 
+                className={`community-button ${isCommunityClicked ? 'clicked' : ''}`}
+                onClick={handleCommunityButtonClick} 
+                >Community</button>
+            </div>
+            
             <input
                 className='search-bar'
                 type='text'
@@ -47,10 +49,7 @@ const Navbar = ( {isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
                 onFocus={handleSearchFocus}
                 onBlur={handleSearchBlur}
             />
-
         </div>
-        
-
     );
 }
 
