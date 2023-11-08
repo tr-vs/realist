@@ -47,12 +47,8 @@ const getTop = async (token, refresh_token, type, limit, time_range) => {
         .then(async (response) => {
             if (response.status === 200) {
                 response.json().then((data) => {
-<<<<<<< Updated upstream
-                    console.log(data.items.map((x) => x.name));
-=======
                     // console.log(data.items.map((x) => x.name));
                     return data.items;
->>>>>>> Stashed changes
                 });
             } else {
                 const errorHeader = response.headers.get('www-authenticate');
@@ -90,16 +86,10 @@ const getRecentlyPlayed = async (token, refresh_token, limit) => {
 
                     const tracks = data.items.map((x) => x.track).map((x) => x.name);
                     const ids = data.items.map((x) => x.track).map((x) => x.id);
-<<<<<<< Updated upstream
-                    console.log(tracks[0]);
-                    console.log(ids[0]);
-                    getTrackImage(token, refresh_token, ids[0]);
-=======
                     // console.log(tracks[0]);
                     // console.log(ids[0]);
                     return data.items;
 
->>>>>>> Stashed changes
                 });
             } else {
                 const errorHeader = response.headers.get('www-authenticate');
@@ -131,13 +121,8 @@ const getNowPlaying = async (token, refresh_token) => {
         .then(async (response) => {
             if (response.status === 200) {
                 response.json().then((data) => {
-<<<<<<< Updated upstream
-                    console.log(data.item.name);
-                    getTrackImage(token, refresh_token, data.item.id);
-=======
                     // console.log(data.items);
                     return data.items;
->>>>>>> Stashed changes
                 });
             } else if (response.status === 204) {
                 getRecentlyPlayed(token, refresh_token, 1);
@@ -170,35 +155,10 @@ const getUserProfilePic = async (token, refresh_token) => {
             Authorization: `Bearer ${token}`,
         },
     })
-<<<<<<< Updated upstream
-        .then(async (response) => {
-            if (response.status === 200) {
-                response.json().then((data) => {
-                    console.log(data.images[1].url) // grabs url of image that's 300x300
-                });
-            } else {
-                const errorHeader = response.headers.get('www-authenticate');
-                const strippedError = errorHeader.substring(
-                    errorHeader.indexOf('error_description="') +
-                        'error_description="'.length,
-                    errorHeader.length - 1
-                );
-
-                if (strippedError === 'The access token expired') {
-                    const refreshedToken = await refreshToken(refresh_token);
-                    console.log(refreshedToken);
-                }
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-            res.send(error);
-=======
     if (response.status === 200) {
         response.json().then((data) => {
             console.log(data.images[1].url)  // grabs url of image that's 300x300
             return data.images;
->>>>>>> Stashed changes
         });
     } else {
         const errorHeader = response.headers.get('www-authenticate');
@@ -247,30 +207,6 @@ const getTrackImage = async (token, refresh_token, id) => {
     });
 
 }
-
-
-<<<<<<< Updated upstream
-const TOKEN = "BQA5cssRRxKpGZyMs4BI_b1m00iMZEvwp62jICv4NlEkggiMNoBXgu4w0fIxijf2q6id37FzZ_d6Dnva1jna-_qm6efkBsfRd8tqGIT3rUr2q-Y_XvKSxIw46Cr8RQhVC-1gr4XjhJIiy5HtlhDApn6i0t784Zi90hOQZqGrkJ_Klv4Aw8aVgAsQAet6-cjcwcgPmUKKl1_c4hCrGQ"
-const REFRESH = "AQByy55JbnZrRQ6Mmh5r8kbXKuWzWeS2Kp1vxJt22xzTKwka6dWgeFfQ-OYmHwA_OF-hr055uIU3N0LEAbBxqh6XLtCGP0caKZNEMTfgd75uqP0Lm7ybZazBC4C2GsRSpYs"
-
-getTop(
- TOKEN, REFRESH, 'tracks',
-    '10',
-    'long_term'
-);
-
-getRecentlyPlayed(
-TOKEN, REFRESH,
-    '1'
-);
-
-getNowPlaying(
- TOKEN, REFRESH 
-);
-
-getUserProfilePic(TOKEN, REFRESH); 
-=======
->>>>>>> Stashed changes
 
 module.exports = {
     refreshToken,
