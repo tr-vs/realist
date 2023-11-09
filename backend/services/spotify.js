@@ -32,7 +32,12 @@ const refreshToken = async (refresh_token) => {
 };
 
 const getTop = async (token, refresh_token, type, limit, time_range) => {
+<<<<<<< Updated upstream
     await fetch(
+=======
+    
+    const response = await fetch(
+>>>>>>> Stashed changes
         `https://api.spotify.com/v1/me/top/${type}?limit=${limit}&time_range=${time_range}`,
         {
             method: 'GET',
@@ -41,6 +46,7 @@ const getTop = async (token, refresh_token, type, limit, time_range) => {
             },
         }
     )
+<<<<<<< Updated upstream
         .then(async (response) => {
             if (response.status === 200) {
                 response.json().then((data) => {
@@ -64,11 +70,32 @@ const getTop = async (token, refresh_token, type, limit, time_range) => {
         .catch((error) => {
             console.error(error);
             res.send(error);
+=======
+      
+    if (response.status === 200) {
+        response.json().then((data) => {
+            console.log(data.items.map((x) => x.name));
+            return data.items;
+>>>>>>> Stashed changes
         });
+    } else {
+        const errorHeader = response.headers.get('www-authenticate');
+        const strippedError = errorHeader.substring(
+            errorHeader.indexOf('error_description="') +
+                'error_description="'.length,
+            errorHeader.length - 1
+        );
+        // console.log(strippedError);
+        if (strippedError === 'The access token expired') {
+            const refreshedToken = await refreshToken(refresh_token);
+            getTop(refreshedToken, refresh_token, type, limit, time_range);
+        }
+    }
+    
 };
 
 const getRecentlyPlayed = async (token, refresh_token, limit) => {
-    await fetch(
+    const response = await fetch(
         `https://api.spotify.com/v1/me/player/recently-played?limit=${limit}`,
         {
             method: 'GET',
@@ -77,10 +104,10 @@ const getRecentlyPlayed = async (token, refresh_token, limit) => {
             },
         }
     )
-        .then(async (response) => {
-            if (response.status === 200) {
-                response.json().then((data) => {
+    if (response.status === 200) {
+        response.json().then((data) => {
 
+<<<<<<< Updated upstream
                     const tracks = data.items.map((x) => x.track).map((x) => x.name);
                     const ids = data.items.map((x) => x.track).map((x) => x.id);
                     // console.log(tracks[0]);
@@ -105,16 +132,39 @@ const getRecentlyPlayed = async (token, refresh_token, limit) => {
         .catch((error) => {
             console.error(error);
             res.send(error);
+=======
+            const tracks = data.items.map((x) => x.track).map((x) => x.name);
+            const ids = data.items.map((x) => x.track).map((x) => x.id);
+            console.log(tracks[0]);
+            console.log(ids[0]);
+            return data.items;
+
+>>>>>>> Stashed changes
         });
+    } else {
+        const errorHeader = response.headers.get('www-authenticate');
+        const strippedError = errorHeader.substring(
+            errorHeader.indexOf('error_description="') +
+                'error_description="'.length,
+            errorHeader.length - 1
+        );
+
+        if (strippedError === 'The access token expired') {
+            const refreshedToken = await refreshToken(refresh_token);
+            getRecentlyPlayed(refreshedToken, refresh_token, limit);
+        }
+    }
+    
 };
 
 const getNowPlaying = async (token, refresh_token) => {
-    await fetch(`https://api.spotify.com/v1/me/player/currently-playing`, {
+   const response = await fetch(`https://api.spotify.com/v1/me/player/currently-playing`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${token}`,
         },
     })
+<<<<<<< Updated upstream
         .then(async (response) => {
             if (response.status === 200) {
                 response.json().then((data) => {
@@ -140,7 +190,29 @@ const getNowPlaying = async (token, refresh_token) => {
         .catch((error) => {
             console.error(error);
             res.send(error);
+=======
+    if (response.status === 200) {
+        response.json().then((data) => {
+            console.log(data.items);
+            return data.items;
+>>>>>>> Stashed changes
         });
+    } else if (response.status === 204) {
+        getRecentlyPlayed(token, refresh_token, 1);
+    }else {
+        const errorHeader = response.headers.get('www-authenticate');
+        const strippedError = errorHeader.substring(
+            errorHeader.indexOf('error_description="') +
+                'error_description="'.length,
+            errorHeader.length - 1
+        );
+
+        if (strippedError === 'The access token expired') {
+            const refreshedToken = await refreshToken(refresh_token);
+            getNowPlaying(refreshedToken, refresh_token)
+        }
+    }
+        
 };
 
 
