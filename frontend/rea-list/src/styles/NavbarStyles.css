@@ -7,7 +7,7 @@
 
 .two-buttons {
     position: absolute;
-    left: 45%; /*keeps in center page */
+    left: 44.5%; /*keeps in center page */
 }
 
 .community-button {
@@ -87,7 +87,7 @@
     align-items: center;
     background-color: black; /* Dark gray background color */
     padding: 10px 10px; /* Increased padding for height and width */
-    width: 185px;
+    width: 165px;
     justify-content: center;
     font-size: 16px;
     color: white;
@@ -100,7 +100,7 @@
 
 .right-side {
     display: flex;
-    margin: 10px;
+    margin: 10px 30px 10px 10px;
     padding: 10px;
     
 }
