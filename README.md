@@ -17,13 +17,15 @@ cd realist
 
 Set up dependencies for the backend by running:
 - Whitelist IP Address in Mongo.db to access spotify.
+- "node mon"
 
 ```
 cd backend
 npm install
 ```
 
-#### .env File
+#### .env File 
+(Side note: include "require('dotenv').config()" in the script of each js file that uses these env variables.)
 
 Create a `.env` file in the backend directory with the contents as follows:
 
@@ -34,6 +36,8 @@ SECRET=eCYnhZr.u!_L6qXvLXU@u*YZWFXJNMLqx7@TP4iw
 SPOTIFY_CLIENT_ID=a8a847ca5ed14e64b16219206363ee5a
 SPOTIFY_CLIENT_SECRET=61793825b72d4c0bbf03bd316a672486
 SPOTIFY_REDIRECT_URI=http://localhost:3000/api/spotify/call_back
+
+
 ```
 
 #### Run It!
