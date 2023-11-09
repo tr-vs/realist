@@ -1,35 +1,49 @@
-import '../styles/HomePage.css'
-import Navbar from '../templates/Navbar'
-import Friends from './Friends'
-import Community from './Community'
-import { useState } from 'react'
+import '../styles/HomePage.css';
+import Navbar from '../templates/Navbar';
+import Friends from './Friends';
+import Community from './Community';
+import { useEffect, useState } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const Home = () => {
-    const [isCommunityClicked, setIsCommunityClicked] = useState(false)
+    const [isCommunityClicked, setIsCommunityClicked] = useState(false);
     const [isFriendsClicked, setIsFriendsClicked] = useState(true);
+    const { user } = useAuthContext();
 
-    return ( 
-        
+    useEffect(() => {
+        const getHome = async () => {
+            // TODO: create home route
+            const response = await fetch('/api/home', {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
+
+            const json = await response.json();
+        };
+
+        if (user) getHome();
+    });
+
+    return (
         <div className="full-page">
-        
-        <Navbar 
-            isFriendsClicked={isFriendsClicked} 
-            setIsFriendsClicked={setIsFriendsClicked}
-            isCommunityClicked = {isCommunityClicked}
-            setIsCommunityClicked = {setIsCommunityClicked}
-        />
-            
+            <Navbar
+                isFriendsClicked={isFriendsClicked}
+                setIsFriendsClicked={setIsFriendsClicked}
+                isCommunityClicked={isCommunityClicked}
+                setIsCommunityClicked={setIsCommunityClicked}
+            />
+
             {/* <-- Two pages for community and friends and statistics-> */}
-            <div className='page-content'>
+            <div className="page-content">
                 {isFriendsClicked && <Friends></Friends>}
                 {isCommunityClicked && <Community></Community>}
             </div>
             {/* <div className='sidebar'>
                 <h2>SideBar will be here</h2>
             </div> */}
-
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

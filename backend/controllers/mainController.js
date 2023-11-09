@@ -1,5 +1,9 @@
 const getNowPlaying = require('../services/spotify');
 
-const nowPlaying = async (req, res) => {
+const home = async (req, res) => {
     console.log(getNowPlaying());
+};
+
+module.exports = {
+    home,
 };
