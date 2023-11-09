@@ -15,12 +15,12 @@ const REFRESH = "AQD8Zq9XVKjFpa58CNQYzq1-oVa_gCqN2d-n6eK5c89Zv501DQczUXPP5aK-PEd
 //     '1'
 // );
 
-// getNowPlaying(
-//  TOKEN, REFRESH 
-// );
+getNowPlaying(
+ TOKEN, REFRESH 
+);
 
 
-getUserProfilePic(TOKEN, REFRESH); 
+// getUserProfilePic(TOKEN, REFRESH); 
 
 // refreshToken(REFRESH);
 
