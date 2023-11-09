@@ -5,6 +5,13 @@ import { useState } from 'react';
 
 const Navbar = ( {isCommunityClicked, isFriendsClicked, setIsCommunityClicked, setIsFriendsClicked}) => {
     
+    const [searchBar,setSearchBar] = useState(false);
+
+    const handleClick = () => {
+        setSearchBar(!searchBar)
+        console.log("Works")
+    }
+
     const handleCommunityButtonClick = () => {
         if (isFriendsClicked) {
             setIsCommunityClicked(!isCommunityClicked);
@@ -29,7 +36,9 @@ const Navbar = ( {isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
 
     return(
         <div className="navbar">
+            
             <h1 className='logo-name'>ReaList</h1>
+            
             <div className='two-buttons'>
                 <button 
                 className={`community-button ${isFriendsClicked ? 'clicked' : ''}`}
@@ -41,14 +50,37 @@ const Navbar = ( {isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
                 onClick={handleCommunityButtonClick} 
                 >Community</button>
             </div>
+
+            <div className='right-side'>
+                {/* <input
+                    className='search-bar'
+                    type='text'
+                    placeholder='&#128269;  Search...'
+                    onFocus={handleSearchFocus}
+                    onBlur={handleSearchBlur}
+                /> */}
+                <div className='search-image' onClick={handleClick}>🔍</div>
+                {searchBar && (
+                    <input className='search-bar' type="text" name="" id="" placeholder='Search...'/>
+                )}
+                <div className='side-bar-button' >
+                    <svg 
+                        width="30"
+                        height="30" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier"> <g id="Menu / Menu_Duo_LG"> <path id="Vector" d="M3 15H21M3 9H21" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> 
+                            </g> 
+                            </g>
+                    </svg>
+                </div>
+            </div>
             
-            <input
-                className='search-bar'
-                type='text'
-                placeholder='&#128269;  Search...'
-                onFocus={handleSearchFocus}
-                onBlur={handleSearchBlur}
-            />
+            
+
         </div>
     );
 }
