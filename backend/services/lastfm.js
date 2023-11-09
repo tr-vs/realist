@@ -18,4 +18,4 @@ const getTopArtists = async (username, limit, period) => {
 }
 
 
-getTopArtists('chasin_jasonnn', 10, '3day'));
+getTopArtists('chasin_jasonnn', 10, '3day');
