@@ -1,28 +1,40 @@
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import SignUpPage from './pages/SignUpPage';
 import SignUp from './templates/SignUp';
 import LoginPage from './pages/LoginPage';
-
-
+import { useAuthContext } from './hooks/useAuthContext';
+import { useState } from 'react';
 
 function App() {
-  return (
-    
-    <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/signup" element={<SignUpPage/>} />
-            <Route path="/login" element={<LoginPage/>} />
+    const { user } = useAuthContext();
 
-            
-        </Routes>
-      </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route
+                    path="/"
+                    element={user ? <Home /> : <Navigate to="/login" />}
+                    exact
+                />
+                <Route
+                    path="/profile"
+                    element={user ? <Profile /> : <Navigate to="/login" />}
+                />
+                <Route
+                    path="/signup"
+                    element={!user ? <SignUpPage /> : <Navigate to="/" />}
+                />
+                <Route
+                    path="/login"
+                    element={!user ? <LoginPage /> : <Navigate to="/" />}
+                />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;

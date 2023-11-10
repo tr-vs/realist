@@ -1,12 +1,7 @@
 const querystring = require('querystring');
 const fetch = require('node-fetch');
-const { rootCertificates } = require('tls');
-const { access } = require('fs');
-require('dotenv').config() 
-
 
 const stateKey = 'spotify_auth_state';
-
 
 const generateRandomString = (length) => {
     let text = '';
@@ -80,8 +75,6 @@ const callback = async (req, res) => {
                         console.log(access_token);
                         console.log('\n');
                         console.log(refresh_token);
-                        console.log('\n');
-
                         res.redirect('http://localhost:3001/profile');
                     });
                 } else {

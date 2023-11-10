@@ -1,9 +1,5 @@
 const express = require('express');
-const {
-    userAuth,
-    callback,
-    refreshToken,
-} = require('../controllers/spotifyController');
+const { userAuth, callback } = require('../controllers/spotifyAuthController');
 
 const router = express.Router();
 

@@ -1,8 +1,26 @@
+import { useAuthContext } from '../hooks/useAuthContext';
+import { useEffect, useState } from 'react';
 
 const SideBar = () => {
-    return(
-        <h1>Teset</h1>
-    );
-}
+    // only load data if they are logged in
+    const { user } = useAuthContext();
+    const [error, setError] = useState(null);
 
-export default SideBar 
+    useEffect(() => {
+        const getSideBar = async () => {
+            // TODO: create sidebar route
+            const response = await fetch('/api/sideBar', {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
+
+            const json = await response.json();
+        };
+
+        if (user) getSideBar();
+    });
+    return <h1>Teset</h1>;
+};
+
+export default SideBar;

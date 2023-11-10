@@ -1,40 +1,47 @@
 const fetch = require('node-fetch');
-require('dotenv').config()  // add this to import .env variables
-
+require('dotenv').config(); // add this to import .env variables
 
 const refreshToken = async (refresh_token) => {
     let test;
     const authOptions = {
         method: 'POST',
         headers: {
-            'Authorization': 'Basic ' + (Buffer.from(process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET).toString('base64')),
-            'Content-Type': 'application/x-www-form-urlencoded'
+            Authorization:
+                'Basic ' +
+                Buffer.from(
+                    process.env.SPOTIFY_CLIENT_ID +
+                        ':' +
+                        process.env.SPOTIFY_CLIENT_SECRET
+                ).toString('base64'),
+            'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: `grant_type=refresh_token&refresh_token=${refresh_token}`,
     };
-  
-    const response = await fetch('https://accounts.spotify.com/api/token', authOptions).then((r) =>r.json());
+
+    const response = await fetch(
+        'https://accounts.spotify.com/api/token',
+        authOptions
+    ).then((r) => r.json());
     const token = response.access_token;
     return token;
-//         .then((response) => {
-//             if (response.status === 200) {
-//                 response.json().then((data) => {
-//                     // console.log(data.access_token);
-//                     test = data.access_token;
+    //         .then((response) => {
+    //             if (response.status === 200) {
+    //                 response.json().then((data) => {
+    //                     // console.log(data.access_token);
+    //                     test = data.access_token;
 
-//                 });
-//             }else {console.log(response);}
-//         })
-//         .catch((error) => {
-//             console.error(error);
-//             res.send(error);
-//         });
+    //                 });
+    //             }else {console.log(response);}
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //             res.send(error);
+    //         });
 
-//         return "hi";
+    //         return "hi";
 };
 
 const getTop = async (token, refresh_token, type, limit, time_range) => {
-
     const response = await fetch(
         `https://api.spotify.com/v1/me/top/${type}?limit=${limit}&time_range=${time_range}`,
         {
@@ -48,9 +55,8 @@ const getTop = async (token, refresh_token, type, limit, time_range) => {
         response.json().then((data) => {
             console.log(data.items.map((x) => x.name));
             return data.items;
-     });
-    }
-    else {
+        });
+    } else {
         const errorHeader = response.headers.get('www-authenticate');
         const strippedError = errorHeader.substring(
             errorHeader.indexOf('error_description="') +
@@ -63,7 +69,6 @@ const getTop = async (token, refresh_token, type, limit, time_range) => {
             getTop(refreshedToken, refresh_token, type, limit, time_range);
         }
     }
-    
 };
 
 const getRecentlyPlayed = async (token, refresh_token, limit) => {
@@ -75,7 +80,7 @@ const getRecentlyPlayed = async (token, refresh_token, limit) => {
                 Authorization: `Bearer ${token}`,
             },
         }
-    )
+    );
     if (response.status === 200) {
         response.json().then((data) => {
             const tracks = data.items.map((x) => x.track).map((x) => x.name);
@@ -83,7 +88,7 @@ const getRecentlyPlayed = async (token, refresh_token, limit) => {
             console.log(tracks[0]);
             console.log(ids[0]);
             return data.items;
-     });
+        });
     } else {
         const errorHeader = response.headers.get('www-authenticate');
         const strippedError = errorHeader.substring(
@@ -97,24 +102,26 @@ const getRecentlyPlayed = async (token, refresh_token, limit) => {
             getRecentlyPlayed(refreshedToken, refresh_token, limit);
         }
     }
-    
 };
 
 const getNowPlaying = async (token, refresh_token) => {
-   const response = await fetch(`https://api.spotify.com/v1/me/player/currently-playing`, {
-        method: 'GET',
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
+    const response = await fetch(
+        `https://api.spotify.com/v1/me/player/currently-playing`,
+        {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
     if (response.status === 200) {
         response.json().then((data) => {
-            console.log(data.item.name)  
+            console.log(data.item.name);
             return data;
-     });
+        });
     } else if (response.status === 204) {
         getRecentlyPlayed(token, refresh_token, 1);
-    }else {
+    } else {
         const errorHeader = response.headers.get('www-authenticate');
         const strippedError = errorHeader.substring(
             errorHeader.indexOf('error_description="') +
@@ -124,24 +131,21 @@ const getNowPlaying = async (token, refresh_token) => {
 
         if (strippedError === 'The access token expired') {
             const refreshedToken = await refreshToken(refresh_token);
-            getNowPlaying(refreshedToken, refresh_token)
+            getNowPlaying(refreshedToken, refresh_token);
         }
     }
-        
 };
 
-
 const getUserProfilePic = async (token, refresh_token) => {
-
     const response = await fetch(`https://api.spotify.com/v1/me/`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${token}`,
         },
-    })
+    });
     if (response.status === 200) {
         response.json().then((data) => {
-            console.log(data.images[1].url)  // grabs url of image that's 300x300
+            console.log(data.images[1].url); // grabs url of image that's 300x300
             return data.images;
         });
     } else {
@@ -159,13 +163,12 @@ const getUserProfilePic = async (token, refresh_token) => {
 };
 
 const getTrackImage = async (token, refresh_token, id) => {
-    
     const response = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${token}`,
         },
-    })
+    });
 
     if (response.status === 200) {
         response.json().then((data) => {
@@ -185,9 +188,7 @@ const getTrackImage = async (token, refresh_token, id) => {
             getTrackImage(refreshedToken, refresh_token, id);
         }
     }
-
-}
-
+};
 
 module.exports = {
     refreshToken,
@@ -195,5 +196,5 @@ module.exports = {
     getNowPlaying,
     getRecentlyPlayed,
     getUserProfilePic,
-    getTrackImage
+    getTrackImage,
 };
