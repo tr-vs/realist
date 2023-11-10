@@ -91,9 +91,14 @@
     font-size: 16px;
     color: white;
     font-weight: 600;
-    height: 15px;
+    height: 18px;
     border: none;
     outline: none;
+    margin-top:12px;
+}
+
+.search-bar::placeholder {
+    color: white;
 }
 
 .right-side {
@@ -116,6 +121,6 @@
     font-size: 30px;
     width: 30px;
     height: 30px;
-    padding-right: 10px;
+    padding-bottom: 30px;
     cursor: pointer;
 }

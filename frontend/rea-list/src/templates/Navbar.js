@@ -2,6 +2,7 @@ import '../styles/NavbarStyles.css'
 import SearchIcon from '@mui/icons-material/Search';
 import MenuBar from '../svg/MenuBar';
 import CancelButton from '../svg/CancelButton';
+import Magnify from '../svg/Magnify';
 import { useState, useRef } from 'react';
 
 const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, setIsFriendsClicked }) => {
@@ -73,8 +74,9 @@ const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
             </div>
 
             <div className='right-side'>
-                <div className='search-image' onClick={handleSearchClick}>🔍</div>
 
+                <Magnify className='search-image' onClick={handleSearchClick}/>
+                
                 {searchBar && (
                     <input ref = {inputRef} className='search-bar' type="text" name="" id="" placeholder='Search...' />
                 )}
@@ -90,7 +92,6 @@ const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
                     )}
                     
 
-                    
                 </div>
             </div>
         </div>
