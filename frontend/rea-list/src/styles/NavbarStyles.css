@@ -83,19 +83,17 @@
 .search-bar {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
-    background-color: black; /* Dark gray background color */
-    padding: 10px 10px; /* Increased padding for height and width */
+    background-color: black; 
+    padding: 8px 8px; 
     width: 165px;
     justify-content: center;
     font-size: 16px;
     color: white;
-    font-weight: bold;
-    height: 20px;
+    font-weight: 600;
+    height: 15px;
     border: none;
     outline: none;
-    
 }
 
 .right-side {
