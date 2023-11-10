@@ -1,9 +1,13 @@
 .navbar {
     display: flex;
     justify-content: space-between; /* Move the input and buttons apart */
-    align-items: center; /* Center vertically */
+    align-items: center; 
     padding-top: 10px;
-    /* border-bottom: 1px solid #ebf4f5; 1px line with a black color */
+}
+
+.two-buttons {
+    position: absolute;
+    left: 44.5%; /*keeps in center page */
 }
 
 .community-button {
@@ -12,7 +16,7 @@
     color: white;
     border: none;
     border-radius: 20px;
-    padding: 10px 20px;
+    padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -25,7 +29,7 @@
     color: black;
     border: none;
     border-radius: 20px;
-    padding: 10px 20px;
+    padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -79,22 +83,44 @@
 .search-bar {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
-    background-color: white; /* Dark gray background color */
-    border: 1px solid #55595e; /* Dark gray border color */
-    border-radius: 25px; /* Slightly larger border radius */
-    padding: 10px 10px; /* Increased padding for height and width */
-    width: 185px !important; /* Increased width */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
+    background-color: black; 
+    padding: 8px 8px; 
+    width: 165px;
     justify-content: center;
     font-size: 16px;
-    margin: 10px 0px 10px 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    color: black;
-    font-style: bold;
-    font-weight: bold;
-    height: 20px;
-    
+    color: white;
+    font-weight: 600;
+    height: 18px;
+    border: none;
+    outline: none;
+    margin-top:12px;
 }
 
+.search-bar::placeholder {
+    color: white;
+}
+
+.right-side {
+    display: flex;
+    margin: 10px 30px 10px 10px;
+    padding: 10px;
+}
+
+.side-bar-button {
+    margin: auto;
+    font-size: 35px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+.search-image {
+    margin: auto;
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+    padding-bottom: 30px;
+    cursor: pointer;
+}
