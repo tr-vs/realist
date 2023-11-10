@@ -1,5 +1,7 @@
 import '../styles/NavbarStyles.css'
 import SearchIcon from '@mui/icons-material/Search';
+import MenuBar from '../svg/MenuBar';
+import CancelButton from '../svg/CancelButton';
 import { useState, useRef } from 'react';
 
 const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, setIsFriendsClicked }) => {
@@ -10,19 +12,23 @@ const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
 
     const handleSearchClick = () => {
         if (!searchBar) {
-            setSearchBar(true);
-            setRotationAngle(rotationAngle + 90); 
+            setRotationAngle(rotationAngle + 90);
+            setTimeout(() => {
+                setSearchBar(true);
+            }, 200);
             
         }
         if (searchBar && inputRef.current) {
-            console.log("errros")
             inputRef.current.focus();
         }
     }
+
     const closeSearchClick = () => {
         if (searchBar) {
-            setSearchBar(false);
             setRotationAngle(rotationAngle - 90); 
+            setTimeout(() => {
+                setSearchBar(false);
+            }, 200);
         }
     }
 
@@ -74,23 +80,17 @@ const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
                 )}
 
                 <div className='side-bar-button' >
-                    <svg
-                        width="30"
-                        height="30"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        onClick={closeSearchClick}
-                        style={{ transition: 'transform 0.3s ease', transform: `rotate(${rotationAngle}deg)` }}
-                    >
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <g id="Menu / Menu_Duo_LG">
-                                <path id="Vector" d="M3 15H21M3 9H21" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                            </g>
-                        </g>
-                    </svg>
+                    
+                    {!searchBar && (
+                        <MenuBar rotationAngle={rotationAngle}/>
+                    )}
+                    
+                    {searchBar && (
+                        <CancelButton onClick={closeSearchClick} rotationAngle={rotationAngle}/>
+                    )}
+                    
+
+                    
                 </div>
             </div>
         </div>
