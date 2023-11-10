@@ -45,12 +45,12 @@ const darkTheme = createTheme({
 const lightTheme = createTheme();
 
 export default function SignIn() {
-    const { loginUser, error, isLoading } = useLogin();
+    const { login, error, isLoading } = useLogin();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        await loginUser(data);
+        await login(data);
     };
 
     return (
