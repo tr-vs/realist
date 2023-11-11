@@ -35,7 +35,7 @@ const getTop = async (token, refresh_token, type, limit, time_range) => {
             },
         }
     ).then((r) => r.json());
-    console.log(response);
+    response.error.message;
     if (response.error?.message === 'The access token expired') {
         const refreshedToken = await refreshToken(refresh_token);
         getTop(refreshedToken, refresh_token, type, limit, time_range);
