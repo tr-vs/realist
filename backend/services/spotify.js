@@ -21,6 +21,7 @@ const refreshToken = async (refresh_token) => {
         'https://accounts.spotify.com/api/token',
         authOptions
     ).then((r) => r.json());
+
     const token = response.access_token;
     return token;
 };
@@ -35,7 +36,7 @@ const getTop = async (token, refresh_token, type, limit, time_range) => {
             },
         }
     ).then((r) => r.json());
-    response.error.message;
+
     if (response.error?.message === 'The access token expired') {
         const refreshedToken = await refreshToken(refresh_token);
         getTop(refreshedToken, refresh_token, type, limit, time_range);
