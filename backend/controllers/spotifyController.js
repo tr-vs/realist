@@ -1,3 +1,4 @@
+require('dotenv').config({ path: '../.env' });
 const querystring = require('querystring');
 const fetch = require('node-fetch');
 
@@ -17,7 +18,6 @@ const generateRandomString = (length) => {
 const userAuth = async (req, res) => {
     let state = generateRandomString(16);
     res.cookie(stateKey, state);
-
     // authorization request
     const scope =
         'user-read-playback-state user-read-recently-played user-top-read';
@@ -72,10 +72,13 @@ const callback = async (req, res) => {
                     response.json().then((data) => {
                         let access_token = data.access_token;
                         let refresh_token = data.refresh_token;
-                        console.log(access_token);
-                        console.log('\n');
-                        console.log(refresh_token);
-                        res.redirect('http://localhost:3001/profile');
+                        res.redirect(
+                            'http://localhost:3001/profile#' +
+                                querystring.stringify({
+                                    refresh_token,
+                                    access_token,
+                                })
+                        );
                     });
                 } else {
                     res.redirect(

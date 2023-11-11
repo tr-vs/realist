@@ -1,5 +1,9 @@
 const express = require('express');
-const { signupUser, loginUser } = require('../controllers/userController');
+const {
+    signupUser,
+    loginUser,
+    addToken,
+} = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -8,5 +12,8 @@ router.post('/login', loginUser);
 
 // signup route
 router.post('/signup', signupUser);
+
+// update spotify token for user
+router.patch('/token', addToken);
 
 module.exports = router;
