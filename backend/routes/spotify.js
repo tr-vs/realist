@@ -1,5 +1,5 @@
 const express = require('express');
-const { userAuth, callback } = require('../controllers/spotifyAuthController');
+const { userAuth, callback } = require('../controllers/spotifyController');
 
 const router = express.Router();
 

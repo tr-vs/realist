@@ -34,7 +34,12 @@ const signupUser = async (req, res) => {
     }
 };
 
+const addToken = async (req, res) => {
+    const { token } = req.body;
+};
+
 module.exports = {
     signupUser,
     loginUser,
+    addToken,
 };
