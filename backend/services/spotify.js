@@ -1,8 +1,7 @@
+require('dotenv').config({ path: '../.env' });
 const fetch = require('node-fetch');
-require('dotenv').config(); // add this to import .env variables
 
 const refreshToken = async (refresh_token) => {
-    let test;
     const authOptions = {
         method: 'POST',
         headers: {
@@ -22,23 +21,9 @@ const refreshToken = async (refresh_token) => {
         'https://accounts.spotify.com/api/token',
         authOptions
     ).then((r) => r.json());
+
     const token = response.access_token;
     return token;
-    //         .then((response) => {
-    //             if (response.status === 200) {
-    //                 response.json().then((data) => {
-    //                     // console.log(data.access_token);
-    //                     test = data.access_token;
-
-    //                 });
-    //             }else {console.log(response);}
-    //         })
-    //         .catch((error) => {
-    //             console.error(error);
-    //             res.send(error);
-    //         });
-
-    //         return "hi";
 };
 
 const getTop = async (token, refresh_token, type, limit, time_range) => {
@@ -50,24 +35,13 @@ const getTop = async (token, refresh_token, type, limit, time_range) => {
                 Authorization: `Bearer ${token}`,
             },
         }
-    );
-    if (response.status === 200) {
-        response.json().then((data) => {
-            console.log(data.items.map((x) => x.name));
-            return data.items;
-        });
+    ).then((r) => r.json());
+
+    if (response.error?.message === 'The access token expired') {
+        const refreshedToken = await refreshToken(refresh_token);
+        getTop(refreshedToken, refresh_token, type, limit, time_range);
     } else {
-        const errorHeader = response.headers.get('www-authenticate');
-        const strippedError = errorHeader.substring(
-            errorHeader.indexOf('error_description="') +
-                'error_description="'.length,
-            errorHeader.length - 1
-        );
-        // console.log(strippedError);
-        if (strippedError === 'The access token expired') {
-            const refreshedToken = await refreshToken(refresh_token);
-            getTop(refreshedToken, refresh_token, type, limit, time_range);
-        }
+        return response;
     }
 };
 
