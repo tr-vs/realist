@@ -35,7 +35,23 @@ const signupUser = async (req, res) => {
 };
 
 const addToken = async (req, res) => {
-    const { token } = req.body;
+    const { authorization } = req.headers;
+    const { refresh_token, access_token } = req.body;
+
+    if (!authorization) {
+        return res.status(401).json({ error: 'Authorization token required' });
+    }
+
+    const token = authorization.split(' ')[1];
+
+    try {
+        const { _id } = jwt.verify(token, process.env.SECRET);
+
+        await User.findOneAndUpdate({ _id }, { refresh_token, access_token });
+    } catch (error) {
+        console.error(error);
+        res.status(401).json({ error: 'Request is not authorized' });
+    }
 };
 
 module.exports = {
