@@ -1,4 +1,6 @@
 require('dotenv').config({ path: '../.env' });
+
+const User = require('../models/userModel');
 const fetch = require('node-fetch');
 
 const refreshToken = async (refresh_token) => {
@@ -23,6 +25,8 @@ const refreshToken = async (refresh_token) => {
     ).then((r) => r.json());
 
     const token = response.access_token;
+
+    await User.findOneAndUpdate({ refresh_token }, { access_token: token });
     return token;
 };
 

@@ -31,7 +31,7 @@ const Profile = () => {
             });
         }
 
-        if (data.access_token.length !== 0) updateDB();
+        if (data.access_token !== null) updateDB();
     });
     return (
         <div>
