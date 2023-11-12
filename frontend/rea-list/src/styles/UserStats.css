@@ -2,10 +2,11 @@
     color: white;
 }
 
-.profile-image {
+.music-icon {
     border-radius: 50%;
     padding: none;
-    width: 200px; 
-    height: 200px;
+    width: 40px; 
+    height: 40px;
+    display:flex;
    
 }
