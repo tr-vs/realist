@@ -1,25 +1,27 @@
 .profile-image {
     border-radius: 50%;
-    padding: none;
-    width: 200px; 
-    height: 200px;
+    padding: 5px;
+    width: 180px; 
+    height: 180px;
    
 }
 .user-head { 
     color: white; 
     display: flex;
-    padding: 20px;
+    padding-left: 20px;
+    padding-top: 20px;
 }
 .user-name {
     height: 50px;
     margin: auto;
-    margin-left: 50px;
+    margin-left: 40px;
 }
 
 .follower-stats { 
     color: white;
     display:flex;
-    padding: 10px; 
+    padding-left: 20px; 
+    font-size: 15px;
 }
 
 .followers { 
