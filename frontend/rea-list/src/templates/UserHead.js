@@ -21,4 +21,4 @@ const UserHead = () => {
     )
 }
 
-export default UserHead; 
+export default UserHead;
