@@ -92,12 +92,12 @@
     display: flex;
     align-items: center;
     background-color: black; 
-    padding: 8px 8px; 
+    padding: 10px 10px; 
     width: 165px;
     justify-content: center;
-    font-size: 16px;
+    font-size: 20px;
     color: white;
-    font-weight: 600;
+    font-weight: 500;
     height: 18px;
     border: none;
     outline: none;

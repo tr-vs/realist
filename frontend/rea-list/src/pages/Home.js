@@ -4,10 +4,12 @@ import Friends from './Friends';
 import Community from './Community';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
+import SideBar from '../templates/SideBar';
 
 const Home = () => {
     const [isCommunityClicked, setIsCommunityClicked] = useState(false);
     const [isFriendsClicked, setIsFriendsClicked] = useState(true);
+    const [isSidebarClicked, setIsSidebarClicked] = useState(false);
     const { user } = useAuthContext();
 
     useEffect(() => {
@@ -33,6 +35,8 @@ const Home = () => {
                 setIsFriendsClicked={setIsFriendsClicked}
                 isCommunityClicked={isCommunityClicked}
                 setIsCommunityClicked={setIsCommunityClicked}
+                setIsSidebarClicked={setIsSidebarClicked}
+                isSidebarClicked={isSidebarClicked}
             />
   
             <div className="full-page">
@@ -41,10 +45,9 @@ const Home = () => {
                 <div className="page-content">
                     {isFriendsClicked && <Friends></Friends>}
                     {isCommunityClicked && <Community></Community>}
+                    
                 </div>
-                {/* <div className='sidebar'>
-                    <h2>SideBar will be here</h2>
-                </div> */}
+                {<SideBar isSidebarClicked={isSidebarClicked}/>}
             </div>
         </div>
         

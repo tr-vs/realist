@@ -5,7 +5,7 @@ import CancelButton from '../svg/CancelButton';
 import Magnify from '../svg/Magnify';
 import { useState, useRef } from 'react';
 
-const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, setIsFriendsClicked }) => {
+const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, setIsFriendsClicked, isSidebarClicked, setIsSidebarClicked}) => {
 
     const [searchBar, setSearchBar] = useState(false);
     const [rotationAngle, setRotationAngle] = useState(0);
@@ -17,7 +17,6 @@ const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
             setTimeout(() => {
                 setSearchBar(true);
             }, 200);
-            
         }
         if (searchBar && inputRef.current) {
             inputRef.current.focus();
@@ -46,6 +45,10 @@ const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
             setIsFriendsClicked(!isFriendsClicked);
         }
     };
+
+    const handleSideBarClick = () => {
+        setIsSidebarClicked(!isSidebarClicked);
+    }
 
     const handleSearchFocus = (event) => {
         // Clear the placeholder when the input is focused
@@ -84,7 +87,7 @@ const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
                 <div className='side-bar-button' >
                     
                     {!searchBar && (
-                        <MenuBar rotationAngle={rotationAngle}/>
+                        <MenuBar onClick={handleSideBarClick} rotationAngle={rotationAngle}/>
                     )}
                     
                     {searchBar && (

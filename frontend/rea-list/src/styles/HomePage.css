@@ -3,6 +3,9 @@ body {
 }
 .full-page {
     color: white;
+    display: flex;
 }
 
-
+/* .page-content {
+    display: flex;
+} */

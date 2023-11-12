@@ -1,11 +1,12 @@
 
-const MenuBar = ({rotationAngle}) => {
+const MenuBar = ({rotationAngle, onClick}) => {
     return (
         <svg
             width="30"
             height="30"
             viewBox="0 0 24 24"
             fill="none"
+            onClick={onClick}
             xmlns="http://www.w3.org/2000/svg"
             style={{ transition: 'transform 0.3s ease', transform: `rotate(${rotationAngle}deg)` }}
         >

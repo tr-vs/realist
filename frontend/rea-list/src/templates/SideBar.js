@@ -1,7 +1,8 @@
+import '../styles/Sidebar.css';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useEffect, useState } from 'react';
 
-const SideBar = () => {
+const SideBar = ({isSidebarClicked}) => {
     // only load data if they are logged in
     const { user } = useAuthContext();
     const [error, setError] = useState(null);
@@ -20,7 +21,9 @@ const SideBar = () => {
 
         if (user) getSideBar();
     });
-    return <h1>Teset</h1>;
+    return (
+        <h1 className={isSidebarClicked ? 'Sidebar active' : 'Sidebar'}>Test</h1>
+    );
 };
 
 export default SideBar;
