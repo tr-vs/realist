@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import ProfileIcon from './ProfileIcon';
 import '../styles/SignUp.css';
 // change to sign in.cc
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -71,9 +72,9 @@ export default function SignIn() {
                         borderImageSlice: 1,
                     }}
                 >
-                    {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar> */}
+                    
+                        <ProfileIcon/>
+                    
                     {/* i removed the avatar image above*/}
                     <Typography
                         component="h1"
