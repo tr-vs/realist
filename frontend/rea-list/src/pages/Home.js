@@ -26,23 +26,28 @@ const Home = () => {
     });
 
     return (
-        <div className="full-page">
+        <div>
+            
             <Navbar
                 isFriendsClicked={isFriendsClicked}
                 setIsFriendsClicked={setIsFriendsClicked}
                 isCommunityClicked={isCommunityClicked}
                 setIsCommunityClicked={setIsCommunityClicked}
             />
-
-            {/* <-- Two pages for community and friends and statistics-> */}
-            <div className="page-content">
-                {isFriendsClicked && <Friends></Friends>}
-                {isCommunityClicked && <Community></Community>}
+  
+            <div className="full-page">
+            
+                {/* <-- Two pages for community and friends and statistics-> */}
+                <div className="page-content">
+                    {isFriendsClicked && <Friends></Friends>}
+                    {isCommunityClicked && <Community></Community>}
+                </div>
+                {/* <div className='sidebar'>
+                    <h2>SideBar will be here</h2>
+                </div> */}
             </div>
-            {/* <div className='sidebar'>
-                <h2>SideBar will be here</h2>
-            </div> */}
         </div>
+        
     );
 };
 

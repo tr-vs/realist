@@ -1,6 +1,7 @@
 .post-contents {
     display: flex;
     flex-direction: column;
+    margin-top: 100px;
 }
 
 .page-title {
