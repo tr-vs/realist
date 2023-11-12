@@ -3,6 +3,13 @@
     justify-content: space-between; /* Move the input and buttons apart */
     align-items: center; 
     padding-top: 10px;
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: black;
 }
 
 .two-buttons {
