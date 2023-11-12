@@ -1,3 +1,11 @@
 .stats-container {
     color: white;
 }
+
+.profile-image {
+    border-radius: 50%;
+    padding: none;
+    width: 200px; 
+    height: 200px;
+   
+}
