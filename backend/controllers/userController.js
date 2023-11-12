@@ -11,9 +11,10 @@ const loginUser = async (req, res) => {
         const user = await User.login(email, password);
 
         // create a token
-        const token = createToken(user._id);
+        const idToken = createToken(user._id);
+        const spotifyToken = user.access_token ? true : false;
 
-        res.status(200).json({ email, token });
+        res.status(200).json({ email, idToken, spotifyToken });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -26,9 +27,10 @@ const signupUser = async (req, res) => {
         const user = await User.signup(email, password, username, school, bio);
 
         // create a token
-        const token = createToken(user._id);
+        const idToken = createToken(user._id);
+        const spotifyToken = user.access_token ? true : false;
 
-        res.status(200).json({ email, token });
+        res.status(200).json({ email, idToken, spotifyToken });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -47,7 +49,17 @@ const addToken = async (req, res) => {
     try {
         const { _id } = jwt.verify(token, process.env.SECRET);
 
-        await User.findOneAndUpdate({ _id }, { refresh_token, access_token });
+        const user = await User.findOneAndUpdate(
+            { _id },
+            { refresh_token, access_token },
+            { returnNewDocument: true }
+        );
+
+        const email = user.email;
+        const idToken = createToken(user._id);
+        const spotifyToken = user.access_token ? true : false;
+
+        res.status(200).json({ email, idToken, spotifyToken });
     } catch (error) {
         console.error(error);
         res.status(401).json({ error: 'Request is not authorized' });

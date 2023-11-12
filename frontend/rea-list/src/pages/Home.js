@@ -15,7 +15,7 @@ const Home = () => {
             // TODO: create home route
             const response = await fetch('/api/home', {
                 headers: {
-                    Authorization: `Bearer ${user.token}`,
+                    Authorization: `Bearer ${user.idToken}`,
                 },
             });
 
@@ -27,16 +27,14 @@ const Home = () => {
 
     return (
         <div>
-            
             <Navbar
                 isFriendsClicked={isFriendsClicked}
                 setIsFriendsClicked={setIsFriendsClicked}
                 isCommunityClicked={isCommunityClicked}
                 setIsCommunityClicked={setIsCommunityClicked}
             />
-  
+
             <div className="full-page">
-            
                 {/* <-- Two pages for community and friends and statistics-> */}
                 <div className="page-content">
                     {isFriendsClicked && <Friends></Friends>}
@@ -47,7 +45,6 @@ const Home = () => {
                 </div> */}
             </div>
         </div>
-        
     );
 };
 

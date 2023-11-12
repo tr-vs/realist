@@ -11,7 +11,7 @@ const SideBar = () => {
             // TODO: create sidebar route
             const response = await fetch('/api/sideBar', {
                 headers: {
-                    Authorization: `Bearer ${user.token}`,
+                    Authorization: `Bearer ${user.idToken}`,
                 },
             });
 

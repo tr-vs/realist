@@ -6,7 +6,8 @@ import { useAuthContext } from '../hooks/useAuthContext.js';
 
 const Profile = () => {
     const { logout } = useLogout();
-    const { user } = useAuthContext();
+    const { user, dispatch } = useAuthContext();
+    let response;
 
     const handleClick = () => {
         logout();
@@ -21,17 +22,25 @@ const Profile = () => {
         const data = { access_token, refresh_token };
 
         async function updateDB() {
-            await fetch('http://localhost:3000/api/users/token', {
-                method: 'PATCH',
-                body: JSON.stringify(data),
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
+            const response = await fetch(
+                'http://localhost:3000/api/users/token',
+                {
+                    method: 'PATCH',
+                    body: JSON.stringify(data),
+                    headers: {
+                        Authorization: `Bearer ${user.idToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            const json = await response.json();
+            dispatch({ type: 'LOGIN', payload: json });
         }
 
-        if (data.access_token !== null) updateDB();
+        if (data.access_token !== null && !user.spotifyToken) {
+            updateDB();
+        }
     });
     return (
         <div>
