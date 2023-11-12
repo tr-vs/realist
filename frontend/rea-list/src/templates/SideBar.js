@@ -22,7 +22,11 @@ const SideBar = ({isSidebarClicked}) => {
         if (user) getSideBar();
     });
     return (
-        <h1 className={isSidebarClicked ? 'Sidebar active' : 'Sidebar'}>Test</h1>
+        <div className={isSidebarClicked ? 'Sidebar active' : 'Sidebar'}>
+            <img className='listening-album-cover' src="https://media.pitchfork.com/photos/64c3bee4a7c2659c4cdcf382/master/pass/Travis%20Scott%20-%20Utopia.jpeg" alt="" />
+        
+        
+        </div>
     );
 };
 

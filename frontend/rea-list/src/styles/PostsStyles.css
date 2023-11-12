@@ -3,7 +3,14 @@
     width: 300px;
     padding-bottom: 50px;
     padding-left: 70px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
+
+.cover-images:hover {
+transform: scale(1.05); 
+}
+
 .profile-content {
     display: flex;
 }
