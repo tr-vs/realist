@@ -23,7 +23,6 @@ app.use((req, res, next) => {
 const corsOptions = {
     origin: '*', // Replace with your frontend's URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
 };
 
 app.use(cors(corsOptions));
