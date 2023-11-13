@@ -21,8 +21,9 @@ app.use((req, res, next) => {
 
 // cors requirements
 const corsOptions = {
-    origin: '*', // Replace with your frontend's URL
+    origin: 'https://soft-kitten-e8da92.netlify.app/', // Replace with your frontend's URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
 };
 
 app.use(cors(corsOptions));
