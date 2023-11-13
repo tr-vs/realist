@@ -21,7 +21,10 @@ app.use((req, res, next) => {
 
 // Set middleware of CORS
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://your-frontend.com');
+    res.setHeader(
+        'Access-Control-Allow-Origin',
+        'https://soft-kitten-e8da92.netlify.app'
+    );
     res.setHeader(
         'Access-Control-Allow-Methods',
         'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE'
