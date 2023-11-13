@@ -22,14 +22,15 @@ function App() {
                 />
                 <Route
                     path="/profile"
-                    element={user ? <Profile /> : <Navigate to="/login" />}
+                    // element={user ? <Profile /> : <Navigate to="/login" />}
+                    element={<Profile/>}
                 />
                 <Route
                     path="/signup"
                     element={!user ? <SignUpPage /> : <Navigate to="/" />}
                 />
                 <Route
-                    path="/login"
+                    path="/loginpage"
                     element={!user ? <LoginPage /> : <Navigate to="/" />}
                 />
             </Routes>
