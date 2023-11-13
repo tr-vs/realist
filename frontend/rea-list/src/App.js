@@ -17,13 +17,14 @@ function App() {
             <Routes>
                 <Route
                     path="/"
-                    element={user ? <Home /> : <Navigate to="/login" />}
+                    element={user ? <Home /> : <Navigate to="/loginpage" />}
                     exact
                 />
                 <Route
                     path="/profile"
-                    // element={user ? <Profile /> : <Navigate to="/login" />}
-                    element={<Profile/>}
+                    // element={user ? <Profile /> : <Navigate to="/loginpage" />}
+                    element={<Profile />} 
+        
                 />
                 <Route
                     path="/signup"
