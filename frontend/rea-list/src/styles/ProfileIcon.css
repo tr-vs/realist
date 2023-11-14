@@ -2,4 +2,5 @@
     width: 75px; 
     border-radius: 50%;
     border-color: azure;
+    cursor: pointer;
 }

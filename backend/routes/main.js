@@ -1,5 +1,5 @@
 const express = require('express');
-const { home } = require('../controllers/mainController');
+const { home, profile } = require('../controllers/mainController');
 const requireAuth = require('../middleware/requireAuth');
 
 const router = express.Router();
@@ -9,5 +9,8 @@ router.use(requireAuth);
 
 // user auth route
 router.get('/home', home);
+
+// user profile route
+router.get('/profile', profile);
 
 module.exports = router;

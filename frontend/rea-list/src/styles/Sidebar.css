@@ -22,13 +22,20 @@
 .sidebar-top {
     display: flex;
     justify-content: flex-end;
-    padding: 10px;
+    
+    width: 90%;
 }
 
 .listening-album-cover {
-    width: 200px; 
-    height: 200px; 
+    width: 375px; 
+    height: 375px; 
     margin: 10px; 
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 15px 5px #a6a6de;
+}
+
+.listening-album-cover:hover {
+    transform: scale(1.03); 
 }
 
 h2 {
