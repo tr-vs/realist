@@ -13,8 +13,12 @@ const TOKEN =
 const REFRESH =
     'AQD8Zq9XVKjFpa58CNQYzq1-oVa_gCqN2d-n6eK5c89Zv501DQczUXPP5aK-PEdqrIJSmDzwtl7MfScC1wdD-LfBdBAuKXFfVdR1WgcQrZ88SVheDVVsnEkSIzw1J0FIi7w';
 
-getTop(TOKEN, REFRESH, 'tracks', '10', 'long_term');
-
+const TOKEN2 =
+    'BQAvcP6gsrjCEhkxyPnp6IGuSRAkcwTbXeOnX6Lgip6LPKZAEO9KIRv-S0Ajea1VjDC8cvc5vaSAXu1vssgcUELV13yoCBQlxLF1hXYiYvZ5cYsXeA4Dj5coGgMM1NjYb11aefHuXdE33LKc_9J1jNUJskioLMLhDs2mD0Lf6Czbo0pIWBCagOMhio13d8E-GIfS2Bn-bZwS2t3N6w';
+const REFRESH2 =
+    'AQCBFzltIzaj9aCX00EJr4GEj2Fxf7987oHnG-0YA0Jm6RKLlQQv-bDujJf4nr6bG4V9PvS7eJNQFkZPn_-2ZEagyaKdsxSWTsatljkQjYB5JZoIvFBN8MZh_hledRWgZQc';
+//getTop(TOKEN, REFRESH, 'tracks', '10', 'long_term');
+getNowPlaying(TOKEN, REFRESH);
 // getRecentlyPlayed(
 // TOKEN, REFRESH,
 //     '1'

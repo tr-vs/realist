@@ -32,6 +32,9 @@ const userSchema = new Schema({
     refresh_token: {
         type: String,
     },
+    nowPlaying: {
+        type: String,
+    },
 });
 
 // static signup method
