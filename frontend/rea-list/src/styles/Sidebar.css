@@ -7,11 +7,12 @@
     background-color: #14110f;
     color: white;
     width: 30%; 
-    height: 100vh;
+    height: 100%;
     position: fixed;
     top: 0;
     right: -100%; 
     transition: right 500ms ease;
+    padding: 10px;
 }
 
 .Sidebar.active {
@@ -22,16 +23,24 @@
 .sidebar-top {
     display: flex;
     justify-content: flex-end;
-    
     width: 90%;
 }
 
 .listening-album-cover {
-    width: 375px; 
+    /* width: 375px; 
     height: 375px; 
     margin: 10px; 
     transition: transform 0.3s ease;
+    box-shadow: 0 0 15px 5px #a6a6de; */
+    width: 100%; /* Take up 100% of the container width */
+    max-width: 375px; /* Set maximum width */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 375px; /* Set maximum height */
+    margin: 10px; 
+    transition: transform 0.3s ease;
     box-shadow: 0 0 15px 5px #a6a6de;
+    object-fit: cover;
+    
 }
 
 .listening-album-cover:hover {
