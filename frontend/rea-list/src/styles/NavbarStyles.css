@@ -10,7 +10,10 @@
     right: 0;
     width: 100%;
     background-color: black;
+    height: 90px;
 }
+
+
 
 .two-buttons {
     position: absolute;
