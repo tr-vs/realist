@@ -11,6 +11,6 @@ router.use(requireAuth);
 router.get('/home', home);
 
 // user profile route
-router.get('/profile', profile);
+// router.get('/profile', profile);
 
 module.exports = router;
