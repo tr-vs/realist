@@ -23,12 +23,16 @@ const SideBar = ({ isSidebarClicked }) => {
     if (user) getSideBar();
   }, [user]);
 
+  const redirectToProfile = () => {
+
+  }
+
   return (
 
     <div className="resize-handle">
         <div className={isSidebarClicked ? 'Sidebar active' : 'Sidebar'}>
             <div className='sidebar-top'>
-                <ProfileIcon/>
+                <ProfileIcon />
             </div>
             <img
                 className="listening-album-cover"
@@ -36,10 +40,17 @@ const SideBar = ({ isSidebarClicked }) => {
                 alt=""
             />
             
-            <h2>Song Name</h2>
-            <h2>Artist</h2>
-
-            <div>Some form of Statistics Right here:</div>
+            <div className='information-container'>
+              <h2>Song Name</h2>
+              <h3>Your top songs: </h3>
+              <ul>
+                <li>Ivy</li>
+                <li>Cruel Summer</li>
+                <li>Love Sosa</li>
+                <li>Glue Song</li>
+                <li>The Heart Part V</li>
+              </ul>
+            </div>
         </div>
     </div>
         
