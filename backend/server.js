@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/users');
 const spotifyRoutes = require('./routes/spotify');
 const mainRoutes = require('./routes/main');
+const { updateNowPlaying } = require('./services/home');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
@@ -49,3 +50,33 @@ mongoose
     .catch((error) => {
         console.log(error);
     });
+
+// const updateNowPlaying = async () => {
+//     const currentDate = new Date();
+
+//     const minHours = Math.ceil(12);
+//     const maxHours = Math.floor(24);
+//     const randomHours = Math.floor(Math.random() * (max - min) + min);
+//     const randomMinutes = Math.floor(Math.random() * 60);
+//     const randomSeconds = Math.floor(Math.random() * 60);
+
+//     const nextExecutionTime = new Date(
+//         currentDate.getFullYear(),
+//         currentDate.getMonth(),
+//         currentDate.getDate(),
+//         randomHours,
+//         randomMinutes,
+//         randomSeconds
+//     );
+
+//     const timeUntilNextExecution = nextExecutionTime - currentDate;
+
+//     setTimeout(() => {
+//         console.log('works.');
+
+//         updateNowPlaying();
+//     }, timeUntilNextExecution);
+// };
+
+// updateNowPlaying();
+updateNowPlaying();

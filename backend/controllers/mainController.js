@@ -1,7 +1,23 @@
 const { getNowPlaying, getUserProfilePic } = require('../services/spotify');
+const User = require('../models/userModel');
 
-const home = async (req, res) => {
-    console.log(getNowPlaying());
+const community = async (req, res) => {
+    const user = req.user;
+
+    try {
+        const communityUsers = await User.find(
+            {
+                _id: { $ne: user._id },
+                school: user.school,
+                nowPlaying: { $exists: true },
+            },
+            'username nowPlaying'
+        );
+
+        res.status(200).json(communityUsers);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 };
 
 const profile = async (req, res) => {
@@ -15,5 +31,5 @@ const profile = async (req, res) => {
 };
 
 module.exports = {
-    home,
+    community,
 };
