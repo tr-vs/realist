@@ -44,6 +44,8 @@ app.use((req, res, next) => {
 
 app.options('*', (req, res) => {
     console.log('preflight');
+    console.log(req.headers['access-control-request-method']);
+    console.log(req.headers['access-control-request-headers']);
     if (
         req.headers.origin === 'https://realist.onrender.com' &&
         allowMethods.includes(req.headers['access-control-request-method']) &&
@@ -52,7 +54,6 @@ app.options('*', (req, res) => {
         console.log('pass');
         return res.status(204).send();
     } else {
-        console.log(allowMethods);
         console.log('fail');
     }
 });
