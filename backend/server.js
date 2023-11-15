@@ -39,6 +39,20 @@ app.use((req, res, next) => {
     next();
 });
 
+app.options('*', (req, res) => {
+    console.log('preflight');
+    if (
+        req.headers.origin === 'https://realist.onrender.com' &&
+        allowMethods.includes(req.headers['access-control-request-method']) &&
+        allowHeaders.includes(req.headers['access-control-request-headers'])
+    ) {
+        console.log('pass');
+        return res.status(204).send();
+    } else {
+        console.log('fail');
+    }
+});
+
 // routes
 // update this to users
 app.use('/api/users', userRoutes);
