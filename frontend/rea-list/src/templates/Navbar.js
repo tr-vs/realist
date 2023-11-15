@@ -3,6 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import MenuBar from '../svg/MenuBar';
 import CancelButton from '../svg/CancelButton';
 import Magnify from '../svg/Magnify';
+import ProfileIcon from './ProfileIcon';
 import { useState, useRef } from 'react';
 
 const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, setIsFriendsClicked, isSidebarClicked, setIsSidebarClicked}) => {
@@ -81,19 +82,24 @@ const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
                 <Magnify className='search-image' onClick={handleSearchClick}/>
                 
                 {searchBar && (
-                    <input ref = {inputRef} className='search-bar' type="text" name="" id="" placeholder='Search...' />
+                    <div className='search-bar-container'>
+                        <input ref = {inputRef} className='search-bar' type="text" name="" id="" placeholder='Search...' />
+                        <CancelButton onClick={closeSearchClick}/>
+                    </div>
+                    
                 )}
 
                 <div className='side-bar-button' >
                     
-                    {!searchBar && (
+                    {/* {!searchBar && (
                         <MenuBar onClick={handleSideBarClick} rotationAngle={rotationAngle}/>
                     )}
                     
                     {searchBar && (
                         <CancelButton onClick={closeSearchClick} rotationAngle={rotationAngle}/>
-                    )}
+                    )} */}
                     
+                    <ProfileIcon onClick={handleSideBarClick}/>
 
                 </div>
             </div>

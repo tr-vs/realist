@@ -33,6 +33,7 @@
     height: 40px; 
     margin: 10px 0px 10px 0px; 
 }
+
 .community-button.clicked {
     font-weight: bold;
     background-color: white;
@@ -111,6 +112,10 @@
     color: white;
 }
 
+.search-bar-container {
+    display: flex;
+}
+
 .right-side {
     display: flex;
     margin: 10px 30px 10px 10px;
@@ -119,11 +124,9 @@
 
 .side-bar-button {
     margin: auto;
-    font-size: 35px;
-    width: 30px;
-    height: 30px;
+    width: 55px;
+    height: 35px;
     cursor: pointer;
-    padding-left: 10px;
 }
 
 .search-image {

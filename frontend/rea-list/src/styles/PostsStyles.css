@@ -6,7 +6,7 @@
     margin-top: 15px;
     cursor: pointer;
     transition: transform 0.3s ease;
-    box-shadow: 0 0 20px 5px #a6a6de;
+    box-shadow: 0 0 20px 3px #a6a6de;
 }
 
 .cover-images:hover {

@@ -1,0 +1,23 @@
+/* .second-profile-icon-image {
+    width: 150px; 
+    border-radius: 50%;
+    border-color: azure;
+    cursor: pointer;
+    position: absolute;
+    top: 41%;
+    left: 55%;
+    transform: translate(-60%, -50%);
+    z-index: 1; 
+} */
+
+.second-profile-icon-image {
+    width: 50%; 
+    border-radius: 50%;
+    border-color: azure;
+    cursor: pointer;
+    position: absolute;
+    top: 60%;
+    left: 53%;
+    transform: translate(-50%, -50%);
+    z-index: 1; 
+}
