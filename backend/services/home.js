@@ -1,21 +1,23 @@
 require('dotenv').config({ path: '../.env' });
 
 const User = require('../models/userModel');
-const fetch = require('node-fetch');
 const { getTop, getNowPlaying } = require('./spotify');
 
-const community = async () => {
-    const communityUsers = await User.find({ access_token: { $exists: true } });
-    console.log(communityUsers.length);
+const updateNowPlaying = async (school) => {
+    const communityUsers = await User.find({
+        access_token: { $exists: true },
+    });
     for (const user of communityUsers) {
-        const nowPlaying = await getNowPlaying(
+        let nowPlaying = await getNowPlaying(
             user.access_token,
             user.refresh_token
         );
-        console.log(nowPlaying);
+        if (nowPlaying === undefined) continue;
+        user.nowPlaying = JSON.stringify(nowPlaying);
+        await user.save();
     }
 };
 
 module.exports = {
-    community,
+    updateNowPlaying,
 };

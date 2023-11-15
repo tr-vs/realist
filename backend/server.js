@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/users');
 const spotifyRoutes = require('./routes/spotify');
 const mainRoutes = require('./routes/main');
-const { community } = require('./services/home');
+const { updateNowPlaying } = require('./services/home');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
@@ -79,4 +79,4 @@ mongoose
 // };
 
 // updateNowPlaying();
-community();
+updateNowPlaying();

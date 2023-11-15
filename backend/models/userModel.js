@@ -73,7 +73,7 @@ userSchema.statics.signup = async function (
         email,
         password: hash,
         username,
-        school,
+        school: school.toLowerCase(),
         bio,
     });
 

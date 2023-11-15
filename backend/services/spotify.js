@@ -26,7 +26,7 @@ const refreshToken = async (refresh_token) => {
 
     const token = response.access_token;
 
-    // await User.findOneAndUpdate({ refresh_token }, { access_token: token });
+    await User.findOneAndUpdate({ refresh_token }, { access_token: token });
     return token;
 };
 
@@ -61,7 +61,7 @@ const getRecentlyPlayed = async (token, refresh_token, limit) => {
     );
     if (response.status === 200) {
         const r = await response.json();
-        return r.items;
+        return r.items[0];
     } else {
         const errorHeader = response.headers.get('www-authenticate');
         const strippedError = errorHeader.substring(
