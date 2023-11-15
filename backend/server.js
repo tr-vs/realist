@@ -61,8 +61,8 @@ app.use((req, res, next) => {
 
 app.options('*', (req, res) => {
     console.log('preflight');
-    console.log(req.headers['access-control-request-method']);
-    console.log(req.headers['access-control-request-headers']);
+
+    console.log(req.headers);
     if (
         req.headers.origin === 'https://realist.onrender.com'
         // allowMethods.includes(req.headers['access-control-request-method']) &&
