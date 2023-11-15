@@ -64,7 +64,7 @@ app.options('*', (req, res) => {
 
     console.log(req.headers);
     if (
-        req.headers.origin === 'https://realist.onrender.com'
+        req.headers.origin === 'https://realist.top'
         // allowMethods.includes(req.headers['access-control-request-method']) &&
         // allowHeaders.includes(req.headers['access-control-request-headers'])
     ) {
