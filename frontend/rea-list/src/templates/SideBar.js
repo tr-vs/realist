@@ -29,7 +29,6 @@ const SideBar = ({ isSidebarClicked }) => {
     <div className="resize-handle">
       <div className={isSidebarClicked ? 'Sidebar active' : 'Sidebar'}>
         <div className='content-container'>
-              <h1>Your ReaList</h1>
               <div className='profile-icon'>
                 <img
                     className="listening-album-cover"
@@ -43,14 +42,14 @@ const SideBar = ({ isSidebarClicked }) => {
               <div className='information-container'>
                 <h2>Song Name</h2>
                 <h2>Artist</h2>
-                <h3>Your top songs: </h3>
+                <h3>Top Artists Today: </h3>
                 <ul>
-                  <li>Ivy</li>
-                  <li>Cruel Summer</li>
-                  <li>Love Sosa</li>
-                  <li>Glue Song</li>
-                  <li>The Heart Part V</li>  
-                </ul>                
+                  <li>Chief Keef</li>
+                  <li>Chief Keef</li>
+                  <li>Chief Keef</li>
+                  <li>Chief Keef</li>
+                  <li>Chief Keef</li>
+                </ul>                   
               </div>
         </div>
       </div>
