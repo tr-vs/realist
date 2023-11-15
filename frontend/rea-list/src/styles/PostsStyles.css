@@ -1,16 +1,18 @@
 .cover-images {
+    position: relative;
     height: 300px;
     width: 300px;
     margin-bottom: 50px;
     margin-left: 70px;
     margin-top: 15px;
     cursor: pointer;
-    transition: transform 0.3s ease;
-    box-shadow: 0 0 20px 3px #a6a6de;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 12px 12px 20px 3px #a6a6de;
 }
 
 .cover-images:hover {
-    transform: scale(1.05); 
+    transform: translate(12px, 12px);
+    box-shadow: 0 0 0px 0px #a6a6de;
 }
 
 .profile-content {
