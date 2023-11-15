@@ -23,7 +23,6 @@ function App() {
                 <Route
                     path="/profile"
                     element={user ? <Profile /> : <Navigate to="/loginpage" />}
-        
                 />
                 <Route
                     path="/signup"
