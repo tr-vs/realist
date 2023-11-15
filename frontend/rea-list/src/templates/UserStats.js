@@ -16,7 +16,7 @@ const UserStats = () => {
                 <img className= 'music-icon' src="https://cdn.icon-icons.com/icons2/3630/PNG/512/music_album_icon_227414.png" alt="" />
             </div>
             <div className="user-compatable-friends">
-                <h2>Your Most Compatable Friends:</h2>
+                <h2>Your Most Compatible Friends:</h2>
             </div>
              
         </div>
