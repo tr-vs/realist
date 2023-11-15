@@ -17,9 +17,8 @@ const Posts = (props) => {
     let cover = links[0];
     if (props.data !== undefined) {
         nowPlaying = JSON.parse(props.data.nowPlaying);
-        // console.log(nowPlaying);
-        // console.log(nowPlaying.is_playing);
-        if (nowPlaying.is_playing === true) {
+
+        if (nowPlaying.item !== undefined) {
             cover = nowPlaying.item.album.images[1].url;
             song = nowPlaying.item.name;
             const artists = nowPlaying.item.artists.map(
