@@ -13,6 +13,7 @@
     right: -100%; 
     transition: right 500ms ease;
     padding: 10px;
+    margin-top: 100px;
 }
 
 .Sidebar.active {
@@ -20,10 +21,14 @@
     transition: 500ms;
 }
 
+.content-container {
+    height: 100%;
+}
+
 .sidebar-top {
     display: flex;
     justify-content: flex-end;
-    width: 90%;
+    width: 100%;
 }
 
 .listening-album-cover {
