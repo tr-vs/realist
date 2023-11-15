@@ -30,28 +30,30 @@ const SideBar = ({ isSidebarClicked }) => {
   return (
 
     <div className="resize-handle">
-        <div className={isSidebarClicked ? 'Sidebar active' : 'Sidebar'}>
-            <div className='sidebar-top'>
-                <ProfileIcon />
-            </div>
-            <img
-                className="listening-album-cover"
-                src="https://media.pitchfork.com/photos/638902d2e5592afa444298b9/master/pass/SZA-SOS.jpg"
-                alt=""
-            />
-            
-            <div className='information-container'>
-              <h2>Song Name</h2>
-              <h3>Your top songs: </h3>
-              <ul>
-                <li>Ivy</li>
-                <li>Cruel Summer</li>
-                <li>Love Sosa</li>
-                <li>Glue Song</li>
-                <li>The Heart Part V</li>
-              </ul>
-            </div>
+      <div className={isSidebarClicked ? 'Sidebar active' : 'Sidebar'}>
+        <div className='content-container'>
+          <div className='sidebar-top'>
+                  <ProfileIcon />
+              </div>
+              <img
+                  className="listening-album-cover"
+                  src="https://media.pitchfork.com/photos/638902d2e5592afa444298b9/master/pass/SZA-SOS.jpg"
+                  alt=""
+              />
+              
+              <div className='information-container'>
+                <h2>Song Name</h2>
+                <h3>Your top songs: </h3>
+                <ul>
+                  <li>Ivy</li>
+                  <li>Cruel Summer</li>
+                  <li>Love Sosa</li>
+                  <li>Glue Song</li>
+                  <li>The Heart Part V</li>
+                </ul>
+              </div>
         </div>
+      </div>
     </div>
         
   );
