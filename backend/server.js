@@ -49,6 +49,7 @@ app.options('*', (req, res) => {
         console.log('pass');
         return res.status(204).send();
     } else {
+        console.log(allowMethods);
         console.log('fail');
     }
 });
