@@ -11,7 +11,10 @@ const cors = require('cors');
 
 // express app
 const app = express();
-
+const allowHeaders = [
+    'Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers',
+];
+const allowMethods = ['GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE'];
 // middleware
 app.use(express.json()).use(cookieParser());
 
