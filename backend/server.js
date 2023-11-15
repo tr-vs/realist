@@ -12,9 +12,26 @@ const cors = require('cors');
 // express app
 const app = express();
 const allowHeaders = [
-    'Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers',
+    'Content-Type',
+    'Authorization',
+    'X-Content-Type-Options',
+    'Accept',
+    'X-Requested-With',
+    'Origin',
+    'Access-Control-Request-Method',
+    'Access-Control-Request-Headers',
 ];
-const allowMethods = ['GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE'];
+const allowMethods = [
+    'GET',
+    'HEAD',
+    'PUT',
+    'PATCH',
+    'POST',
+    'DELETE',
+    'OPTIONS',
+    'CONNECT',
+    'TRACE',
+];
 // middleware
 app.use(express.json()).use(cookieParser());
 
@@ -47,9 +64,9 @@ app.options('*', (req, res) => {
     console.log(req.headers['access-control-request-method']);
     console.log(req.headers['access-control-request-headers']);
     if (
-        req.headers.origin === 'https://realist.onrender.com' &&
-        allowMethods.includes(req.headers['access-control-request-method']) &&
-        allowHeaders.includes(req.headers['access-control-request-headers'])
+        req.headers.origin === 'https://realist.onrender.com'
+        // allowMethods.includes(req.headers['access-control-request-method']) &&
+        // allowHeaders.includes(req.headers['access-control-request-headers'])
     ) {
         console.log('pass');
         return res.status(204).send();
