@@ -7,7 +7,6 @@ import { useAuthContext } from '../hooks/useAuthContext.js';
 const Profile = () => {
     const { logout } = useLogout();
     const { user, dispatch } = useAuthContext();
-    let response;
 
     const handleClick = () => {
         logout();
