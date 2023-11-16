@@ -41,6 +41,8 @@ const callback = async (req, res) => {
     let state = req.query.state || null;
     let storedState = req.cookies ? req.cookies[stateKey] : null;
 
+    console.log(req.cookies);
+
     if (state === null || state !== storedState) {
         res.redirect(
             '/#' +
@@ -74,7 +76,7 @@ const callback = async (req, res) => {
                         let access_token = data.access_token;
                         let refresh_token = data.refresh_token;
                         res.redirect(
-                            'http://localhost:3001/profile#' +
+                            'https://realist.top/profile#' +
                                 querystring.stringify({
                                     refresh_token,
                                     access_token,

@@ -11,7 +11,27 @@ const cors = require('cors');
 
 // express app
 const app = express();
-
+const allowHeaders = [
+    'Content-Type',
+    'Authorization',
+    'X-Content-Type-Options',
+    'Accept',
+    'X-Requested-With',
+    'Origin',
+    'Access-Control-Request-Method',
+    'Access-Control-Request-Headers',
+];
+const allowMethods = [
+    'GET',
+    'HEAD',
+    'PUT',
+    'PATCH',
+    'POST',
+    'DELETE',
+    'OPTIONS',
+    'CONNECT',
+    'TRACE',
+];
 // middleware
 app.use(express.json()).use(cookieParser());
 
@@ -20,14 +40,40 @@ app.use((req, res, next) => {
     next();
 });
 
-// cors requirements
-const corsOptions = {
-    origin: 'http://localhost:3001', // Replace with your frontend's URL
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-};
+// Set middleware of CORS
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://realist.top');
+    res.setHeader(
+        'Access-Control-Allow-Methods',
+        'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE'
+    );
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'
+    );
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Private-Network', true);
+    //  Firefox caps this at 24 hours (86400 seconds). Chromium (starting in v76) caps at 2 hours (7200 seconds). The default value is 5 seconds.
+    res.setHeader('Access-Control-Max-Age', 7200);
 
-app.use(cors(corsOptions));
+    next();
+});
+
+app.options('*', (req, res) => {
+    console.log('preflight');
+
+    console.log(req.headers);
+    if (
+        req.headers.origin === 'https://realist.top'
+        // allowMethods.includes(req.headers['access-control-request-method']) &&
+        // allowHeaders.includes(req.headers['access-control-request-headers'])
+    ) {
+        console.log('pass');
+        return res.status(204).send();
+    } else {
+        console.log('fail');
+    }
+});
 
 // routes
 // update this to users
