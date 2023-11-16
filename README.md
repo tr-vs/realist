@@ -76,7 +76,7 @@ npm start
 -   [Jacqueline Nguyen](https://github.com/itsjacque) <!--- update github link-->
 -   [Travis Nguyen](https://github.com/tr-vs)
 
-## Special thanks to our UI/UX interns
+## Special thanks to our (unpaid) UI/UX interns
 - Lance Giang
 - Hyun Kim
 - Jasi Bermejo
