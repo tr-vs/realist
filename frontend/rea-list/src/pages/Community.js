@@ -23,6 +23,7 @@ const Community = () => {
 
         const posts = response.map((post) => {
             return <Posts data={post}></Posts>;
+            
         });
 
         setCommunityPosts(posts);
