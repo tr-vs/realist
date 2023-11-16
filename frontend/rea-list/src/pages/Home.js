@@ -10,22 +10,6 @@ const Home = () => {
     const [isCommunityClicked, setIsCommunityClicked] = useState(false);
     const [isFriendsClicked, setIsFriendsClicked] = useState(true);
     const [isSidebarClicked, setIsSidebarClicked] = useState(false);
-    const { user } = useAuthContext();
-
-    useEffect(() => {
-        const getHome = async () => {
-            // TODO: create home route
-            const response = await fetch('/api/home', {
-                headers: {
-                    Authorization: `Bearer ${user.idToken}`,
-                },
-            });
-
-            const json = await response.json();
-        };
-
-        if (user) getHome();
-    });
 
     return (
         <div>
@@ -43,9 +27,8 @@ const Home = () => {
                 <div className="page-content">
                     {isFriendsClicked && <Friends></Friends>}
                     {isCommunityClicked && <Community></Community>}
-                    
                 </div>
-                {<SideBar isSidebarClicked={isSidebarClicked}/>}
+                {<SideBar isSidebarClicked={isSidebarClicked} />}
             </div>
         </div>
     );
