@@ -77,7 +77,7 @@ npm start
 -   [Travis Nguyen](https://github.com/tr-vs)
 
 ## Special thanks to our (unpaid) UI/UX interns
+- Jasi Bermejo
 - Lance Giang
 - Hyun Kim
-- Jasi Bermejo
 
