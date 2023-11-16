@@ -12,7 +12,11 @@ const updateNowPlaying = async () => {
             user.access_token,
             user.refresh_token
         );
-        if (nowPlaying === undefined) continue;
+        if (
+            nowPlaying === undefined ||
+            nowPlaying.currently_playing_type === 'episode'
+        )
+            continue;
         user.nowPlaying = JSON.stringify(nowPlaying);
         await user.save();
     }
