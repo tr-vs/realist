@@ -80,4 +80,6 @@ npm start
 - Jasi Bermejo
 - Lance Giang
 - Hyun Kim
+- Brianna Tran
+- Mikey Choi
 
