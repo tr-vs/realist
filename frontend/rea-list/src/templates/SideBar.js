@@ -18,7 +18,6 @@ const SideBar = ({ isSidebarClicked }) => {
                         />
                         <SecondProfileIcon />
                     </div>
-
                     <div className="information-container">
                         <h2>Song Name</h2>
                         <h2>Artist</h2>
