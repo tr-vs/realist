@@ -42,20 +42,29 @@ const Posts = (props) => {
     return (
         <div className="profile-content">
             <Color src={cover} crossOrigin="anonymous" format="hex">
-                    {({ data, loading }) => {
-                        setPredominantColor(data);
-                    }}
-                </Color>
-            <img id={song} className="cover-images" src={cover} alt="" 
-                onMouseOver={() => {
-                    document.getElementById(song).style.transform = 'translate(12px, 12px)';
-                    document.getElementById(song).style.boxShadow = `0 0 0px 0px ${predominantColor}`;
-                  }}
-                onMouseOut={() => {
-                    document.getElementById(song).style.transform = 'translate(0px, 0px)';
-                    document.getElementById(song).style.boxShadow = `12px 12px 20px 3px ${predominantColor}`;
+                {({ data, loading }) => {
+                    setPredominantColor(data);
                 }}
-                
+            </Color>
+            <img
+                id={song}
+                className="cover-images"
+                src={cover}
+                alt=""
+                onMouseOver={() => {
+                    document.getElementById(song).style.transform =
+                        'translate(12px, 12px)';
+                    document.getElementById(
+                        song
+                    ).style.boxShadow = `0 0 0px 0px ${predominantColor}`;
+                }}
+                onMouseOut={() => {
+                    document.getElementById(song).style.transform =
+                        'translate(0px, 0px)';
+                    document.getElementById(
+                        song
+                    ).style.boxShadow = `12px 12px 20px 3px ${predominantColor}`;
+                }}
             />
             <div className="song-info">
                 <h4>{username}</h4>
@@ -63,7 +72,6 @@ const Posts = (props) => {
                 <h3>{artist}</h3>
                 <h5>Reaction: </h5>
                 {/* comment */}
-                
             </div>
         </div>
     );

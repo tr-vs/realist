@@ -89,10 +89,9 @@ const getNowPlaying = async (token, refresh_token) => {
     );
 
     if (response.status === 200) {
-        const r = response.json();
-        if (r.currently_playing_type === 'ad') {
+        let r = await response.json();
+        if (r.currently_playing_type !== 'track')
             r = await getRecentlyPlayed(token, refresh_token, 1);
-        }
         return r;
     } else if (response.status === 204) {
         const lastPlayedSong = await getRecentlyPlayed(token, refresh_token, 1);
