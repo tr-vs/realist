@@ -78,6 +78,9 @@ npm start
 
 ## Special thanks to our (unpaid) UI/UX interns
 - Jasi Bermejo
+- - Mikey Choi
 - Lance Giang
 - Hyun Kim
+- Brianna Tran
+
 
