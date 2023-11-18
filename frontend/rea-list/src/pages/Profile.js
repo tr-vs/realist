@@ -1,5 +1,6 @@
 import UserStats from '../templates/UserStats.js';
 import UserHead from '../templates/UserHead.js';
+import '../styles/ProfileButtons.css';
 import { useLogout } from '../hooks/useLogout.js';
 import { useEffect } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext.js';
@@ -44,11 +45,12 @@ const Profile = () => {
     return (
         <div>
             <UserHead />
-            <div>
-                <button onClick={handleClick}>Log Out</button>
+            <div className='logout'>
+                <button className='LogoutButton'onClick={handleClick}>Log Out</button>
+                <button className='Connect2Spotify'>Connect to Spotify</button>
             </div>
             <a href="http://localhost:3000/api/spotify/auth">
-                <button>Connect to Spotify</button>
+           
             </a>
             <UserStats />
         </div>
