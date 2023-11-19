@@ -5,7 +5,6 @@ import { useAuthContext } from '../hooks/useAuthContext';
 
 const Community = () => {
     const { user } = useAuthContext();
-    const [communityPostData, setCommunityPostData] = useState([]);
     const [fetched, setFetched] = useState(false);
     const [communityPosts, setCommunityPosts] = useState([]);
 
@@ -23,7 +22,6 @@ const Community = () => {
 
         const posts = response.map((post) => {
             return <Posts data={post}></Posts>;
-            
         });
 
         setCommunityPosts(posts);
