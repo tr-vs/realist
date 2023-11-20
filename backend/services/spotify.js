@@ -26,9 +26,16 @@ const refreshToken = async (refresh_token) => {
 
     const token = response.access_token;
 
-    await User.findOneAndUpdate({ refresh_token }, { access_token: token });
+    // await User.findOneAndUpdate({ refresh_token }, { access_token: token });
     return token;
 };
+
+
+// type =  artists or tracks
+// limit = # btwn 1 to 50
+// time_range = long_term (calculated from several years of data including all new data as it becomes available)
+//              medium_term (approximately last 6 months), 
+//              short_term (approximately last 4 weeks).
 
 const getTop = async (token, refresh_token, type, limit, time_range) => {
     const response = await fetch(
@@ -62,18 +69,10 @@ const getRecentlyPlayed = async (token, refresh_token, limit) => {
     if (response.status === 200) {
         const r = await response.json();
         return r.items[0];
-    } else {
-        const errorHeader = response.headers.get('www-authenticate');
-        const strippedError = errorHeader.substring(
-            errorHeader.indexOf('error_description="') +
-                'error_description="'.length,
-            errorHeader.length - 1
-        );
-
-        if (strippedError === 'The access token expired') {
-            const refreshedToken = await refreshToken(refresh_token);
-            getRecentlyPlayed(refreshedToken, refresh_token, limit);
-        }
+    } else if (response.status === 401) {
+        const refreshedToken = await refreshToken(refresh_token);
+        const recall = getRecentlyPlayed(refreshedToken, refresh_token, limit);
+        return recall;
     }
 };
 
@@ -103,7 +102,7 @@ const getNowPlaying = async (token, refresh_token) => {
     }
 };
 
-const getUserProfilePic = async (token, refresh_token) => {
+const getUserProfile = async (token, refresh_token) => {
     const response = await fetch(`https://api.spotify.com/v1/me/`, {
         method: 'GET',
         headers: {
@@ -113,55 +112,47 @@ const getUserProfilePic = async (token, refresh_token) => {
     if (response.status === 200) {
         response.json().then((data) => {
             console.log(data.images[1].url); // grabs url of image that's 300x300
-            return data.images;
+            return data;
         });
-    } else {
-        const errorHeader = response.headers.get('www-authenticate');
-        const strippedError = errorHeader.substring(
-            errorHeader.indexOf('error_description="') +
-                'error_description="'.length,
-            errorHeader.length - 1
-        );
-        if (strippedError === 'The access token expired') {
-            const refreshT = await refreshToken(refresh_token);
-            getUserProfilePic(refreshT, refresh_token);
-        }
+    } else if (response.status === 401) {
+        const refreshedToken = await refreshToken(refresh_token);
+        const recall = getUserProfile(refreshedToken, refresh_token);
+        return recall;
     }
 };
 
-const getTrackImage = async (token, refresh_token, id) => {
-    const response = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
-        method: 'GET',
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+// const getTrackImage = async (token, refresh_token, id) => {
+//     const response = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
+//         method: 'GET',
+//         headers: {
+//             Authorization: `Bearer ${token}`,
+//         },
+//     });
 
-    if (response.status === 200) {
-        response.json().then((data) => {
-            console.log(data.album.images.url);
-            return album.images.url;
-        });
-    } else {
-        const errorHeader = response.headers.get('www-authenticate');
-        const strippedError = errorHeader.substring(
-            errorHeader.indexOf('error_description="') +
-                'error_description="'.length,
-            errorHeader.length - 1
-        );
+//     if (response.status === 200) {
+//         response.json().then((data) => {
+//             console.log(data.album.images.url);
+//             return album.images.url;
+//         });
+//     } else {
+//         const errorHeader = response.headers.get('www-authenticate');
+//         const strippedError = errorHeader.substring(
+//             errorHeader.indexOf('error_description="') +
+//                 'error_description="'.length,
+//             errorHeader.length - 1
+//         );
 
-        if (strippedError === 'The access token expired') {
-            const refreshedToken = await refreshToken(refresh_token);
-            getTrackImage(refreshedToken, refresh_token, id);
-        }
-    }
-};
+//         if (strippedError === 'The access token expired') {
+//             const refreshedToken = await refreshToken(refresh_token);
+//             getTrackImage(refreshedToken, refresh_token, id);
+//         }
+//     }
+// };
 
 module.exports = {
     refreshToken,
     getTop,
+    getUserProfile,
     getNowPlaying,
     getRecentlyPlayed,
-    getUserProfilePic,
-    getTrackImage,
 };
