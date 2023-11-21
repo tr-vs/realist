@@ -49,9 +49,17 @@ const Profile = () => {
                 <button className="LogoutButton" onClick={handleClick}>
                     Log Out
                 </button>
-                <button className="Connect2Spotify">Connect to Spotify</button>
+                {!user.spotifyToken ? (
+                    <a href="http://localhost:3000/api/spotify/auth">
+                        <button className="SpotifyConnect">
+                            Connect to Spotify
+                        </button>
+                    </a>
+                ) : (
+                    <button className="SpotifyConnect">Connected!</button>
+                )}
             </div>
-            <a href="http://localhost:3000/api/spotify/auth"></a>
+
             <UserStats />
         </div>
     );
