@@ -11,6 +11,6 @@ router.use(requireAuth);
 router.get('/community', community);
 
 // profile page
-router.get('/profile', profile);
+router.get('/profile/:username', profile);
 
 module.exports = router;

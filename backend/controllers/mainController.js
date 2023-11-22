@@ -1,4 +1,8 @@
-const { getNowPlaying, getUserProfile, getTop} = require('../services/spotify');
+const {
+    getNowPlaying,
+    getUserProfile,
+    getTop,
+} = require('../services/spotify');
 const { getTopArtists } = require('../services/lastfm');
 const User = require('../models/userModel');
 
@@ -22,23 +26,47 @@ const community = async (req, res) => {
 };
 
 const profile = async (req, res) => {
-    const user = req.user;
+    const { username } = req.params;
+    try {
+        const user = await User.findOne({ username });
 
-    if (user.access_token && user.refresh_token) {
-        // send api call
-        const userProfile =  getUserProfile(user.access_token, user.refresh_token);
-        const nowPlaying = getNowPlaying(user.access_token, user.refresh_token);
-        const topSongs = getTop(user.access_token, user.refresh_token, 'track', '10', 'long_term');
+        const userProfile = await getUserProfile(
+            user.access_token,
+            user.refresh_token
+        );
+        const nowPlaying = await getNowPlaying(
+            user.access_token,
+            user.refresh_token
+        );
+        const topSongs = await getTop(
+            user.access_token,
+            user.refresh_token,
+            'tracks',
+            10,
+            'long_term'
+        );
+        const topArtists = await getTop(
+            user.access_token,
+            user.refresh_token,
+            'artists',
+            10,
+            'long_term'
+        );
 
-        const resultObject = { userProfile, nowPlaying, topSongs }
-        res.status(200).json(resultObject)
-    } else {
+        const resultObject = {
+            ...userProfile,
+            ...nowPlaying,
+            topSongs,
+            topArtists,
+        };
+        console.log(resultObject);
+        res.status(200).json(resultObject);
+    } catch (err) {
         res.status(401).json({ error: 'User not connected to Spotify!' });
     }
 };
 
-
 module.exports = {
     community,
-    profile
+    profile,
 };
