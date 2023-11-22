@@ -26,45 +26,19 @@ const profile = async (req, res) => {
 
     if (user.access_token && user.refresh_token) {
         // send api call
-        return getUserProfile(user.access_token, user.refresh_token);
+        const userProfile =  getUserProfile(user.access_token, user.refresh_token);
+        const nowPlaying = getNowPlaying(user.access_token, user.refresh_token);
+        const topSongs = getTop(user.access_token, user.refresh_token, 'track', '10', 'long_term');
+
+        const resultObject = { userProfile, nowPlaying, topSongs }
+        res.status(200).json(resultObject)
     } else {
         res.status(401).json({ error: 'User not connected to Spotify!' });
     }
-};
-
-const topSongs = async (req, res, type, limit, time_range) => {
-    const user = req.user;
-
-    if (user.access_token && user.refresh_token) {
-        // send api call
-        return getTop(user.access_token, user.refresh_token, type, limit, time_range);
-    } else {
-        res.status(401).json({ error: 'User not connected to Spotify!' });
-    }
-};
-
-const nowPlaying = async (req, res) => {
-    const user = req.user;
-
-    if (user.access_token && user.refresh_token) {
-        // send api call
-        return getNowPlaying(user.access_token, user.refresh_token);
-    } else {
-        res.status(401).json({ error: 'User not connected to Spotify!' });
-    }
-};
-
-const topArtists = async (username, limit, period) => {
-
-    return get(user.access_token, user.refresh_token, username, limit, period);
-
 };
 
 
 module.exports = {
     community,
-    profile,
-    topSongs,
-    nowPlaying,
-    topArtists
+    profile
 };
