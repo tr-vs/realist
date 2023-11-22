@@ -23,7 +23,7 @@ const Profile = () => {
 
         async function updateDB() {
             const response = await fetch(
-                'http://localhost:3000/api/users/token',
+                'https://realist.onrender.com/api/users/token',
                 {
                     method: 'PATCH',
                     body: JSON.stringify(data),
@@ -50,7 +50,7 @@ const Profile = () => {
                     Log Out
                 </button>
                 {!user.spotifyToken ? (
-                    <a href="http://localhost:3000/api/spotify/auth">
+                    <a href="https://realist.onrender.com/api/spotify/auth">
                         <button className="SpotifyConnect">
                             Connect to Spotify
                         </button>

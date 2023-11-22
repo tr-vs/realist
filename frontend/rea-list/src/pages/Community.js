@@ -10,7 +10,7 @@ const Community = () => {
 
     const fetchCommunityPostData = async () => {
         const response = await fetch(
-            'http://localhost:3000/api/main/community',
+            'https://realist.onrender.com/api/main/community',
             {
                 method: 'GET',
                 headers: {
