@@ -45,7 +45,8 @@ const Profile = () => {
 
         const fetchProfile = async () => {
             const response = await fetch(
-                'http://localhost:3000/api/main/profile/' + user.username,
+                'https://realist.onrender.com/api/main/profile/' +
+                    user.username,
                 {
                     method: 'GET',
                     headers: {
