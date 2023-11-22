@@ -30,11 +30,10 @@ const refreshToken = async (refresh_token) => {
     return token;
 };
 
-
 // type =  artists or tracks
 // limit = # btwn 1 to 50
 // time_range = long_term (calculated from several years of data including all new data as it becomes available)
-//              medium_term (approximately last 6 months), 
+//              medium_term (approximately last 6 months),
 //              short_term (approximately last 4 weeks).
 
 const getTop = async (token, refresh_token, type, limit, time_range) => {
@@ -47,10 +46,16 @@ const getTop = async (token, refresh_token, type, limit, time_range) => {
             },
         }
     ).then((r) => r.json());
-
     if (response.error?.message === 'The access token expired') {
         const refreshedToken = await refreshToken(refresh_token);
-        getTop(refreshedToken, refresh_token, type, limit, time_range);
+        const recall = await getTop(
+            refreshedToken,
+            refresh_token,
+            type,
+            limit,
+            time_range
+        );
+        return recall;
     } else {
         return response;
     }
@@ -66,6 +71,7 @@ const getRecentlyPlayed = async (token, refresh_token, limit) => {
             },
         }
     );
+
     if (response.status === 200) {
         const r = await response.json();
         return r.items[0];
@@ -109,11 +115,10 @@ const getUserProfile = async (token, refresh_token) => {
             Authorization: `Bearer ${token}`,
         },
     });
+
     if (response.status === 200) {
-        response.json().then((data) => {
-            console.log(data.images[1].url); // grabs url of image that's 300x300
-            return data;
-        });
+        const r = await response.json();
+        return r;
     } else if (response.status === 401) {
         const refreshedToken = await refreshToken(refresh_token);
         const recall = getUserProfile(refreshedToken, refresh_token);
