@@ -10,7 +10,7 @@ router.use(requireAuth);
 // community tab
 router.get('/community', community);
 
-// user profile route
-//router.get('/profile', profile);
+// profile page
+router.get('/profile', profile);
 
 module.exports = router;
