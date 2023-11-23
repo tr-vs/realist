@@ -6,6 +6,7 @@ import Profile from './pages/Profile';
 import SignUpPage from './pages/SignUpPage';
 import SignUp from './templates/SignUp';
 import LoginPage from './pages/LoginPage';
+import Landing from './pages/Landing';
 import { useAuthContext } from './hooks/useAuthContext';
 import { useState } from 'react';
 
@@ -31,6 +32,10 @@ function App() {
                 <Route
                     path="/loginpage"
                     element={!user ? <LoginPage /> : <Navigate to="/" />}
+                />
+                <Route 
+                    path="/landing"
+                    element={<Landing/>}
                 />
             </Routes>
         </BrowserRouter>
