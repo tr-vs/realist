@@ -6,6 +6,9 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { useEffect } from 'react';
 
 const SideBar = ({ isSidebarClicked }) => {
+    const { user } = useAuthContext();
+    const [error, setError] = useState(null);
+
     return (
         <div className="resize-handle">
             <div className={isSidebarClicked ? 'Sidebar active' : 'Sidebar'}>

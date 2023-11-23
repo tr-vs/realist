@@ -3,7 +3,6 @@ const fetch = require('node-fetch');
 require('dotenv').config()  // add this to import .env variablesconst params = stringify({
 
 const getTopArtists = async (username, limit, period) => {
-
     const response = querystring.stringify({
         method: 'user.getTopArtists',
         user: username,
@@ -13,9 +12,12 @@ const getTopArtists = async (username, limit, period) => {
         period: period
     });
     const data = await fetch(`https://ws.audioscrobbler.com/2.0/?${response}`).then(r=> r.json());
-    console.log(data.topartists.artist.map((x) => x.name));
-    return data.topartists;
+    // console.log(data.topartists.artist.map((x) => x.name));
+    console.log(data.topartists.artist);
+    return data.topartists.artist;
 }
 
 
-getTopArtists('chasin_jasonnn', 10, '3day');
+module.exports = {
+    getTopArtists
+}

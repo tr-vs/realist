@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Color from 'color-thief-react';
 import '../styles/PostsStyles.css';
 const Posts = (props) => {
@@ -8,6 +8,9 @@ const Posts = (props) => {
     // Artist of Song
 
     const [predominantColor, setPredominantColor] = useState('');
+    const [showSongPlayer, setShowSongPlayer] = useState(false);
+    const [animateLeft, setAnimateLeft] = useState(false)
+    const [showSongInfo, setShowSongInfo] = useState(false);
 
     const links = [
         'https://media.pitchfork.com/photos/5929c43cea9e61561daa80db/master/pass/a240bddc.jpg',
@@ -19,12 +22,17 @@ const Posts = (props) => {
     let song = 'Song';
     let artist = 'Artist';
     let cover = links[0];
+    let id = '';
     if (props.data !== undefined) {
         nowPlaying = JSON.parse(props.data.nowPlaying);
 
         if (nowPlaying.item !== undefined) {
+
+        if (nowPlaying.item !== undefined) {
             cover = nowPlaying.item.album.images[1].url;
             song = nowPlaying.item.name;
+            id = nowPlaying.item.id;
+            id = nowPlaying.item.id;
             const artists = nowPlaying.item.artists.map(
                 (artist) => artist.name
             );
@@ -32,6 +40,8 @@ const Posts = (props) => {
         } else {
             cover = nowPlaying.track.album.images[1].url;
             song = nowPlaying.track.name;
+            id = nowPlaying.track.id;
+            id = nowPlaying.track.id;
             const artists = nowPlaying.track.artists.map(
                 (artist) => artist.name
             );
@@ -53,27 +63,58 @@ const Posts = (props) => {
                 alt=""
                 onMouseOver={() => {
                     document.getElementById(song).style.transform =
-                        'translate(12px, 12px)';
+                        'translate(-12px, -12px)';
                     document.getElementById(
                         song
-                    ).style.boxShadow = `0 0 0px 0px ${predominantColor}`;
+                    ).style.boxShadow = `12px 12px 20px 3px ${predominantColor}`;
                 }}
                 onMouseOut={() => {
                     document.getElementById(song).style.transform =
                         'translate(0px, 0px)';
                     document.getElementById(
                         song
-                    ).style.boxShadow = `12px 12px 20px 3px ${predominantColor}`;
+                    ).style.boxShadow = `0px 0px 0px 0px ${predominantColor}`;
+                }}
+                onClick={() => {
+                    setShowSongPlayer(!showSongPlayer);
                 }}
             />
             <div className="song-info">
                 <h4>{username}</h4>
-                <h3>{song}</h3>
-                <h3>{artist}</h3>
+                {!showSongInfo && (
+                    <h3 className={`song-stat ${animateLeft ? 'slide-left' : ''}`}>
+                        {song}
+                    </h3>
+                )}
+                {!showSongInfo && (
+                    <h3 className={`song-stat ${animateLeft ? 'slide-left' : ''}`}>
+                        {artist}
+                    </h3>
+                )}
                 <h5>Reaction: </h5>
+<<<<<<< HEAD
+                {/* comment  test comment*/}
+=======
                 {/* comment */}
+>>>>>>> 8938e60411cc024f7cbfaf93c62da43136423fcc
+            </div>
+            <div className="song-player">
+                {showSongPlayer && (
+                    <iframe
+                        style={{ border: 12 }}
+                        className="slide-in"
+                        src={`https://open.spotify.com/embed/track/${id}`}
+                        width="100%"
+                        height="300px"
+                        frameBorder="0"
+                        allowfullscreen=""
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy"
+                    ></iframe>
+                )}
             </div>
         </div>
     );
+}
 };
 export default Posts;

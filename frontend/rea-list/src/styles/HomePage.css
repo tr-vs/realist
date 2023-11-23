@@ -6,6 +6,6 @@ body {
     display: flex;
 }
 
-/* .page-content {
-    display: flex;
-} */
+.page-content {
+    width: 100%;
+}

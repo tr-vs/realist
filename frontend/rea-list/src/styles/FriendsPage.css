@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 100px;
+    width: 100%;
 }
 
 .page-title {
@@ -9,4 +10,35 @@
     padding-left: 70px;
     font-size: 25px;
     font-weight: 600;
+}
+
+.total-post-container {
+    display: flex;
+    width: 100%;
+}
+
+.playlist-container {
+    margin-top: 100px;
+    padding: 10px;
+}
+
+.playlist-generator {
+    cursor: pointer;
+    margin: 0;
+    padding-bottom: 10px;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    padding-left: 70px;
+    font-size: 25px;
+    font-weight: 600;
+    
+}
+.playlist-generator:hover {
+    color: #d3f3f1;
+}
+
+.post-contents-titles-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }

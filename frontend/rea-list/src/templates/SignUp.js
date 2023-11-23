@@ -45,7 +45,6 @@ const lightTheme = createTheme();
 
 export default function SignUp() {
     const [showPassReq, setShowPassReq] = useState(false);
-    const navigate = useNavigate();
     const { signup, error, isLoading } = useSignup();
 
     // Add new user to database
