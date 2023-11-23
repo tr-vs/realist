@@ -9,7 +9,7 @@ const Posts = (props) => {
 
     const [predominantColor, setPredominantColor] = useState('');
     const [showSongPlayer, setShowSongPlayer] = useState(false);
-    const [animateLeft, setAnimateLeft] = useState(false)
+    const [animateLeft, setAnimateLeft] = useState(false);
     const [showSongInfo, setShowSongInfo] = useState(false);
 
     const links = [
@@ -25,9 +25,6 @@ const Posts = (props) => {
     let id = '';
     if (props.data !== undefined) {
         nowPlaying = JSON.parse(props.data.nowPlaying);
-
-        if (nowPlaying.item !== undefined) {
-
         if (nowPlaying.item !== undefined) {
             cover = nowPlaying.item.album.images[1].url;
             song = nowPlaying.item.name;
@@ -48,7 +45,6 @@ const Posts = (props) => {
             artist = artists.join(', ');
         }
     }
-
     return (
         <div className="profile-content">
             <Color src={cover} crossOrigin="anonymous" format="hex">
@@ -82,21 +78,25 @@ const Posts = (props) => {
             <div className="song-info">
                 <h4>{username}</h4>
                 {!showSongInfo && (
-                    <h3 className={`song-stat ${animateLeft ? 'slide-left' : ''}`}>
+                    <h3
+                        className={`song-stat ${
+                            animateLeft ? 'slide-left' : ''
+                        }`}
+                    >
                         {song}
                     </h3>
                 )}
                 {!showSongInfo && (
-                    <h3 className={`song-stat ${animateLeft ? 'slide-left' : ''}`}>
+                    <h3
+                        className={`song-stat ${
+                            animateLeft ? 'slide-left' : ''
+                        }`}
+                    >
                         {artist}
                     </h3>
                 )}
                 <h5>Reaction: </h5>
-<<<<<<< HEAD
                 {/* comment  test comment*/}
-=======
-                {/* comment */}
->>>>>>> 8938e60411cc024f7cbfaf93c62da43136423fcc
             </div>
             <div className="song-player">
                 {showSongPlayer && (
@@ -115,6 +115,5 @@ const Posts = (props) => {
             </div>
         </div>
     );
-}
 };
 export default Posts;

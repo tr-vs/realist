@@ -26,7 +26,7 @@ const refreshToken = async (refresh_token) => {
 
     const token = response.access_token;
 
-    // await User.findOneAndUpdate({ refresh_token }, { access_token: token });
+    await User.findOneAndUpdate({ refresh_token }, { access_token: token });
     return token;
 };
 
@@ -77,7 +77,11 @@ const getRecentlyPlayed = async (token, refresh_token, limit) => {
         return r.items[0];
     } else if (response.status === 401) {
         const refreshedToken = await refreshToken(refresh_token);
-        const recall = getRecentlyPlayed(refreshedToken, refresh_token, limit);
+        const recall = await getRecentlyPlayed(
+            refreshedToken,
+            refresh_token,
+            limit
+        );
         return recall;
     }
 };
@@ -103,7 +107,7 @@ const getNowPlaying = async (token, refresh_token) => {
         return lastPlayedSong;
     } else if (response.status === 401) {
         const refreshedToken = await refreshToken(refresh_token);
-        const recall = getNowPlaying(refreshedToken, refresh_token);
+        const recall = await getNowPlaying(refreshedToken, refresh_token);
         return recall;
     }
 };
@@ -121,7 +125,7 @@ const getUserProfile = async (token, refresh_token) => {
         return r;
     } else if (response.status === 401) {
         const refreshedToken = await refreshToken(refresh_token);
-        const recall = getUserProfile(refreshedToken, refresh_token);
+        const recall = await getUserProfile(refreshedToken, refresh_token);
         return recall;
     }
 };

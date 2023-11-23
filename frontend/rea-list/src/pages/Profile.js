@@ -70,16 +70,11 @@ const Profile = () => {
     });
     return (
         <div>
-<<<<<<< HEAD
             <UserHead pfp={pfp} username={user.username} />
-=======
-            <UserHead />
->>>>>>> 8938e60411cc024f7cbfaf93c62da43136423fcc
             <div className="logout">
                 <button className="LogoutButton" onClick={handleClick}>
                     Log Out
                 </button>
-<<<<<<< HEAD
                 {!user.spotifyToken ? (
                     <a href="http://localhost:3000/api/spotify/auth">
                         <button className="SpotifyConnect">
@@ -92,12 +87,6 @@ const Profile = () => {
             </div>
 
             <UserStats artists={artists} songs={songs} />
-=======
-                <button className="Connect2Spotify">Connect to Spotify</button>
-            </div>
-            <a href="http://localhost:3000/api/spotify/auth"></a>
-            <UserStats />
->>>>>>> 8938e60411cc024f7cbfaf93c62da43136423fcc
         </div>
     );
 };
