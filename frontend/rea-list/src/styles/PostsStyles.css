@@ -9,9 +9,14 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     /* box-shadow: 12px 12px 20px 3px #a6a6de; */
     box-shadow: 0 0 0px 0px #a6a6de;
+    /* box-shadow: 12px 12px 20px 3px #a6a6de; */
+    box-shadow: 0 0 0px 0px #a6a6de;
 }
 
 .cover-images:hover {
+    transform: translate(-12px, -12px);
+    /* box-shadow: 0 0 0px 0px #a6a6de; */
+    box-shadow: 12px 12px 20px 3px #a6a6de;
     transform: translate(-12px, -12px);
     /* box-shadow: 0 0 0px 0px #a6a6de; */
     box-shadow: 12px 12px 20px 3px #a6a6de;
@@ -22,25 +27,40 @@
 }
 
 .song-info {
-   padding: 20px;
+    padding: 20px;
 }
 
 .song-player {
     overflow: hidden;
-    width:50vh;
-    padding: 20px;
-    justify-content: center;
+    width: 50vh;
+    width: 50vh;
     display: flex;
-    flex-direction: column;
 }
 
 .slide-in {
     transform: translateX(-100%);
-    animation: slideIn 0.5s forwards;
-  }
-  
-  @keyframes slideIn {
+    animation: slideIn 0.4s forwards;
+}
+
+@keyframes slideIn {
     to {
-      transform: translateX(0);
+        transform: translateX(0);
     }
-  }
+}
+
+.slide-left {
+    transform: translateX(50%);
+    transition: transform 0.2s ease-in-out;
+    z-index: -100;
+}
+
+/* @keyframes slideIn {
+    to {
+      transform: translateX(-100%);
+    }
+  } */
+
+.username-container {
+    display: flex;
+    justify-content: top;
+}

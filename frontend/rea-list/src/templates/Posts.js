@@ -9,6 +9,8 @@ const Posts = (props) => {
 
     const [predominantColor, setPredominantColor] = useState('');
     const [showSongPlayer, setShowSongPlayer] = useState(false);
+    const [animateLeft, setAnimateLeft] = useState(false);
+    const [showSongInfo, setShowSongInfo] = useState(false);
 
     const links = [
         'https://media.pitchfork.com/photos/5929c43cea9e61561daa80db/master/pass/a240bddc.jpg',
@@ -23,10 +25,10 @@ const Posts = (props) => {
     let id = '';
     if (props.data !== undefined) {
         nowPlaying = JSON.parse(props.data.nowPlaying);
-
         if (nowPlaying.item !== undefined) {
             cover = nowPlaying.item.album.images[1].url;
             song = nowPlaying.item.name;
+            id = nowPlaying.item.id;
             id = nowPlaying.item.id;
             const artists = nowPlaying.item.artists.map(
                 (artist) => artist.name
@@ -36,13 +38,13 @@ const Posts = (props) => {
             cover = nowPlaying.track.album.images[1].url;
             song = nowPlaying.track.name;
             id = nowPlaying.track.id;
+            id = nowPlaying.track.id;
             const artists = nowPlaying.track.artists.map(
                 (artist) => artist.name
             );
             artist = artists.join(', ');
         }
     }
-
     return (
         <div className="profile-content">
             <Color src={cover} crossOrigin="anonymous" format="hex">
@@ -75,10 +77,26 @@ const Posts = (props) => {
             />
             <div className="song-info">
                 <h4>{username}</h4>
-                <h3>{song}</h3>
-                <h3>{artist}</h3>
+                {!showSongInfo && (
+                    <h3
+                        className={`song-stat ${
+                            animateLeft ? 'slide-left' : ''
+                        }`}
+                    >
+                        {song}
+                    </h3>
+                )}
+                {!showSongInfo && (
+                    <h3
+                        className={`song-stat ${
+                            animateLeft ? 'slide-left' : ''
+                        }`}
+                    >
+                        {artist}
+                    </h3>
+                )}
                 <h5>Reaction: </h5>
-                {/* comment */}
+                {/* comment  test comment*/}
             </div>
             <div className="song-player">
                 {showSongPlayer && (

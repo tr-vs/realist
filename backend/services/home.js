@@ -14,7 +14,7 @@ const updateNowPlaying = async () => {
         );
         if (
             nowPlaying === undefined ||
-            nowPlaying.currently_playing_type === 'episode'
+            nowPlaying.currently_playing_type !== 'track'
         )
             continue;
         user.nowPlaying = JSON.stringify(nowPlaying);

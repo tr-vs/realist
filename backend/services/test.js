@@ -1,4 +1,3 @@
-
 // from spotify.js
 const {
     refreshToken,
@@ -7,16 +6,15 @@ const {
     getRecentlyPlayed,
 } = require('./spotify');
 
-
 //from controllers/mainControllers.js
 const {
-    profile, topSongs, nowPlaying
+    profile,
+    topSongs,
+    nowPlaying,
 } = require('../controllers/mainController');
 
-
 // from lastfm.js
-const {getTopArtists}
-= require('./lastfm')
+const { getTopArtists } = require('./lastfm');
 
 // For testing
 const TOKEN =
@@ -44,7 +42,6 @@ const TOKEN6 =
 const REFRESH6 =
     'AQAZrUNRQSNECD79DMoNTy6ZXRPRWvl4EOQ1PEhLuqyC8H2PlUPT3RHGbrANOJDz0yggO-FF7HDkojADJg1r5KFiaGq69lYtxKKQmuNdfVMWzxVw2r935NYty3hWqjV4pwk';
 
-
 // SPOTIFY.js TEST CASES
 //getTop(TOKEN, REFRESH, 'tracks', '10', 'long_term');
 // const asdf = async () => {
@@ -69,11 +66,9 @@ const REFRESH6 =
 //Last fm Test Cases
 getTopArtists('chasin_jasonnn', 10, '3day');
 
-
 //MainController test cases
 const bon = async () => {
     const profile = await (TOKEN5, REFRESH5);
     console.log(bruh.is_playing);
     console.log(bruh);
 };
-
