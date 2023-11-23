@@ -1,0 +1,58 @@
+.landing-container {
+    display: flex;
+  justify-content: center; /* Horizontally center content */
+  align-items: center; /* Vertically center content */
+  height: 100vh; /* Adjust to your needs */
+  flex-direction: column;
+}
+
+.site-name {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    color: white;
+    text-align: center;
+    font-size:x-large;
+}
+
+/* ARROW BUTTON STYLES */
+
+.arrow {
+	border: solid black;
+	border-color: #575757;
+	border-width: 0 3px 3px 0;
+	
+	padding: 10px;
+	
+  	-webkit-transform: rotate(45deg);
+  	transition: 0.3s;
+  	animation: bounce 3s infinite;
+  	margin: 20px;
+}
+
+.arrow:hover {
+	-webkit-animation-play-state: paused;
+	opacity: 60%;
+	transform: scale(1.25) rotate(45deg);
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) rotate(45deg);
+  }
+  40% {
+    transform: translateY(-30px) rotate(45deg);
+  }
+  60% {
+    transform: translateY(-15px) rotate(45deg);
+  }
+}
+
+
+/* INFORMATION STYLES */
+
+.info-container {
+    height: 1000px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: wheat;
+}
