@@ -18,7 +18,7 @@ function App() {
             <Routes>
                 <Route
                     path="/"
-                    element={user ? <Home /> : <Navigate to="/loginpage" />}
+                    element={user ? <Home /> : <Navigate to="/landing" />}
                     exact
                 />
                 <Route
@@ -35,7 +35,7 @@ function App() {
                 />
                 <Route 
                     path="/landing"
-                    element={<Landing/>}
+                    element={<Landing />}
                 />
             </Routes>
         </BrowserRouter>
