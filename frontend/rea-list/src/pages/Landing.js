@@ -70,8 +70,8 @@ const Landing = () => {
                     
                 </swiper-container>
                 <div className='button-holder'>
-                    <Link href="/signup" variant="body2">
-                        <p className='button-text'>Get Started</p>
+                    <Link to={"/signup"}>
+                        <p href='/signup' className='button-text'>Get Started</p>
                     </Link>
                 </div>
                 
