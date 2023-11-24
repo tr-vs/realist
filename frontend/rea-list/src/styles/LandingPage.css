@@ -1,5 +1,5 @@
 .landing-container {
-    display: flex;
+  display: flex;
   justify-content: center; /* Horizontally center content */
   align-items: center; /* Vertically center content */
   height: 100vh; /* Adjust to your needs */
@@ -49,10 +49,276 @@
 
 /* INFORMATION STYLES */
 
+#info-section {
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .info-container {
-    height: 1000px; 
+    color: wheat;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: wheat;
+}
+
+.text-containers{
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Horizontally center content */
+  align-items: center; /* Vertically center content */
+  height: 48.17vh;
+  width: 43vh;
+}
+
+.text-content{
+  width: 100%;
+  font-size: small;
+  align-items: center;
+  text-align: center;
+}
+
+
+/* ALBUM COVERS */
+
+.album-covers {
+  display: flex;
+  position: absolute;
+  z-index: 1; /* Ensure the album covers appear above other content */
+}
+
+/* First Album Set Container  */
+
+.album-cover-container1 {
+  height: 60vh;
+  width: 60vh;
+}
+
+.album-cover1 {
+  width: 25.06vh;
+  height: 25.06vh;
+  top:-2.506vh;
+  left: -7.518vh;
+  position: absolute;
+  transition: all 0.5s ease;
+}
+
+.album-cover2 {
+  width: 25.06vh;
+  height: 25.06vh;
+  top: 25.06vh; /* Adjust the top position as needed */
+  left: 2.506vh; /* Adjust the left position as needed */
+  position: absolute;
+  transition: all 0.5s ease;
+}
+
+.album-cover3 {
+  width: 25.06vh;
+  height: 25.06vh;
+  top: 5.639vh; /* Adjust the top position as needed */
+  left: 18.79vh; /* Adjust the left position as needed */
+  position: absolute;
+  transition: all 0.5s ease;
+}
+.album-cover4 {
+  width: 25.06vh;
+  height: 25.06vh;
+  top: 25.06vh; /* Adjust the top position as needed */
+  left: 25.06vh; /* Adjust the left position as needed */
+  position: absolute;
+  transition: all 0.5s ease;
+}
+.album-cover5 {
+  width: 25.06vh;
+  height: 25.06vh;
+  top: 45.11vh; /* Adjust the top position as needed */
+  left: 31.32vh; /* Adjust the left position as needed */
+  position: absolute;
+  transition: all 0.5s ease;
+}
+
+.album-cover6 {
+  width: 25.06vh;
+  height: 25.06vh;
+  top: 37.58vh; /* Adjust the top position as needed */
+  left: 52.63vh; /* Adjust the left position as needed */
+  position: absolute;
+  transition: all 0.5s ease;
+}
+
+.album-cover7 {
+  width: 25.06vh;
+  height: 25.06vh;
+  top: 51.63vh; /* Adjust the top position as needed */
+  left: 46.36vh; /* Adjust the left position as needed */
+  position: absolute;
+  transition: all 0.5s ease;
+}
+
+.album-cover8 {
+  width: 25.06vh;
+  height: 25.06vh;
+  top: 50.12vh; /* Adjust the top position as needed */
+  left: 12.53vh; /* Adjust the left position as needed */
+  position: absolute;
+  transition: all 0.5s ease;
+}
+
+.album-cover9 {
+  width: 25.06vh;
+  height: 25.06vh;
+  top: 15.03vh; /* Adjust the top position as needed */
+  left: 47.6vh; /* Adjust the left position as needed */
+  position: absolute;
+  transition: all 0.5s ease;
+}
+
+.album-cover10 {
+  width: 25.06vh;
+  height: 25.06vh;
+  top: 38vh; /* Adjust the top position as needed */
+  left: -6.26vh; /* Adjust the left position as needed */
+  position: absolute;
+  transition: all 0.5s ease;
+}
+
+.album-cover11 {
+  width: 25.06vh;
+  height: 25.06vh;
+  top: -1.25vh; /* Adjust the top position as needed */
+  left: 40.1vh; /* Adjust the left position as needed */
+  position: absolute;
+  transition: all 0.5s ease;
+}
+
+/* Hover effect */
+
+.album-cover-container1:hover .album-cover1 {
+  top: -10vh;
+  left: -10vh;
+  box-shadow: 0 0 20px 3px white;
+}
+
+.album-cover-container1:hover .album-cover2 {
+  left: -35vh;
+  top: 18vh;
+}
+
+.album-cover-container1:hover .album-cover3 {
+  top:-20vh;
+  left: 25vh
+}
+
+.album-cover-container1:hover .album-cover4 {
+  top:-6vh;
+  left:-45vh;
+}
+
+.album-cover-container1:hover .album-cover5 {
+  top: 35vh;
+  left: -49vh
+}
+
+.album-cover-container1:hover .album-cover6 {
+  left:80vh
+}
+
+.album-cover-container1:hover .album-cover7 {
+  left:50vh;
+  box-shadow: 0 0 20px 3px white;
+}
+
+.album-cover-container1:hover .album-cover8 {
+  top: 50vh;
+}
+
+.album-cover-container1:hover .album-cover9 {
+  left: 56vh;
+  top: 17vh;
+}
+
+.album-cover-container1:hover .album-cover10 {
+  left:-15vh;
+  top: 45vh;
+  box-shadow: 0 0 20px 3px white;
+}
+
+.album-cover-container1:hover .album-cover11 {
+  top:-10vh;
+  left: 60vh;
+  box-shadow: 0 0 20px 3px white;
+  
+}
+
+
+/* Carosel */
+
+swiper-container{
+  width: 80vh;
+  height:60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+swiper-slide{
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50vh;
+}
+
+swiper-button-next,
+swiper-button-prev {
+    color: red; /* Set your desired arrow color */
+}
+
+/* Bottom Section */
+
+#bottom-section {
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: antiquewhite;
+}
+
+
+/* Button Holder  */
+
+.button-holder {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  position: fixed;
+  bottom: 0;
+  width: 5%;
+  background-color: rgb(34, 34, 34); 
+  color: #fff; /* Set the text color of your navbar */
+  padding: 15px;
+  text-align: center;
+  z-index: 1000;
+  border-radius: 20px;
+  margin: 15px;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.button-holder:hover {
+  transform: scale(1.1);
+}
+
+.button-text {
+  color:white; 
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  margin: 0%;
+  font-size: small;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
 }
