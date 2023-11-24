@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Color from 'color-thief-react';
+import ProfileIcon from './ProfileIcon';
 import '../styles/PostsStyles.css';
 const Posts = (props) => {
     // props to pass:
@@ -76,10 +77,14 @@ const Posts = (props) => {
                 }}
             />
             <div className="song-info">
-                <h4>{username}</h4>
+                <div className='user-profile-container'>
+                    <h4>{username}</h4>
+                    <ProfileIcon/>
+                </div>
+                
                 {!showSongInfo && (
                     <h3
-                        className={`song-stat ${
+                        className={`song-name ${
                             animateLeft ? 'slide-left' : ''
                         }`}
                     >
