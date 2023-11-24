@@ -28,6 +28,13 @@
 
 .song-info {
     padding: 20px;
+    width: 12%;
+}
+
+.song-name {
+    
+    white-space: nowrap;
+    /* animation: scrollText 10s linear infinite; */
 }
 
 .song-player {
@@ -65,4 +72,11 @@
 .username-container {
     display: flex;
     justify-content: top;
+}
+
+
+.user-profile-container {
+    display: flex;
+    width: auto;
+    align-items: center;
 }
