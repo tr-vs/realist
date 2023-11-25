@@ -23,16 +23,34 @@ const SideBar = ({ isSidebarClicked }) => {
                     </div>
 
                     <div className="information-container">
-                        <h2>Song Name</h2>
-                        <h2>Artist</h2>
-                        <h3>Top Artists Today: </h3>
-                        <ul>
-                            <li>Chief Keef</li>
-                            <li>Chief Keef</li>
-                            <li>Chief Keef</li>
-                            <li>Chief Keef</li>
-                            <li>Chief Keef</li>
-                        </ul>
+                        <div className='current-song-info'>
+                            <h1 className='current-song-info-text'>Listening to:</h1>
+                            <h2 className='current-song-info-text'>Song Name</h2>
+                            <h2 className='current-song-info-text'>Artist</h2>
+                        </div>
+                        
+                        
+                        <div className='recommended-song'>
+                            <h3 className='recommended-song-text'> songs for you </h3>
+                            <iframe style={{border:12, height:80}} 
+                                    src="https://open.spotify.com/embed/track/6scpNkWEmUxmKY7nYjVLsX?utm_source=generator" 
+                                    width="80%" 
+                                    height="100%"  
+                                    allowfullscreen="" 
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                    loading="lazy">
+                            </iframe>
+                            <iframe style={{border:12, height:80}} 
+                                    src="https://open.spotify.com/embed/track/3bBmpVl9rQKJsFFGLFilIS?utm_source=generator" 
+                                    width="80%" 
+                                    height="100%"  
+                                    allowfullscreen="" 
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                    loading="lazy">
+                            </iframe>
+                           
+                            
+                        </div>
                     </div>
                 </div>
             </div>
