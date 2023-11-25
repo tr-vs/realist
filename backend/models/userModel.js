@@ -35,6 +35,11 @@ const userSchema = new Schema({
     nowPlaying: {
         type: String,
     },
+    pfp: {
+        type: String,
+        default:
+            'https://static.vecteezy.com/system/resources/thumbnails/019/879/186/small/user-icon-on-transparent-background-free-png.png',
+    },
 });
 
 // static signup method

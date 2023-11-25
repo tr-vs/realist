@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Color from 'color-thief-react';
 import ProfileIcon from './ProfileIcon';
 import '../styles/PostsStyles.css';
-const Posts = (props) => {
+const Posts = ({ data }) => {
     // props to pass:
     // Username
     // Song Name
@@ -18,14 +18,16 @@ const Posts = (props) => {
         'https://images.squarespace-cdn.com/content/v1/5e40c67d62402c0ce36a6bf0/1603566903470-375SZI5GD0F53P2LPGXR/Ef1eZcOX0AEmSs_.jpg',
         'https://upload.wikimedia.org/wikipedia/en/5/5e/Madvillainy_cover.png',
     ];
-    const username = props.data ? props.data.username : 'Username';
+
+    const pfp = data ? data.pfp : undefined;
+    const username = data ? data.username : 'Username';
     let nowPlaying = 'asdf';
     let name = 'Song';
     let artist = 'Artist';
     let cover = links[0];
     let id = '';
-    if (props.data !== undefined) {
-        nowPlaying = JSON.parse(props.data.nowPlaying);
+    if (data !== undefined) {
+        nowPlaying = JSON.parse(data.nowPlaying);
         if (nowPlaying.item !== undefined) {
             cover = nowPlaying.item.album.images[1].url;
             ({ name, id } = nowPlaying.item);
@@ -75,7 +77,7 @@ const Posts = (props) => {
             <div className="song-info">
                 <div className="user-profile-container">
                     <h4>{username}</h4>
-                    <ProfileIcon />
+                    <ProfileIcon pfp={pfp} />
                 </div>
 
                 {!showSongInfo && (

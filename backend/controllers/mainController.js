@@ -48,7 +48,10 @@ const profile = async (req, res) => {
             ),
         ]);
 
-        user.pfp = userProfile.images[1].url;
+        user.pfp =
+            userProfile.images[0]?.url !== undefined
+                ? userProfile.images[0].url
+                : user.pfp;
 
         const resultObject = {
             ...userProfile,
@@ -63,7 +66,22 @@ const profile = async (req, res) => {
     }
 };
 
+const navbar = async (req, res) => {
+    const { username } = req.params;
+
+    try {
+        const { pfp } = await User.findOne({ username });
+
+        res.status(200).json({ pfp });
+    } catch (err) {
+        res.status(401).json({
+            error: 'User has no affiliated profile picture!',
+        });
+    }
+};
+
 module.exports = {
     community,
     profile,
+    navbar,
 };
