@@ -7,6 +7,7 @@ import SignUpPage from './pages/SignUpPage';
 import SignUp from './templates/SignUp';
 import LoginPage from './pages/LoginPage';
 import Landing from './pages/Landing';
+import OtherProfile from './pages/OtherProfile';
 import { useAuthContext } from './hooks/useAuthContext';
 import { useState } from 'react';
 
@@ -25,6 +26,12 @@ function App() {
                     path="/profile"
                     element={user ? <Profile /> : <Navigate to="/loginpage" />}
                 />
+
+                <Route
+                    path="/user"
+                    element={<OtherProfile/>}
+                />
+
                 <Route
                     path="/signup"
                     element={!user ? <SignUpPage /> : <Navigate to="/" />}
