@@ -16,7 +16,7 @@ const community = async (req, res) => {
                 school: user.school,
                 nowPlaying: { $exists: true },
             },
-            'username nowPlaying'
+            'username nowPlaying pfp'
         );
 
         res.status(200).json(communityUsers);
@@ -30,37 +30,34 @@ const profile = async (req, res) => {
     try {
         const user = await User.findOne({ username });
 
-        const userProfile = await getUserProfile(
-            user.access_token,
-            user.refresh_token
-        );
-        const nowPlaying = await getNowPlaying(
-            user.access_token,
-            user.refresh_token
-        );
-        const topSongs = await getTop(
-            user.access_token,
-            user.refresh_token,
-            'tracks',
-            10,
-            'long_term'
-        );
-        const topArtists = await getTop(
-            user.access_token,
-            user.refresh_token,
-            'artists',
-            10,
-            'long_term'
-        );
+        const [userProfile, topSongs, topArtists] = await Promise.all([
+            getUserProfile(user.access_token, user.refresh_token),
+            getTop(
+                user.access_token,
+                user.refresh_token,
+                'tracks',
+                10,
+                'long_term'
+            ),
+            getTop(
+                user.access_token,
+                user.refresh_token,
+                'artists',
+                10,
+                'long_term'
+            ),
+        ]);
+
+        user.pfp = userProfile.images[1].url;
 
         const resultObject = {
             ...userProfile,
-            ...nowPlaying,
             topSongs,
             topArtists,
         };
-        console.log(resultObject);
+
         res.status(200).json(resultObject);
+        await user.save();
     } catch (err) {
         res.status(401).json({ error: 'User not connected to Spotify!' });
     }
