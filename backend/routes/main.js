@@ -1,5 +1,5 @@
 const express = require('express');
-const { community, profile } = require('../controllers/mainController');
+const { community, profile, navbar } = require('../controllers/mainController');
 const requireAuth = require('../middleware/requireAuth');
 
 const router = express.Router();
@@ -12,5 +12,8 @@ router.get('/community', community);
 
 // profile page
 router.get('/profile/:username', profile);
+
+// navbar profile icon
+router.get('/navbar/:username', navbar);
 
 module.exports = router;

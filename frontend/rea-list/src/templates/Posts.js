@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Color from 'color-thief-react';
 import ProfileIcon from './ProfileIcon';
 import '../styles/PostsStyles.css';
-const Posts = (props) => {
+const Posts = ({ data }) => {
     // props to pass:
     // Username
     // Song Name
@@ -18,28 +18,26 @@ const Posts = (props) => {
         'https://images.squarespace-cdn.com/content/v1/5e40c67d62402c0ce36a6bf0/1603566903470-375SZI5GD0F53P2LPGXR/Ef1eZcOX0AEmSs_.jpg',
         'https://upload.wikimedia.org/wikipedia/en/5/5e/Madvillainy_cover.png',
     ];
-    const username = props.data ? props.data.username : 'Username';
+
+    const pfp = data ? data.pfp : undefined;
+    const username = data ? data.username : 'Username';
     let nowPlaying = 'asdf';
-    let song = 'Song';
+    let name = 'Song';
     let artist = 'Artist';
     let cover = links[0];
     let id = '';
-    if (props.data !== undefined) {
-        nowPlaying = JSON.parse(props.data.nowPlaying);
+    if (data !== undefined) {
+        nowPlaying = JSON.parse(data.nowPlaying);
         if (nowPlaying.item !== undefined) {
             cover = nowPlaying.item.album.images[1].url;
-            song = nowPlaying.item.name;
-            id = nowPlaying.item.id;
-            id = nowPlaying.item.id;
+            ({ name, id } = nowPlaying.item);
             const artists = nowPlaying.item.artists.map(
                 (artist) => artist.name
             );
             artist = artists.join(', ');
         } else {
             cover = nowPlaying.track.album.images[1].url;
-            song = nowPlaying.track.name;
-            id = nowPlaying.track.id;
-            id = nowPlaying.track.id;
+            ({ name, id } = nowPlaying.track);
             const artists = nowPlaying.track.artists.map(
                 (artist) => artist.name
             );
@@ -54,22 +52,22 @@ const Posts = (props) => {
                 }}
             </Color>
             <img
-                id={song}
+                id={name}
                 className="cover-images"
                 src={cover}
                 alt=""
                 onMouseOver={() => {
-                    document.getElementById(song).style.transform =
+                    document.getElementById(name).style.transform =
                         'translate(-12px, -12px)';
                     document.getElementById(
-                        song
+                        name
                     ).style.boxShadow = `12px 12px 20px 3px ${predominantColor}`;
                 }}
                 onMouseOut={() => {
-                    document.getElementById(song).style.transform =
+                    document.getElementById(name).style.transform =
                         'translate(0px, 0px)';
                     document.getElementById(
-                        song
+                        name
                     ).style.boxShadow = `0px 0px 0px 0px ${predominantColor}`;
                 }}
                 onClick={() => {
@@ -77,18 +75,18 @@ const Posts = (props) => {
                 }}
             />
             <div className="song-info">
-                <div className='user-profile-container'>
+                <div className="user-profile-container">
                     <h4>{username}</h4>
-                    <ProfileIcon/>
+                    <ProfileIcon pfp={pfp} />
                 </div>
-                
+
                 {!showSongInfo && (
                     <h3
                         className={`song-name ${
                             animateLeft ? 'slide-left' : ''
                         }`}
                     >
-                        {song}
+                        {name}
                     </h3>
                 )}
                 {!showSongInfo && (

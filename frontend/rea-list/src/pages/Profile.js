@@ -68,7 +68,7 @@ const Profile = () => {
         if (pfp === null) {
             fetchProfile();
         }
-    });
+    }, []);
     return (
         <div>
             <UserHead pfp={pfp} username={user.username} />
