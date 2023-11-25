@@ -5,7 +5,6 @@ import { useAuthContext } from '../hooks/useAuthContext';
 
 const Community = () => {
     const { user } = useAuthContext();
-    const [fetched, setFetched] = useState(false);
     const [communityPosts, setCommunityPosts] = useState([]);
 
     const fetchCommunityPostData = async () => {
@@ -25,14 +24,11 @@ const Community = () => {
         });
 
         setCommunityPosts(posts);
-        setFetched(true);
     };
 
     useEffect(() => {
-        if (!fetched) {
-            fetchCommunityPostData();
-        }
-    });
+        fetchCommunityPostData();
+    }, []);
 
     return (
         <div className="post-contents">
