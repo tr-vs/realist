@@ -1,16 +1,27 @@
-import '../styles/NavbarStyles.css'
+import '../styles/NavbarStyles.css';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuBar from '../svg/MenuBar';
 import CancelButton from '../svg/CancelButton';
 import Magnify from '../svg/Magnify';
 import ProfileIcon from './ProfileIcon';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
 
-const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, setIsFriendsClicked, isSidebarClicked, setIsSidebarClicked}) => {
-
+const Navbar = ({
+    isCommunityClicked,
+    isFriendsClicked,
+    setIsCommunityClicked,
+    setIsFriendsClicked,
+    isSidebarClicked,
+    setIsSidebarClicked,
+}) => {
     const [searchBar, setSearchBar] = useState(false);
     const [rotationAngle, setRotationAngle] = useState(0);
+    const [pfp, setPfp] = useState(
+        'https://static.vecteezy.com/system/resources/thumbnails/019/879/186/small/user-icon-on-transparent-background-free-png.png'
+    );
     const inputRef = useRef(null);
+    const { user } = useAuthContext();
 
     const handleSearchClick = () => {
         if (!searchBar) {
@@ -22,16 +33,16 @@ const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
         if (searchBar && inputRef.current) {
             inputRef.current.focus();
         }
-    }
+    };
 
     const closeSearchClick = () => {
         if (searchBar) {
-            setRotationAngle(rotationAngle - 90); 
+            setRotationAngle(rotationAngle - 90);
             setTimeout(() => {
                 setSearchBar(false);
             }, 200);
         }
-    }
+    };
 
     const handleCommunityButtonClick = () => {
         if (isFriendsClicked) {
@@ -49,7 +60,7 @@ const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
 
     const handleSideBarClick = () => {
         setIsSidebarClicked(!isSidebarClicked);
-    }
+    };
 
     const handleSearchFocus = (event) => {
         // Clear the placeholder when the input is focused
@@ -61,36 +72,67 @@ const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
         event.target.placeholder = '🔍 Search...';
     };
 
+    const fetchPfp = async () => {
+        const response = await fetch(
+            'http://localhost:3000/api/main/navbar/' + user.username,
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer: ${user.idToken}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
+        const json = await response.json();
+        setPfp(json.pfp);
+    };
+    useEffect(() => {
+        fetchPfp();
+    }, []);
+
     return (
         <div className="navbar">
-            <h1 className='logo-name'>ReaList</h1>
+            <h1 className="logo-name">ReaList</h1>
 
-            <div className='two-buttons'>
+            <div className="two-buttons">
                 <button
-                    className={`community-button ${isFriendsClicked ? 'clicked' : ''}`}
+                    className={`community-button ${
+                        isFriendsClicked ? 'clicked' : ''
+                    }`}
                     onClick={handleFriendButtonClick}
-                >Friends</button>
+                >
+                    Friends
+                </button>
 
                 <button
-                    className={`community-button ${isCommunityClicked ? 'clicked' : ''}`}
+                    className={`community-button ${
+                        isCommunityClicked ? 'clicked' : ''
+                    }`}
                     onClick={handleCommunityButtonClick}
-                >Community</button>
+                >
+                    Community
+                </button>
             </div>
 
-            <div className='right-side'>
+            <div className="right-side">
+                <Magnify className="search-image" onClick={handleSearchClick} />
 
-                <Magnify className='search-image' onClick={handleSearchClick}/>
-                
                 {searchBar && (
-                    <div className='search-bar-container'>
-                        <input ref = {inputRef} className='search-bar' type="text" name="" id="" placeholder='Search...' />
-                        <CancelButton onClick={closeSearchClick}/>
+                    <div className="search-bar-container">
+                        <input
+                            ref={inputRef}
+                            className="search-bar"
+                            type="text"
+                            name=""
+                            id=""
+                            placeholder="Search..."
+                        />
+                        <CancelButton onClick={closeSearchClick} />
                     </div>
-                    
                 )}
 
-                <div className='side-bar-button' >
-                    
+                <div className="side-bar-button">
                     {/* {!searchBar && (
                         <MenuBar onClick={handleSideBarClick} rotationAngle={rotationAngle}/>
                     )}
@@ -98,13 +140,12 @@ const Navbar = ({ isCommunityClicked, isFriendsClicked, setIsCommunityClicked, s
                     {searchBar && (
                         <CancelButton onClick={closeSearchClick} rotationAngle={rotationAngle}/>
                     )} */}
-                    
-                    <ProfileIcon onClick={handleSideBarClick}/>
 
+                    <ProfileIcon pfp={pfp} onClick={handleSideBarClick} />
                 </div>
             </div>
         </div>
     );
-}
+};
 
 export default Navbar;
