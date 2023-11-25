@@ -14,11 +14,28 @@
     transition: right 500ms ease;
     margin-top: 100px;
     overflow-y: scroll;
+    
 }
 
 .Sidebar.active {
     right: 0;
     transition: 500ms;
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: black;  /* Track color */
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #14110f;  /* Thumb color */
+        border-radius: 6px;
+        width: 8px;
+        height: 50px;
+        
+    }
+    
 }
 
 .sidebar-title {
