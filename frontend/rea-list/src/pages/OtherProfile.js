@@ -1,8 +1,22 @@
+import UserStats from '../templates/UserStats.js';
+import UserHead from '../templates/UserHead.js';
+import ProfileNavbar from '../templates/ProfileNavbar.js';
+import Profile from './Profile.js';
+
+
 
 const OtherProfile = () => {
 
     return (
-        <h1>Other Profile For Other people</h1>
+        <>
+            <ProfileNavbar/>
+            <div className='profile-contents'>
+                <UserHead />
+                <button>Follow</button>
+                <UserStats />
+            </div>
+
+        </>
     )
 }
 
