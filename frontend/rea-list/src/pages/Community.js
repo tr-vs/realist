@@ -8,8 +8,8 @@ const Community = () => {
     const [communityPosts, setCommunityPosts] = useState([]);
 
     const fetchCommunityPostData = async () => {
-        const response = await fetch(
-            'http://localhost:3000/api/main/community',
+        const response = await fetch(process.env.REACT_APP_BACKEND + 
+            'api/main/community',
             {
                 method: 'GET',
                 headers: {

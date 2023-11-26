@@ -29,8 +29,8 @@ const Profile = () => {
         const data = { access_token, refresh_token };
 
         const updateDB = async () => {
-            const response = await fetch(
-                'http://localhost:3000/api/users/token',
+            const response = await fetch(process.env.REACT_APP_BACKEND + 
+                'api/users/token',
                 {
                     method: 'PATCH',
                     body: JSON.stringify(data),
@@ -46,8 +46,8 @@ const Profile = () => {
         };
 
         const fetchProfile = async () => {
-            const response = await fetch(
-                'http://localhost:3000/api/main/profile/' + user.username,
+            const response = await fetch(process.env.REACT_APP_BACKEND + 
+                'api/main/profile/' + user.username,
                 {
                     method: 'GET',
                     headers: {
@@ -74,27 +74,25 @@ const Profile = () => {
         if (pfp === null) {
             fetchProfile();
         }
-    }, []);
-    return (
-        <>
-            <ProfileNavbar/>
+    });
 
-            <div className='profile-contents'>
-                <UserHead pfp={pfp} username={user.username} />
-                <div className="logout">
-                    <button className="LogoutButton" onClick={handleClick}>
-                        Log Out
-                    </button>
-                    {!user.spotifyToken ? (
-                        <a href="http://localhost:3000/api/spotify/auth">
-                            <button className="SpotifyConnect">
-                                Connect to Spotify
-                            </button>
-                        </a>
-                    ) : (
-                        <button className="SpotifyConnect">Connected!</button>
-                    )}
-                </div>
+    return (
+        <div>
+            <UserHead pfp={pfp} username={user.username} />
+            <div className="logout">
+                <button className="LogoutButton" onClick={handleClick}>
+                    Log Out
+                </button>
+                {!user.spotifyToken ? (
+                    <a href={`${process.env.REACT_APP_BACKEND}api/spotify/auth`}>
+                        <button className="SpotifyConnect">
+                            Connect to Spotify
+                        </button>
+                    </a>
+                ) : (
+                    <button className="SpotifyConnect">Connected!</button>
+                )}
+            </div>
 
                 <UserStats artists={artists} songs={songs} />
             </div>
