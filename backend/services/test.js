@@ -1,17 +1,20 @@
 // from spotify.js
+
+const querystring = require('querystring');
 const {
     refreshToken,
     getTop,
     getNowPlaying,
     getRecentlyPlayed,
+    recommendThreeTracks
 } = require('./spotify');
 
 //from controllers/mainControllers.js
-const {
-    profile,
-    topSongs,
-    nowPlaying,
-} = require('../controllers/mainController');
+// const {
+//     profile,
+//     topSongs,
+//     nowPlaying,
+// } = require('../controllers/mainController');
 
 // from lastfm.js
 const { getTopArtists } = require('./lastfm');
@@ -44,12 +47,15 @@ const REFRESH6 =
 
 // SPOTIFY.js TEST CASES
 //getTop(TOKEN, REFRESH, 'tracks', '10', 'long_term');
+
 // const asdf = async () => {
 //     const bruh = await getNowPlaying(TOKEN5, REFRESH5);
 //     console.log(bruh.is_playing);
 //     console.log(bruh);
 // };
 // asdf();
+
+
 // getRecentlyPlayed(
 // TOKEN, REFRESH,
 //     '1'
@@ -64,11 +70,47 @@ const REFRESH6 =
 // refreshToken(REFRESH);
 
 //Last fm Test Cases
-getTopArtists('chasin_jasonnn', 10, '3day');
+// getTopArtists('chasin_jasonnn', 10, '3day');
+
+
 
 //MainController test cases
+// const bon = async () => {
+//     const profile = await (TOKEN5, REFRESH5);
+//     console.log(bruh.is_playing);
+//     console.log(bruh);
+       
+// };
+
+
+
 const bon = async () => {
-    const profile = await (TOKEN5, REFRESH5);
-    console.log(bruh.is_playing);
-    console.log(bruh);
+    const a = await getTop(TOKEN5, REFRESH5, 'tracks', '5', 'long_term');
+
+    artistIds = ''
+    for(i = 3; i < 5; i++){
+        artistIds += a.items[i].artists[0].id;
+        if(i != 4){
+            artistIds += '&3C'
+        }
+    }
+
+    trackIds = ''
+    for(i = 0; i < 3; i++){
+        trackIds += a.items[i].id
+        if(i != 2){
+            trackIds += '&3C'
+        }
+    }
+
+    console.log(artistIds)
+    console.log(trackIds)
+    const b = a.items[0].artists[0].id;
+    const c = a.items[0].id;
+    const d = await recommendThreeTracks(TOKEN2, REFRESH2, artistIds, trackIds)
+    const t = d.tracks;  //array 
+    t.map((track) => console.log(track.name))
 };
+
+bon()
+
