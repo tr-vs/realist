@@ -28,7 +28,7 @@ const SideBar = ({ isSidebarClicked }) => {
         // Gets users current song info
         const json = await response.json();
         setRecSongs(json.threeRec.map((track) => (track.id)));
-        setUserProfile(json.pfp)
+        // setUserProfile(json.pfp)
         setCurrentSong(json.nowPlaying)   
         
          
@@ -49,7 +49,7 @@ const SideBar = ({ isSidebarClicked }) => {
                             src="https://media.pitchfork.com/photos/5929c43cea9e61561daa80db/master/pass/a240bddc.jpg"
                             alt=""
                         />
-                        <SecondProfileIcon profile={userProfile}/>
+                        <SecondProfileIcon profile={"https://i.scdn.co/image/ab67706c0000da842a6199fd8dcd31ca3eadfd17"}/>
                     </div>
 
                     <div className="information-container">
