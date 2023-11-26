@@ -19,8 +19,8 @@ cd realist
 
 Set up dependencies for the backend by running:
 
--   Whitelist IP Address in Mongo.db to access spotify.
--   "node mon"
+- Whitelist IP Address in Mongo.db to access spotify.
+- "node mon"
 
 ```
 cd backend
@@ -29,7 +29,7 @@ npm install
 
 #### .env File
 
-Create a `.env` file in the backend directory with the contents as follows:
+Create an `.env` file in the backend directory with the contents as follows:
 
 ```
 PORT=3000
@@ -38,6 +38,7 @@ SECRET=eCYnhZr.u!_L6qXvLXU@u*YZWFXJNMLqx7@TP4iw
 SPOTIFY_CLIENT_ID=a8a847ca5ed14e64b16219206363ee5a
 SPOTIFY_CLIENT_SECRET=61793825b72d4c0bbf03bd316a672486
 SPOTIFY_REDIRECT_URI=http://localhost:3000/api/spotify/call_back
+FRONTEND=http://localhost:3001
 ```
 
 #### Run It!
@@ -56,6 +57,15 @@ cd frontend
 npm install
 ```
 
+#### .env File
+
+Create an `.env` file in the frontend\rea-list directory with the contents as follows:
+
+```
+REACT_APP_BACKEND=http://localhost:3000/
+REACT_APP_FRONTEND=http://localhost:3001/
+```
+
 #### Run it!
 
 ```
@@ -67,13 +77,14 @@ npm start
 
 ## Contributors
 
--   [Kevin Espinas](https://github.com/kesdlvi)
--   [Teresa Lee](https://github.com/teresalee99)
--   [Jason Lozada](https://github.com/jasonlozada)
--   [Jacqueline Nguyen](https://github.com/itsjacque) <!--- update github link-->
--   [Travis Nguyen](https://github.com/tr-vs)
+- [Kevin Espinas](https://github.com/kesdlvi)
+- [Teresa Lee](https://github.com/teresalee99)
+- [Jason Lozada](https://github.com/jasonlozada)
+- [Jacqueline Nguyen](https://github.com/itsjacque) <!--- update github link-->
+- [Travis Nguyen](https://github.com/tr-vs)
 
 ## Special thanks to our (unpaid) UI/UX interns
+
 - Jasi Bermejo
 - Mikey Choi
 - Lance Giang
