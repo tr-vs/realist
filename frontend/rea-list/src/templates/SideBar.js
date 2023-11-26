@@ -25,14 +25,14 @@ const SideBar = ({ isSidebarClicked }) => {
             }
         );
 
+        // Gets users current song info
         const json = await response.json();
-        console.log(json)
-
         setRecSongs(json.threeRec.map((track) => (track.id)));
-        setUserProfile(json.pfp)    
-        // setPfp(json.images[1].url);
-        // setArtists(json.topArtists.items);
-        // setSongs(json.topSongs.items);
+        // setUserProfile(json.pfp)
+        setCurrentSong(json.nowPlaying)   
+        
+         
+
     };
 
     useEffect(()=> {
@@ -49,7 +49,7 @@ const SideBar = ({ isSidebarClicked }) => {
                             src="https://media.pitchfork.com/photos/5929c43cea9e61561daa80db/master/pass/a240bddc.jpg"
                             alt=""
                         />
-                        <SecondProfileIcon profile={userProfile}/>
+                        <SecondProfileIcon profile={"https://i.scdn.co/image/ab67706c0000da842a6199fd8dcd31ca3eadfd17"}/>
                     </div>
 
                     <div className="information-container">
