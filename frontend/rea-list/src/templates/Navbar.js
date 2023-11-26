@@ -133,14 +133,6 @@ const Navbar = ({
                 )}
 
                 <div className="side-bar-button">
-                    {/* {!searchBar && (
-                        <MenuBar onClick={handleSideBarClick} rotationAngle={rotationAngle}/>
-                    )}
-                    
-                    {searchBar && (
-                        <CancelButton onClick={closeSearchClick} rotationAngle={rotationAngle}/>
-                    )} */}
-
                     <ProfileIcon pfp={pfp} onClick={handleSideBarClick} />
                 </div>
             </div>
