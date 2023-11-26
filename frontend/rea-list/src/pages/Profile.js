@@ -1,6 +1,8 @@
 import UserStats from '../templates/UserStats.js';
 import UserHead from '../templates/UserHead.js';
+import ProfileNavbar from '../templates/ProfileNavbar.js';
 import '../styles/ProfileButtons.css';
+import '../styles/ProfilePageStyles.css';
 import { useLogout } from '../hooks/useLogout.js';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext.js';
@@ -61,6 +63,11 @@ const Profile = () => {
             setPfp(json.images[1].url);
             setArtists(json.topArtists.items);
             setSongs(json.topSongs.items);
+
+            console.log(artists)
+
+            
+            
         };
 
         if (data.access_token !== null && !user.spotifyToken) updateDB();
@@ -70,25 +77,29 @@ const Profile = () => {
         }
     }, []);
     return (
-        <div>
-            <UserHead pfp={pfp} username={user.username} />
-            <div className="logout">
-                <button className="LogoutButton" onClick={handleClick}>
-                    Log Out
-                </button>
-                {!user.spotifyToken ? (
-                    <a href="https://realist.onrender.com/api/spotify/auth">
-                        <button className="SpotifyConnect">
-                            Connect to Spotify
-                        </button>
-                    </a>
-                ) : (
-                    <button className="SpotifyConnect">Connected!</button>
-                )}
-            </div>
 
-            <UserStats artists={artists} songs={songs} />
-        </div>
+        <>
+            <ProfileNavbar/>
+            <div className='profile-contents'>
+                <UserHead pfp={pfp} username={user.username} />
+                <div className="logout">
+                    <button className="LogoutButton" onClick={handleClick}>
+                        Log Out
+                    </button>
+                    {!user.spotifyToken ? (
+                        <a href="https://realist.onrender.com/api/spotify/auth">
+                            <button className="SpotifyConnect">
+                                Connect to Spotify
+                            </button>
+                        </a>
+                    ) : (
+                        <button className="SpotifyConnect">Connected!</button>
+                    )}
+                </div>
+
+                <UserStats artists={artists} songs={songs} />
+            </div>
+        </>
     );
 };
 
