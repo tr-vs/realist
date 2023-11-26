@@ -25,14 +25,14 @@ const SideBar = ({ isSidebarClicked }) => {
             }
         );
 
+        // Gets users current song info
         const json = await response.json();
-        console.log(json)
-
         setRecSongs(json.threeRec.map((track) => (track.id)));
-        setUserProfile(json.pfp)    
-        // setPfp(json.images[1].url);
-        // setArtists(json.topArtists.items);
-        // setSongs(json.topSongs.items);
+        setUserProfile(json.pfp)
+        setCurrentSong(json.nowPlaying)   
+        
+         
+
     };
 
     useEffect(()=> {
