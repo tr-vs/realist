@@ -44,6 +44,10 @@ function App() {
                     path="/landing"
                     element={<Landing />}
                 />
+                <Route 
+                    path="/otherprofile"
+                    element={<OtherProfile />}
+                />
             </Routes>
         </BrowserRouter>
     );
