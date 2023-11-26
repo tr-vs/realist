@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 
 // cors requirements
 const corsOptions = {
-    origin: 'http://localhost:3001', // Replace with your frontend's URL
+    origin: process.env.FRONTEND, // Replace with your frontend's URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 };

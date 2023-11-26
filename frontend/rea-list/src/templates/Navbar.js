@@ -73,8 +73,8 @@ const Navbar = ({
     };
 
     const fetchPfp = async () => {
-        const response = await fetch(
-            'http://localhost:3000/api/main/navbar/' + user.username,
+        const response = await fetch(process.env.REACT_APP_BACKEND + 
+            'api/main/navbar/' + user.username,
             {
                 method: 'GET',
                 headers: {
