@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://realist.top');
+    res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND);
     res.setHeader(
         'Access-Control-Allow-Methods',
         'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE'
@@ -65,7 +65,7 @@ app.options('*', (req, res) => {
 
     console.log(req.headers);
     if (
-        req.headers.origin === 'https://realist.top'
+        req.headers.origin === process.env.FRONTEND
         // allowMethods.includes(req.headers['access-control-request-method']) &&
         // allowHeaders.includes(req.headers['access-control-request-headers'])
     ) {

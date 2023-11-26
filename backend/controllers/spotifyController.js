@@ -41,10 +41,8 @@ const callback = async (req, res) => {
     let state = req.query.state || null;
     let storedState = req.cookies ? req.cookies[stateKey] : null;
 
-    console.log(req.cookies);
-
     if (state === null || state !== storedState) {
-        res.redirect(
+        res.redirect(process.env.FRONTEND + 
             '/#' +
                 querystring.stringify({
                     error: 'state_mismatch',
@@ -75,8 +73,8 @@ const callback = async (req, res) => {
                     response.json().then((data) => {
                         let access_token = data.access_token;
                         let refresh_token = data.refresh_token;
-                        res.redirect(
-                            'https://realist.top/profile#' +
+                        res.redirect(process.env.FRONTEND + 
+                            '/profile#' +
                                 querystring.stringify({
                                     refresh_token,
                                     access_token,
@@ -84,7 +82,7 @@ const callback = async (req, res) => {
                         );
                     });
                 } else {
-                    res.redirect(
+                    res.redirect(process.env.FRONTEND +
                         '/#' +
                             querystring.stringify({
                                 error: 'invalid_token',

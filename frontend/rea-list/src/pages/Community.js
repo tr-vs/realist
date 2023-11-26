@@ -8,8 +8,8 @@ const Community = () => {
     const [communityPosts, setCommunityPosts] = useState([]);
 
     const fetchCommunityPostData = async () => {
-        const response = await fetch(
-            'https://realist.onrender.com/api/main/community',
+        const response = await fetch(process.env.REACT_APP_BACKEND + 
+            'api/main/community',
             {
                 method: 'GET',
                 headers: {

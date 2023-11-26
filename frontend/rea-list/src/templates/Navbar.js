@@ -73,8 +73,8 @@ const Navbar = ({
     };
 
     const fetchPfp = async () => {
-        const response = await fetch(
-            'https://realist.onrender.com/api/main/navbar/' + user.username,
+        const response = await fetch(process.env.REACT_APP_BACKEND + 
+            'api/main/navbar/' + user.username,
             {
                 method: 'GET',
                 headers: {
