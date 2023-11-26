@@ -2,6 +2,7 @@ const {
     getNowPlaying,
     getUserProfile,
     getTop,
+    recommendThreeTracks
 } = require('../services/spotify');
 const { getTopArtists } = require('../services/lastfm');
 const User = require('../models/userModel');
@@ -80,8 +81,43 @@ const navbar = async (req, res) => {
     }
 };
 
+const sidebar = async (req, res) => {
+
+    const { username } = req.params;
+    try {
+        const { pfp, access_token, refresh_token} = await User.findOne({ username });
+
+        const [nowPlaying, topFive] = await Promise.all([
+            getNowPlaying(access_token, refresh_token),
+            getTop(
+                access_token,
+                refresh_token,
+                'tracks',
+                5,
+                'short_term'
+            ),
+        ]);
+
+        const artistIds = topFive.items.slice(3, 5).map(item => item.artists[0].id).join('&3C')
+        const trackIds = topFive.items.slice(0, 3).map(item => item.artists[0].id).join('&3C')
+        const threeRec = await recommendThreeTracks(access_token, refresh_token, artistIds, trackIds)
+        const resultObject = {
+            pfp,
+            nowPlaying,
+            threeRec
+        };
+        console.log(resultObject)
+        res.status(200).json(resultObject);
+    } catch (err) {
+        console.log(err)
+        res.status(401).json({
+            error: 'User not connected to Spotify!',
+        });
+    }
+};
 module.exports = {
     community,
     profile,
     navbar,
+    sidebar
 };

@@ -130,6 +130,27 @@ const getUserProfile = async (token, refresh_token) => {
     }
 };
 
+const recommendThreeTracks = async (token, refresh_token, artistID, trackID) => {
+// use getTop to get the 5 top tracks. 3 tracks used for track id, 2 will grab artist id
+// takes 3 track ids, 2 artist ids
+
+    const response = await fetch(`https://api.spotify.com/v1/recommendations?limit=3&seed_artists=${artistID}&seed_tracks=${trackID}&target_popularity=50`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    // console.log(response.headers)
+    if (response.status === 200) {
+        const r = await response.json(); 
+        return r.tracks;
+    } else if (response.status === 401) {
+        const refreshedToken = await refreshToken(refresh_token);
+        const recall = await recommendThreeTracks(refreshedToken, refresh_token, artistID, trackID);
+        return recall;
+    }
+};
 // const getTrackImage = async (token, refresh_token, id) => {
 //     const response = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
 //         method: 'GET',
@@ -164,4 +185,5 @@ module.exports = {
     getUserProfile,
     getNowPlaying,
     getRecentlyPlayed,
+    recommendThreeTracks
 };

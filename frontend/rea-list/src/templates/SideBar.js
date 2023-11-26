@@ -8,6 +8,36 @@ import { useEffect } from 'react';
 const SideBar = ({ isSidebarClicked }) => {
     const { user } = useAuthContext();
     const [error, setError] = useState(null);
+    const [userProfile, setUserProfile] = useState(null)
+    const [currentSong, setCurrentSong] = useState(null)
+    const [recSongs, setRecSongs] = useState([])
+    
+
+    const fetchProfile = async () => {
+        const response = await fetch(process.env.REACT_APP_BACKEND + 
+            'api/main/sidebar/' + user.username,
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${user.idToken}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
+        const json = await response.json();
+        console.log(json)
+
+        setRecSongs(json.threeRec.map((track) => (track.id)));
+        setUserProfile(json.pfp)    
+        // setPfp(json.images[1].url);
+        // setArtists(json.topArtists.items);
+        // setSongs(json.topSongs.items);
+    };
+
+    useEffect(()=> {
+        fetchProfile(); 
+    },[])
 
     return (
         <div className="resize-handle">
@@ -19,7 +49,7 @@ const SideBar = ({ isSidebarClicked }) => {
                             src="https://media.pitchfork.com/photos/5929c43cea9e61561daa80db/master/pass/a240bddc.jpg"
                             alt=""
                         />
-                        <SecondProfileIcon />
+                        <SecondProfileIcon profile={userProfile}/>
                     </div>
 
                     <div className="information-container">
@@ -33,7 +63,7 @@ const SideBar = ({ isSidebarClicked }) => {
                         <div className='recommended-song'>
                             <h3 className='recommended-song-text'> songs for you </h3>
                             <iframe style={{border:12, height:80}} 
-                                    src="https://open.spotify.com/embed/track/6scpNkWEmUxmKY7nYjVLsX?utm_source=generator" 
+                                    src={`https://open.spotify.com/embed/track/${recSongs[0]}`}
                                     width="80%" 
                                     height="100%"  
                                     allowfullscreen="" 
@@ -41,7 +71,15 @@ const SideBar = ({ isSidebarClicked }) => {
                                     loading="lazy">
                             </iframe>
                             <iframe style={{border:12, height:80}} 
-                                    src="https://open.spotify.com/embed/track/3bBmpVl9rQKJsFFGLFilIS?utm_source=generator" 
+                                    src={`https://open.spotify.com/embed/track/${recSongs[1]}`} 
+                                    width="80%" 
+                                    height="100%"  
+                                    allowfullscreen="" 
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                    loading="lazy">
+                            </iframe>
+                            <iframe style={{border:12, height:80}} 
+                                    src={`https://open.spotify.com/embed/track/${recSongs[2]}`} 
                                     width="80%" 
                                     height="100%"  
                                     allowfullscreen="" 
