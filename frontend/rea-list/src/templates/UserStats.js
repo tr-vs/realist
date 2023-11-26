@@ -10,9 +10,9 @@ const UserStats = (props) => {
                     <h2>Your Top Artists: </h2>
                 </div>
                 <div className=".user-top-artists">
-                    <iframe style={{border:12,height:160}} src="https://open.spotify.com/embed/artist/06HL4z0CvFAxyc27GXpf02?utm_source=generator" width="140%" height="140%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                    <iframe style={{border:12, height:160}} src="https://open.spotify.com/embed/artist/2kxP07DLgs4xlWz8YHlvfh?utm_source=generator" width="140%" height="140%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                    <iframe style={{border:12, height:160}} src="https://open.spotify.com/embed/artist/2h93pZq0e7k5yf4dywlkpM?utm_source=generator" width="140%" height="140%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style={{border:12,height:160}} src="https://open.spotify.com/embed/artist/06HL4z0CvFAxyc27GXpf02?utm_source=generator" width="120%" height="120%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style={{border:12, height:160}} src="https://open.spotify.com/embed/artist/2kxP07DLgs4xlWz8YHlvfh?utm_source=generator" width="120%" height="120%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe style={{border:12, height:160}} src="https://open.spotify.com/embed/artist/2h93pZq0e7k5yf4dywlkpM?utm_source=generator" width="120%" height="120%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
                 
             </div>
