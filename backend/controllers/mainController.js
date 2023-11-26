@@ -84,7 +84,6 @@ const navbar = async (req, res) => {
 const sidebar = async (req, res) => {
 
     const { username } = req.params;
-
     try {
         const { pfp, access_token, refresh_token} = await User.findOne({ username });
 
@@ -107,6 +106,7 @@ const sidebar = async (req, res) => {
             ...nowPlaying,
             threeRec
         };
+        console.log(resultObject)
         res.status(200).json(resultObject);
     } catch (err) {
         console.log(err)
