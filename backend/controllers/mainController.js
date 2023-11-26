@@ -94,7 +94,7 @@ const sidebar = async (req, res) => {
                 refresh_token,
                 'tracks',
                 5,
-                'long_term'
+                'short_term'
             ),
         ]);
 
@@ -103,7 +103,7 @@ const sidebar = async (req, res) => {
         const threeRec = await recommendThreeTracks(access_token, refresh_token, artistIds, trackIds)
         const resultObject = {
             pfp,
-            ...nowPlaying,
+            nowPlaying,
             threeRec
         };
         console.log(resultObject)
