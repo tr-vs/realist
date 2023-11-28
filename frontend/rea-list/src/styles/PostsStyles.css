@@ -43,7 +43,8 @@
     padding: 20px;
     justify-content: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
+    /* should be included */
 }
 
 .slide-in {
