@@ -49,6 +49,8 @@
     animation: slideIn 0.4s forwards;
 }
 
+
+
 @keyframes slideIn {
     to {
         transform: translateX(0);
@@ -83,7 +85,8 @@
     margin-bottom: 5px;
 }
 
-.reaction-emoji {
+.reaction-emoji-container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+    height: 40%;
 }
