@@ -117,7 +117,7 @@ const Posts = ({ data }) => {
                     ></iframe>
                 )}
                 {showReactions && (
-                <div className='reaction-emoji-container'>
+                <div className='reaction-emoji-container slide-in'>
                     <h2 >😻</h2>
                     <h2 >😸</h2> 
                     <h2 >😾</h2> 
