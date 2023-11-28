@@ -104,7 +104,7 @@ const sidebar = async (req, res) => {
             artistIds,
             trackIds
         );
-        console.log(threeRec);
+
         const resultObject = {
             pfp: pfp[1],
             nowPlaying: JSON.parse(nowPlaying),

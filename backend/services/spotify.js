@@ -149,7 +149,6 @@ const recommendThreeTracks = async (
         }
     );
 
-    console.log(response);
     if (response.status === 200) {
         const r = await response.json();
         return r.tracks;

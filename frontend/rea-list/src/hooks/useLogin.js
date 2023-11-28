@@ -16,22 +16,24 @@ export const useLogin = () => {
         });
 
         // post to db
-        const response = await fetch(process.env.REACT_APP_BACKEND + 'api/users/login', {
-            method: 'POST',
-            credentials: 'include',
-            body: jsonPayload,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const response = await fetch(
+            process.env.REACT_APP_BACKEND + 'api/users/login',
+            {
+                method: 'POST',
+                credentials: 'include',
+                body: jsonPayload,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
         const json = await response.json();
-        console.log('hiiiiiiii');
+
         if (!response.ok) {
             setIsLoading(false);
             setError(json.error);
         }
         if (response.ok) {
-            console.log('asdfasfsa');
             // save user to local storage
             localStorage.setItem('user', JSON.stringify(json));
             // update the auth context
