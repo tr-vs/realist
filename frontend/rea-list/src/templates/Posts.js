@@ -10,6 +10,7 @@ const Posts = ({ data }) => {
 
     const [predominantColor, setPredominantColor] = useState('');
     const [showSongPlayer, setShowSongPlayer] = useState(false);
+    const [showReactions, setShowReactions] = useState(false);
     const [animateLeft, setAnimateLeft] = useState(false);
     const [showSongInfo, setShowSongInfo] = useState(false);
 
@@ -72,6 +73,7 @@ const Posts = ({ data }) => {
                 }}
                 onClick={() => {
                     setShowSongPlayer(!showSongPlayer);
+                    setShowReactions(!showReactions)
                 }}
             />
             <div className="song-info">
@@ -98,28 +100,29 @@ const Posts = ({ data }) => {
                         {artist}
                     </h3>
                 )}
-                <h5 className='reaction'>Reaction: </h5>
-                <div className='reaction-emoji'>
-                    <h3>😻 </h3>
-                    <h3>😸</h3> 
-                    <h3>😾</h3> 
-                    <h3>😐</h3>
-                </div>
-                {/* comment  test comment*/}
             </div>
             <div className="song-player">
                 {showSongPlayer && (
+                    
                     <iframe
                         style={{ border: 12 }}
                         className="slide-in"
                         src={`https://open.spotify.com/embed/track/${id}`}
                         width="100%"
-                        height="300px"
+                        height="100%"
                         frameBorder="0"
                         allowfullscreen=""
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                         loading="lazy"
                     ></iframe>
+                )}
+                {showReactions && (
+                <div className='reaction-emoji-container'>
+                    <h2 >😻</h2>
+                    <h2 >😸</h2> 
+                    <h2 >😾</h2> 
+                    <h2 >😐</h2>
+                </div>
                 )}
             </div>
         </div>
