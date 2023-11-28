@@ -3,6 +3,7 @@ const {
     signupUser,
     loginUser,
     addToken,
+    removeToken,
 } = require('../controllers/userController');
 
 const router = express.Router();
@@ -15,5 +16,7 @@ router.post('/signup', signupUser);
 
 // update spotify token for user
 router.patch('/token', addToken);
+
+router.patch('/disconnectSpotify', removeToken);
 
 module.exports = router;

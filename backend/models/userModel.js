@@ -35,11 +35,18 @@ const userSchema = new Schema({
     nowPlaying: {
         type: String,
     },
-    pfp: {
-        type: String,
-        default:
-            'https://static.vecteezy.com/system/resources/thumbnails/019/879/186/small/user-icon-on-transparent-background-free-png.png',
-    },
+    pfp: [
+        {
+            type: String,
+            default:
+                'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg',
+        },
+        {
+            type: String,
+            default:
+                'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg',
+        },
+    ],
 });
 
 // static signup method
