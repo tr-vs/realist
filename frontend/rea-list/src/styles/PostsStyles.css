@@ -40,8 +40,10 @@
 .song-player {
     overflow: hidden;
     width: 50vh;
-    width: 50vh;
+    padding: 20px;
+    justify-content: center;
     display: flex;
+    flex-direction: column;
 }
 
 .slide-in {
