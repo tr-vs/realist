@@ -124,6 +124,8 @@
 
 .side-bar-button {
     margin: auto;
+    margin-bottom: 18px;
+    margin-left:20px ;
     width: 55px;
     height: 35px;
     cursor: pointer;
