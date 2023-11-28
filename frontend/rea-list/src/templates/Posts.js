@@ -19,7 +19,7 @@ const Posts = ({ data }) => {
         'https://upload.wikimedia.org/wikipedia/en/5/5e/Madvillainy_cover.png',
     ];
 
-    const pfp = data ? data.pfp : undefined;
+    const pfp = data ? data.pfp[0] : undefined;
     const username = data ? data.username : 'Username';
     let nowPlaying = 'asdf';
     let name = 'Song';
