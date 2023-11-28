@@ -98,7 +98,13 @@ const Posts = ({ data }) => {
                         {artist}
                     </h3>
                 )}
-                <h5>Reaction: </h5>
+                <h5 className='reaction'>Reaction: </h5>
+                <div className='reaction-emoji'>
+                    <h3>😻 </h3>
+                    <h3>😸</h3> 
+                    <h3>😾</h3> 
+                    <h3>😐</h3>
+                </div>
                 {/* comment  test comment*/}
             </div>
             <div className="song-player">

@@ -80,3 +80,12 @@
     width: auto;
     align-items: center;
 }
+
+.reaction {
+    margin-bottom: 5px;
+}
+
+.reaction-emoji {
+    display: flex;
+    justify-content: space-evenly;
+}
