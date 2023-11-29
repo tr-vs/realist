@@ -10,6 +10,7 @@ import Landing from './pages/Landing';
 import OtherProfile from './pages/OtherProfile';
 import { useAuthContext } from './hooks/useAuthContext';
 import { useState } from 'react';
+import UserNotFound from './pages/UserNotFound';
 
 function App() {
     const { user } = useAuthContext();
@@ -47,6 +48,10 @@ function App() {
                 <Route 
                     path="/otherprofile"
                     element={<OtherProfile />}
+                />
+                <Route 
+                    path="/usernotfound"
+                    element={<UserNotFound />}
                 />
             </Routes>
         </BrowserRouter>
