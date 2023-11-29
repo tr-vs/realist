@@ -40,6 +40,7 @@ function App() {
                 />
                 <Route path="/landing" element={<Landing />} />
                 <Route path="/:username" element={<OtherProfile />} />
+                <Route path="/usernotfound" element={<UserNotFound />} />
             </Routes>
         </BrowserRouter>
     );

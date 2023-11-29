@@ -26,7 +26,7 @@ const OtherProfile = () => {
         );
         const json = await response.json();
         if (json.error === 'User does not exist') {
-            navigate('/');
+            navigate('/usernotfound');
         } else {
             setPfp(json.pfp[1]);
 
