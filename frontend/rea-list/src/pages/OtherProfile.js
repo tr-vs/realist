@@ -1,6 +1,7 @@
 import UserStats from '../templates/UserStats.js';
 import UserHead from '../templates/UserHead.js';
 import ProfileNavbar from '../templates/ProfileNavbar.js';
+import '../styles/OtherProfile.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext.js';
 import { useEffect, useState } from 'react';
@@ -79,14 +80,16 @@ const OtherProfile = () => {
 
     return (
         <>
-            <ProfileNavbar />
-            <div className="profile-contents">
-                <UserHead pfp={pfp} username={username} />
-                <button onClick={followUnfollow}>
-                    {!following ? 'Follow' : 'Unfollow'}
-                </button>
-                <UserStats artists={artists} songs={songs} />
-            </div>
+                <ProfileNavbar />
+                <div className="profile-contents">
+                    <div className='profile-info-container'>
+                        <UserHead pfp={pfp} username={username} />
+                        <button className='follow-button' onClick={followUnfollow}>
+                            {!following ? 'Follow' : 'Unfollow'}
+                        </button>
+                    </div>
+                    <UserStats artists={artists} songs={songs} />
+                </div>
         </>
     );
 };

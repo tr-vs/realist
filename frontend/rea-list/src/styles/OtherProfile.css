@@ -1,0 +1,26 @@
+.follow-button {
+    font-weight: bold;
+    background-color: rgb(169, 203, 242);
+    color: black;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    height: 35px;
+    margin-left: 20px;
+    display: flex;
+    flex: 1;
+    justify-content: center;    
+}
+
+.follow-button:hover {
+    cursor: pointer;
+    background-color: rgb(124, 178, 239);
+    transition: .3s;
+}
+
+.profile-info-container {
+    border-bottom: 1px solid #86868b;
+    margin-bottom: 10px;
+}
