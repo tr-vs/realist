@@ -10,7 +10,7 @@ const Friends = () => {
             <div className="post-contents">
                 {/* Map through all friends in database, pass values as props for post */}
                 <div className="post-contents-titles-container">
-                    <h1 className="page-title">Friends Music</h1>
+                    <h1 className="page-title">Following's Music</h1>
                 </div>
 
                 <Posts num={0}></Posts>

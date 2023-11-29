@@ -98,13 +98,10 @@ const Profile = () => {
     return (
         <>
             <ProfileNavbar />
-
+    
             <div className="profile-contents">
                 <UserHead pfp={pfp} username={user.username} />
                 <div className="logout">
-                    <button className="LogoutButton" onClick={logout}>
-                        Log Out
-                    </button>
                     {!loggedIn ? (
                         <a
                             href={`${process.env.REACT_APP_BACKEND}api/spotify/auth`}
@@ -121,12 +118,16 @@ const Profile = () => {
                             Disconnect Spotify
                         </button>
                     )}
+                    <button className="LogoutButton" onClick={logout}>
+                        Log Out
+                    </button>
                 </div>
-
+    
                 <UserStats artists={artists} songs={songs} />
             </div>
         </>
     );
+    
 };
 
 export default Profile;
