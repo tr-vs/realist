@@ -62,7 +62,7 @@ const profile = async (req, res) => {
             await user.save();
         }
     } catch (err) {
-        res.status(401).json({ error: 'User not connected to Spotify!' });
+        res.status(401).json({ error: 'User does not exist' });
     }
 };
 

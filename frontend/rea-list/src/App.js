@@ -27,10 +27,7 @@ function App() {
                     element={user ? <Profile /> : <Navigate to="/loginpage" />}
                 />
 
-                <Route
-                    path="/user"
-                    element={<OtherProfile/>}
-                />
+                <Route path="/user" element={<OtherProfile />} />
 
                 <Route
                     path="/signup"
@@ -40,14 +37,8 @@ function App() {
                     path="/loginpage"
                     element={!user ? <LoginPage /> : <Navigate to="/" />}
                 />
-                <Route 
-                    path="/landing"
-                    element={<Landing />}
-                />
-                <Route 
-                    path="/otherprofile"
-                    element={<OtherProfile />}
-                />
+                <Route path="/landing" element={<Landing />} />
+                <Route path="/:username" element={<OtherProfile />} />
             </Routes>
         </BrowserRouter>
     );
