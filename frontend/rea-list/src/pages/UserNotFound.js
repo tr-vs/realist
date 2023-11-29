@@ -3,7 +3,7 @@ const UserNotFound = () => {
 
     const userNotFound = () => {
         return (
-          <div style={{ textAlign: 'center', marginTop: '50px' }}>
+          <div style={{ textAlign: 'center', marginTop: '50px', color: 'white' }}>
             <h1>User Not Found</h1>
             <p>We couldn't find the requested user.</p>
           </div>
