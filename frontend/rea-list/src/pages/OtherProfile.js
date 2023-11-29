@@ -12,6 +12,7 @@ const OtherProfile = () => {
     const [pfp, setPfp] = useState(null);
     const [artists, setArtists] = useState([]);
     const [songs, setSongs] = useState([]);
+    const [following, setFollowing] = useState(false);
 
     const fetchProfile = async () => {
         const response = await fetch(
@@ -25,6 +26,7 @@ const OtherProfile = () => {
             }
         );
         const json = await response.json();
+
         if (json.error === 'User does not exist') {
             navigate('/usernotfound');
         } else {
@@ -34,6 +36,39 @@ const OtherProfile = () => {
                 setArtists(json.topArtists.items);
                 setSongs(json.topSongs.items);
             }
+            if (json.followers.includes(user.username)) setFollowing(true);
+        }
+    };
+
+    const followUnfollow = async () => {
+        if (!following) {
+            const response = await fetch(
+                process.env.REACT_APP_BACKEND + 'api/main/follow',
+                {
+                    method: 'PATCH',
+                    body: JSON.stringify({ otherUsername: username }),
+                    headers: {
+                        Authorization: `Bearer ${user.idToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            if (response.ok) setFollowing(true);
+        } else {
+            const response = await fetch(
+                process.env.REACT_APP_BACKEND + 'api/main/unfollow',
+                {
+                    method: 'PATCH',
+                    body: JSON.stringify({ otherUsername: username }),
+                    headers: {
+                        Authorization: `Bearer ${user.idToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            if (response.ok) setFollowing(false);
         }
     };
 
@@ -47,7 +82,9 @@ const OtherProfile = () => {
             <ProfileNavbar />
             <div className="profile-contents">
                 <UserHead pfp={pfp} username={username} />
-                <button>Follow</button>
+                <button onClick={followUnfollow}>
+                    {!following ? 'Follow' : 'Unfollow'}
+                </button>
                 <UserStats artists={artists} songs={songs} />
             </div>
         </>
