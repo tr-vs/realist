@@ -1,11 +1,26 @@
 import '../styles/LandingPage.css';
+import CancelButton from '../svg/CancelButton';
 import { register } from 'swiper/element/bundle';
 import { Link } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
+import { useState } from 'react';
 
 register(); 
 
 const Landing = () => {
+    const [isPopUp, setIsPopUp] = useState(false);
+
+    const openPopUp = () => {
+        setIsPopUp(true);
+        document.body.style.overflow = 'hidden'
+    }
+
+    const closePopUp = () => {
+        setIsPopUp(false);
+        document.body.style.overflow = 'auto'
+    }
+
+
 
     return (
         <>
@@ -70,12 +85,35 @@ const Landing = () => {
                     
                 </swiper-container>
                 <div className='button-holder'>
-                    <Link to={"/signup"}>
-                        <p href='/signup' className='button-text'>Get Started</p>
-                    </Link>
+                    
+                        <p onClick={openPopUp} href='/signup' className='button-text'>Get Started</p>
+                    
                 </div>
                 
             </div>
+
+            {isPopUp && (
+                <div className='sign-up-popup'>
+                    
+                    <div className='sign-up-container'>
+                        <div className='close-button-container'>
+                            <CancelButton className="close-button" onClick={closePopUp}/>
+                        </div>
+                        <h1 className='modal-text top'>Enter a username</h1>
+                        <input
+                            className='username-field'
+                            type="text"
+                            placeholder="your username"
+                        />
+                        <div className='bottom-container'>
+                            <Link to={"/LoginPage"}>
+                                <h3 className='modal-text bottom'>Sign In</h3>
+                            </Link>
+                        </div>
+                        
+                    </div>
+                </div>
+            )}
         </>
         
         
