@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Color from 'color-thief-react';
 import ProfileIcon from './ProfileIcon';
 import '../styles/PostsStyles.css';
+import { useNavigate } from 'react-router-dom';
 const Posts = ({ data }) => {
     // props to pass:
     // Username
@@ -13,20 +14,12 @@ const Posts = ({ data }) => {
     const [showReactions, setShowReactions] = useState(false);
     const [animateLeft, setAnimateLeft] = useState(false);
     const [showSongInfo, setShowSongInfo] = useState(false);
-
-    const links = [
-        'https://media.pitchfork.com/photos/5929c43cea9e61561daa80db/master/pass/a240bddc.jpg',
-        'https://images.squarespace-cdn.com/content/v1/5e40c67d62402c0ce36a6bf0/1603566903470-375SZI5GD0F53P2LPGXR/Ef1eZcOX0AEmSs_.jpg',
-        'https://upload.wikimedia.org/wikipedia/en/5/5e/Madvillainy_cover.png',
-    ];
+    const navigate = useNavigate();
 
     const pfp = data ? data.pfp[0] : undefined;
     const username = data ? data.username : 'Username';
-    let nowPlaying = 'asdf';
-    let name = 'Song';
-    let artist = 'Artist';
-    let cover = links[0];
-    let id = '';
+    let nowPlaying, name, artist, cover, id;
+
     if (data !== undefined) {
         nowPlaying = JSON.parse(data.nowPlaying);
         if (nowPlaying.item !== undefined) {
@@ -45,6 +38,7 @@ const Posts = ({ data }) => {
             artist = artists.join(', ');
         }
     }
+
     return (
         <div className="profile-content">
             <Color src={cover} crossOrigin="anonymous" format="hex">
@@ -73,13 +67,16 @@ const Posts = ({ data }) => {
                 }}
                 onClick={() => {
                     setShowSongPlayer(!showSongPlayer);
-                    setShowReactions(!showReactions)
+                    setShowReactions(!showReactions);
                 }}
             />
             <div className="song-info">
                 <div className="user-profile-container">
-                    <h4>{username}</h4>
-                    <ProfileIcon pfp={pfp} />
+                    <h4 onClick={() => navigate('/' + username)}>{username}</h4>
+                    <ProfileIcon
+                        onClick={() => navigate('/' + username)}
+                        pfp={pfp}
+                    />
                 </div>
 
                 {!showSongInfo && (
@@ -103,7 +100,6 @@ const Posts = ({ data }) => {
             </div>
             <div className="song-player">
                 {showSongPlayer && (
-                    
                     <iframe
                         style={{ border: 12 }}
                         className="slide-in"
@@ -117,12 +113,12 @@ const Posts = ({ data }) => {
                     ></iframe>
                 )}
                 {showReactions && (
-                <div className='reaction-emoji-container slide-in'>
-                    <h2 >😻</h2>
-                    <h2 >😸</h2> 
-                    <h2 >😾</h2> 
-                    <h2 >😐</h2>
-                </div>
+                    <div className="reaction-emoji-container slide-in">
+                        <h2>😻</h2>
+                        <h2>😸</h2>
+                        <h2>😾</h2>
+                        <h2>😐</h2>
+                    </div>
                 )}
             </div>
         </div>
