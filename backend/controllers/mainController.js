@@ -114,8 +114,9 @@ const sidebar = async (req, res) => {
             .join('&3C');
         const trackIds = topFive.items
             .slice(0, 3)
-            .map((item) => item.artists[0].id)
+            .map((item) => item.id)
             .join('&3C');
+        console.log(trackIds);
         const threeRec = await recommendThreeTracks(
             access_token,
             refresh_token,
