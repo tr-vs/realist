@@ -102,7 +102,7 @@ const Navbar = ({
                     }`}
                     onClick={handleFriendButtonClick}
                 >
-                    Friends
+                    Following
                 </button>
 
                 <button
