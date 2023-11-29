@@ -25,6 +25,8 @@ a {
 
 .SpotifyConnect:hover {
     cursor: pointer;
+    background-color: rgb(124, 178, 239);
+    transition: .3s;
 }
 
 .LogoutButton {
@@ -44,4 +46,6 @@ a {
 
 .LogoutButton:hover {
     cursor: pointer;
+    background-color: rgb(124, 178, 239);
+    transition: .3s;
 }
