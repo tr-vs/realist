@@ -1,45 +1,39 @@
 import Posts from '../templates/Posts';
-import { useState } from 'react';
 import '../styles/FriendsPage.css';
+import { useEffect, useState } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const Friends = () => {
-    const [showPlaylist, setShowPlaylist] = useState(false);
+    const { user } = useAuthContext();
+    const [followingPosts, setFollowingPosts] = useState([]);
+
+    const fetchFollowingData = async () => {
+        const response = await fetch(
+            process.env.REACT_APP_BACKEND + 'api/main/following',
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${user.idToken}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        ).then((r) => r.json());
+
+        const posts = response.map((post) => {
+            return <Posts data={post}></Posts>;
+        });
+
+        setFollowingPosts(posts);
+    };
+
+    useEffect(() => {
+        fetchFollowingData();
+    }, []);
 
     return (
-        <div className="total-post-container">
-            <div className="post-contents">
-                {/* Map through all friends in database, pass values as props for post */}
-                <div className="post-contents-titles-container">
-                    <h1 className="page-title">Following's Music</h1>
-                </div>
-
-                <Posts num={0}></Posts>
-                <Posts num={1}></Posts>
-                <Posts num={2}></Posts>
-                <Posts num={0}></Posts>
-                <Posts num={1}></Posts>
-                <Posts num={2}></Posts>
-            </div>
-            <div className="playlist-container">
-                <h1
-                    onClick={() => setShowPlaylist(!showPlaylist)}
-                    className="playlist-generator"
-                >
-                    Generate ReaList{' '}
-                </h1>
-                {showPlaylist && (
-                    <iframe
-                        style={{ border: 12 }}
-                        src="https://open.spotify.com/embed/playlist/6LNJISaXgIUpl8TZlnNTI8?utm_source=generator"
-                        width="400"
-                        height="800"
-                        frameBorder="0"
-                        allowfullscreen=""
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"
-                    ></iframe>
-                )}
-            </div>
+        <div className="post-contents">
+            <h1 className="page-title">Following's Music</h1>
+            {followingPosts}
         </div>
     );
 };

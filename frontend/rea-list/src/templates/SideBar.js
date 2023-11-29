@@ -28,10 +28,17 @@ const SideBar = ({ isSidebarClicked }) => {
 
         // Gets users current song info
         const json = await response.json();
+
         if (json.threeRec !== undefined)
             setRecSongs(json.threeRec.map((track) => track.id));
+
         setUserProfile(json.pfp);
-        setCurrentSong(json.nowPlaying);
+
+        if (json.nowPlaying.item !== undefined) {
+            setCurrentSong(json.nowPlaying.item);
+        } else {
+            setCurrentSong(json.nowPlaying.track);
+        }
     };
 
     useEffect(() => {
@@ -46,8 +53,8 @@ const SideBar = ({ isSidebarClicked }) => {
                         <img
                             className="listening-album-cover"
                             src={
-                                currentSong?.item?.album?.images !== undefined
-                                    ? currentSong.item.album.images[0].url
+                                currentSong?.album?.images !== undefined
+                                    ? currentSong.album.images[0].url
                                     : 'https://media.pitchfork.com/photos/5929c43cea9e61561daa80db/master/pass/a240bddc.jpg'
                             }
                             alt=""
@@ -61,13 +68,13 @@ const SideBar = ({ isSidebarClicked }) => {
                                 Listening to:
                             </h1>
                             <h2 className="current-song-info-text">
-                                {currentSong?.item?.name !== undefined
-                                    ? currentSong.item.name
+                                {currentSong?.name !== undefined
+                                    ? currentSong.name
                                     : 'Song Name'}
                             </h2>
                             <h2 className="current-song-info-text">
-                                {currentSong?.item?.artists !== undefined
-                                    ? currentSong.item.artists.map(
+                                {currentSong?.artists !== undefined
+                                    ? currentSong.artists.map(
                                           (artist) => artist.name
                                       )
                                     : 'Artist'}
