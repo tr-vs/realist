@@ -16,6 +16,7 @@ import '../styles/SignUp.css';
 // change to sign in.cc
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useLogin } from '../hooks/useLogin';
+import { useState } from 'react';
 
 function Copyright(props) {
     return (
@@ -47,12 +48,15 @@ const lightTheme = createTheme();
 
 export default function SignIn() {
     const { login, error, isLoading } = useLogin();
+    const [showPassword, setShowPassword] = useState(false);
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
         await login(data);
+    
     };
+
 
     return (
         <ThemeProvider theme={darkTheme}>
@@ -110,16 +114,23 @@ export default function SignIn() {
                             fullWidth
                             name="password"
                             label="Password"
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             id="password"
                             autoComplete="current-password"
                         />
-                        <FormControlLabel
+                        <Button
+                            onClick={() => setShowPassword(!showPassword)}
+                            sx={{ mt: 1 }}
+                        >
+                            {" "}
+                            {showPassword ? "Hide Password" : "Show Password"}
+                        </Button>
+                        {/* <FormControlLabel
                             control={
                                 <Checkbox value="remember" color="primary" />
                             }
                             label="Remember me"
-                        />
+                        /> */}
                         <Button
                             type="submit"
                             fullWidth

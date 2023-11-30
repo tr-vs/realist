@@ -46,3 +46,13 @@
     color: #fafafa;
     padding-left: 20px;
 }
+
+.following:hover {
+    cursor:pointer;
+    text-decoration: underline;
+}
+
+.followers:hover {
+    cursor:pointer;
+    text-decoration: underline;
+}

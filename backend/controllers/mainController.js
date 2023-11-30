@@ -76,8 +76,9 @@ const profile = async (req, res) => {
                 topSongs,
                 topArtists,
                 followers: user.followers,
+                following: user.following,
             };
-            console.log(user.followers);
+
             res.status(200).json(resultObject);
             await user.save();
         }
@@ -102,31 +103,12 @@ const navbar = async (req, res) => {
 const sidebar = async (req, res) => {
     const user = req.user;
     try {
-        const { pfp, access_token, refresh_token, nowPlaying } = user;
-
-        const [topFive] = await Promise.all([
-            getTop(access_token, refresh_token, 'tracks', 5, 'short_term'),
-        ]);
-
-        const artistIds = topFive.items
-            .slice(3, 5)
-            .map((item) => item.artists[0].id)
-            .join('&3C');
-        const trackIds = topFive.items
-            .slice(0, 3)
-            .map((item) => item.artists[0].id)
-            .join('&3C');
-        const threeRec = await recommendThreeTracks(
-            access_token,
-            refresh_token,
-            artistIds,
-            trackIds
-        );
+        const { pfp, nowPlaying, recommended } = user;
 
         const resultObject = {
             pfp: pfp[1],
             nowPlaying: JSON.parse(nowPlaying),
-            threeRec,
+            threeRec: recommended,
         };
 
         res.status(200).json(resultObject);
