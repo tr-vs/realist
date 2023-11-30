@@ -12,13 +12,19 @@ const updateNowPlaying = async () => {
             user.access_token,
             user.refresh_token
         );
+        
         if (
             nowPlaying === undefined ||
-            nowPlaying.currently_playing_type !== 'track'
-        )
+            (nowPlaying.track === undefined && nowPlaying.currently_playing_type !== 'track')
+        ) {
+            console.log(user.username)
             continue;
+        }
+
         user.nowPlaying = JSON.stringify(nowPlaying);
+
         await user.save();
+
     }
 };
 
