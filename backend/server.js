@@ -5,9 +5,10 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/users');
 const spotifyRoutes = require('./routes/spotify');
 const mainRoutes = require('./routes/main');
-const { updateNowPlaying } = require('./services/home');
+const { updateNowPlaying, updateRecommended } = require('./services/home');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const Time = require('./models/timeModel');
 
 // express app
 const app = express();
@@ -51,32 +52,40 @@ mongoose
         console.log(error);
     });
 
-// const updateNowPlaying = async () => {
-//     const currentDate = new Date();
+const updatePosts = () => {
+    setTimeout(async () => {
+        //
+        // updateNowPlaying();
+        // updateRecommended();
 
-//     const minHours = Math.ceil(12);
-//     const maxHours = Math.floor(24);
-//     const randomHours = Math.floor(Math.random() * (max - min) + min);
-//     const randomMinutes = Math.floor(Math.random() * 60);
-//     const randomSeconds = Math.floor(Math.random() * 60);
+        const nextDate = await Time.findOne({});
+        const nowDate = new Date();
+        if (nextDate.nextPostDate < nowDate) {
+            const tomorrow = nowDate;
+            tomorrow.setDate(tomorrow.getDate() + 1);
 
-//     const nextExecutionTime = new Date(
-//         currentDate.getFullYear(),
-//         currentDate.getMonth(),
-//         currentDate.getDate(),
-//         randomHours,
-//         randomMinutes,
-//         randomSeconds
-//     );
+            const minHour = Math.ceil(8);
+            const maxHour = Math.floor(11);
 
-//     const timeUntilNextExecution = nextExecutionTime - currentDate;
+            const randomHour = Math.floor(
+                Math.random() * (maxHour - minHour + 1) + minHour
+            );
+            const randomMinute = Math.floor(Math.random() * 60);
+            const randomSecond = Math.floor(Math.random() * 60);
 
-//     setTimeout(() => {
-//         console.log('works.');
+            const nextPostDate = new Date(
+                tomorrow.getFullYear(),
+                tomorrow.getMonth(),
+                tomorrow.getDate(),
+                randomHour,
+                randomMinute,
+                randomSecond
+            );
+            console.log(nextPostDate);
+        }
+        console.log('asdf');
+        updatePosts();
+    }, 1e3);
+};
 
-//         updateNowPlaying();
-//     }, timeUntilNextExecution);
-// };
-
-// updateNowPlaying();
-updateNowPlaying();
+updatePosts();
