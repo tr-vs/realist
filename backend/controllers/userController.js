@@ -1,36 +1,55 @@
+require('dotenv').config({ path: '../.env' });
+
 const User = require('../models/userModel');
 const { getUserProfile } = require('../services/spotify');
 const jwt = require('jsonwebtoken');
+const Passage = require('@passageidentity/passage-node');
+
+const passage = new Passage({
+    appID: process.env.PASSAGE_APP_ID,
+    apiKey: process.env.PASSAGE_API_KEY,
+    authStrategy: 'HEADER',
+});
 
 const createToken = (_id) => {
     return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
 };
 
 const loginUser = async (req, res) => {
-    const { email, password } = req.body;
     try {
-        const user = await User.login(email, password);
+        // Authenticate request using Passage
+        let userID = await passage.authenticateRequest(req);
+        if (userID) {
+            // User is authenticated
+            const userData = await passage.user.get(userID);
+            const email = userData.email;
+            const user = await User.findOne({ email });
+            const idToken = createToken(user._id);
+            const spotifyToken = user.access_token ? true : false;
 
-        // create a token
-        const idToken = createToken(user._id);
-        const spotifyToken = user.access_token ? true : false;
-        const { username } = user;
+            // create a token
+            const { username } = user;
 
-        res.status(200).json({ username, idToken, spotifyToken });
+            res.status(200).json({ username, idToken, spotifyToken });
+        }
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
 
 const signupUser = async (req, res) => {
-    const { email, password, username, school, bio } = req.body;
-
     try {
-        const user = await User.signup(email, password, username, school, bio);
+        const userID = await passage.authenticateRequest(req);
 
-        // create a token
+        const passageUser = await passage.user.get(userID);
+        const email = passageUser.email;
+        const school = passageUser.user_metadata.school;
+        const username = passageUser.user_metadata.username;
+
+        const user = await User.signup(email, school, username);
+
         const idToken = createToken(user._id);
-        const spotifyToken = user.access_token ? true : false;
+        const spotifyToken = false;
 
         res.status(200).json({ username, idToken, spotifyToken });
     } catch (error) {
