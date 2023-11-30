@@ -46,6 +46,7 @@ const lightTheme = createTheme();
 export default function SignUp() {
     const [showPassReq, setShowPassReq] = useState(false);
     const { signup, error, isLoading } = useSignup();
+    const [showPassword, setShowPassword] = useState(false);
 
     // Add new user to database
     const createUser = async (event) => {
@@ -127,12 +128,20 @@ export default function SignUp() {
                             fullWidth
                             name="password"
                             label="Password"
-                            type="password"
-                            id="password"
+                            type={showPassword ? "text" : "password"}                            id="password"
                             autoComplete="current-password"
                             onFocus={() => setShowPassReq(true)}
                             onBlur={() => setShowPassReq(false)}
                         />
+
+                        <Button
+                            onClick={() => setShowPassword(!showPassword)}
+                            sx={{ mt: 1 }}
+                        >
+                            {" "}
+                            {showPassword ? "Hide Password" : "Show Password"}
+
+                        </Button>
                         {showPassReq && (
                             <ul className="password-requirement">
                                 <li>8 Characters Minimum</li>
