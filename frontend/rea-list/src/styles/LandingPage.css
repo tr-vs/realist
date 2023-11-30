@@ -297,6 +297,7 @@ swiper-button-prev {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   position: fixed;
   bottom: 0;
+  min-width: 80px;
   width: 5%;
   background-color: rgb(34, 34, 34); 
   color: #fff; /* Set the text color of your navbar */
