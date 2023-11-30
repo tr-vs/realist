@@ -98,7 +98,7 @@ const Profile = () => {
     return (
         <>
             <ProfileNavbar />
-    
+
             <div className="profile-contents">
                 <UserHead pfp={pfp} username={user.username} />
                 <div className="logout">
@@ -122,12 +122,11 @@ const Profile = () => {
                         Log Out
                     </button>
                 </div>
-    
+
                 <UserStats artists={artists} songs={songs} />
             </div>
         </>
     );
-    
 };
 
 export default Profile;

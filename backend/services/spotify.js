@@ -37,7 +37,7 @@ const refreshToken = async (refresh_token) => {
 //              short_term (approximately last 4 weeks).
 
 const getTop = async (token, refresh_token, type, limit, time_range) => {
-    const response = await fetch(
+    let response = await fetch(
         `https://api.spotify.com/v1/me/top/${type}?limit=${limit}&time_range=${time_range}`,
         {
             method: 'GET',
@@ -45,7 +45,11 @@ const getTop = async (token, refresh_token, type, limit, time_range) => {
                 Authorization: `Bearer ${token}`,
             },
         }
-    ).then((r) => r.json());
+    );
+    if (response.status === 403) {
+        return undefined;
+    }
+    response = await response.json();
     if (response.error?.message === 'The access token expired') {
         const refreshedToken = await refreshToken(refresh_token);
         const recall = await getTop(
