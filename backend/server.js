@@ -6,6 +6,7 @@ const userRoutes = require('./routes/users');
 const spotifyRoutes = require('./routes/spotify');
 const mainRoutes = require('./routes/main');
 const { updateNowPlaying, updateRecommended } = require('./services/home');
+
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const Time = require('./models/timeModel');
@@ -52,7 +53,7 @@ mongoose
         console.log(error);
     });
 
-const updatePosts = () => {
+const checkTime = () => {
     setTimeout(async () => {
         //
         // updateNowPlaying();
@@ -60,16 +61,16 @@ const updatePosts = () => {
 
         const nextDate = await Time.findOne({});
         const nowDate = new Date();
+
         if (nextDate.nextPostDate < nowDate) {
             const tomorrow = nowDate;
             tomorrow.setDate(tomorrow.getDate() + 1);
 
-            const minHour = Math.ceil(8);
-            const maxHour = Math.floor(11);
-
-            const randomHour = Math.floor(
-                Math.random() * (maxHour - minHour + 1) + minHour
+            const hours = [...Array(3).keys()].concat(
+                Array.from({ length: 16 }, (_, index) => 8 + index)
             );
+
+            const randomHour = hours[Math.floor(Math.random() * hours.length)];
             const randomMinute = Math.floor(Math.random() * 60);
             const randomSecond = Math.floor(Math.random() * 60);
 
@@ -81,11 +82,15 @@ const updatePosts = () => {
                 randomMinute,
                 randomSecond
             );
-            console.log(nextPostDate);
+
+            nextDate.nextPostDate = nextPostDate;
+
+            updateRecommended();
+            updateNowPlaying();
+            await nextDate.save();
         }
-        console.log('asdf');
-        updatePosts();
-    }, 1e3);
+        checkTime();
+    }, 6e5);
 };
 
-updatePosts();
+checkTime();

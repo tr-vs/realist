@@ -49,6 +49,7 @@ const userSchema = new Schema({
     ],
     followers: [{ type: String }],
     following: [{ type: String }],
+    recommended: [{ type: String }, { type: String }, { type: String }],
 });
 
 // static signup method
