@@ -1,5 +1,4 @@
-import SignIn from '../templates/SignIn';
-import { PassageLogin } from '@passageidentity/passage-react';
+import { PassageLogin, PassageTheme } from '@passageidentity/passage-react';
 import { useAuthContext } from '../hooks/useAuthContext';
 
 const SignInPage = () => {
@@ -23,6 +22,7 @@ const SignInPage = () => {
 
     return (
         <div className="full-container">
+            <PassageTheme containerBackgroundColor="#FF5733" />
             <PassageLogin onSuccess={onSuccess} />
         </div>
     );
