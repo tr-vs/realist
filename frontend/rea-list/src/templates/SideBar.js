@@ -32,7 +32,8 @@ const SideBar = ({ isSidebarClicked }) => {
 
         setUserProfile(json.pfp);
 
-        if (json.nowPlaying.item !== undefined) {
+        if (json.nowPlaying === undefined) {
+        } else if (json.nowPlaying.item !== undefined) {
             setCurrentSong(json.nowPlaying.item);
         } else {
             setCurrentSong(json.nowPlaying.track);
