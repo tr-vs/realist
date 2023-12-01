@@ -28,8 +28,7 @@ const SideBar = ({ isSidebarClicked }) => {
         // Gets users current song info
         const json = await response.json();
 
-        if (json.threeRec !== undefined)
-            setRecSongs(json.threeRec.map((track) => track.id));
+        if (json.threeRec !== undefined) setRecSongs(json.threeRec);
 
         setUserProfile(json.pfp);
 

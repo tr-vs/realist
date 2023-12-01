@@ -12,6 +12,14 @@
     font-weight: 600;
 }
 
+.page-title-time {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    text-align: center;
+    margin: 0%;
+    padding-left: 35px;
+}
+
 .total-post-container {
     display: flex;
     width: 100%;

@@ -45,6 +45,7 @@ const userSchema = new Schema({
     ],
     followers: [{ type: String }],
     following: [{ type: String }],
+    recommended: [{ type: String }, { type: String }, { type: String }],
 });
 
 module.exports = mongoose.model('User', userSchema);

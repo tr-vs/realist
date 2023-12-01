@@ -5,9 +5,11 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/users');
 const spotifyRoutes = require('./routes/spotify');
 const mainRoutes = require('./routes/main');
-const { updateNowPlaying } = require('./services/home');
+const { updateNowPlaying, updateRecommended } = require('./services/home');
+
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const Time = require('./models/timeModel');
 
 // express app
 const app = express();
@@ -51,32 +53,44 @@ mongoose
         console.log(error);
     });
 
-// const updateNowPlaying = async () => {
-//     const currentDate = new Date();
+const checkTime = () => {
+    setTimeout(async () => {
+        //
+        // updateNowPlaying();
+        // updateRecommended();
 
-//     const minHours = Math.ceil(12);
-//     const maxHours = Math.floor(24);
-//     const randomHours = Math.floor(Math.random() * (max - min) + min);
-//     const randomMinutes = Math.floor(Math.random() * 60);
-//     const randomSeconds = Math.floor(Math.random() * 60);
+        const nextDate = await Time.findOne({});
+        const nowDate = new Date();
 
-//     const nextExecutionTime = new Date(
-//         currentDate.getFullYear(),
-//         currentDate.getMonth(),
-//         currentDate.getDate(),
-//         randomHours,
-//         randomMinutes,
-//         randomSeconds
-//     );
+        if (nextDate.nextPostDate < nowDate) {
+            const tomorrow = nowDate;
+            tomorrow.setDate(tomorrow.getDate() + 1);
 
-//     const timeUntilNextExecution = nextExecutionTime - currentDate;
+            const hours = [...Array(3).keys()].concat(
+                Array.from({ length: 16 }, (_, index) => 8 + index)
+            );
 
-//     setTimeout(() => {
-//         console.log('works.');
+            const randomHour = hours[Math.floor(Math.random() * hours.length)];
+            const randomMinute = Math.floor(Math.random() * 60);
+            const randomSecond = Math.floor(Math.random() * 60);
 
-//         updateNowPlaying();
-//     }, timeUntilNextExecution);
-// };
+            const nextPostDate = new Date(
+                tomorrow.getFullYear(),
+                tomorrow.getMonth(),
+                tomorrow.getDate(),
+                randomHour,
+                randomMinute,
+                randomSecond
+            );
 
-// updateNowPlaying();
-updateNowPlaying();
+            nextDate.nextPostDate = nextPostDate;
+
+            updateRecommended();
+            updateNowPlaying();
+            await nextDate.save();
+        }
+        checkTime();
+    }, 6e5);
+};
+
+checkTime();
