@@ -1,5 +1,7 @@
 import { PassageLogin, PassageTheme } from '@passageidentity/passage-react';
 import { useAuthContext } from '../hooks/useAuthContext';
+import '../styles/LoginPage.css';
+import '@passageidentity/passage-elements/passage-login';
 
 const SignInPage = () => {
     const { dispatch } = useAuthContext();
@@ -22,11 +24,13 @@ const SignInPage = () => {
             dispatch({ type: 'LOGIN', payload: json });
         }
     };
-
+    console.log(process.env.REACT_APP_PASSAGE_APP_ID);
     return (
         <div className="full-container">
-            <PassageTheme containerBackgroundColor="#FF5733" />
-            <PassageLogin onSuccess={onSuccess} />
+            <passage-login
+                onSuccess={onSuccess}
+                app-id={process.env.REACT_APP_PASSAGE_APP_ID}
+            ></passage-login>
         </div>
     );
 };
