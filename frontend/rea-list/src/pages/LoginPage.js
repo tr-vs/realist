@@ -1,9 +1,10 @@
-import { PassageLogin, PassageTheme } from '@passageidentity/passage-react';
 import { useAuthContext } from '../hooks/useAuthContext';
-import '../styles/LoginPage.css';
+import { useEffect, useRef } from 'react';
 import '@passageidentity/passage-elements/passage-login';
+import '../styles/LoginPage.css';
 
 const SignInPage = () => {
+    const ref = useRef();
     const { dispatch } = useAuthContext();
 
     const onSuccess = async (authResult) => {
@@ -24,10 +25,17 @@ const SignInPage = () => {
             dispatch({ type: 'LOGIN', payload: json });
         }
     };
-    console.log(process.env.REACT_APP_PASSAGE_APP_ID);
+
+    useEffect(() => {
+        const { current } = ref;
+        current.onSuccess = onSuccess;
+        return () => {};
+    });
+
     return (
         <div className="full-container">
             <passage-login
+                ref={ref}
                 onSuccess={onSuccess}
                 app-id={process.env.REACT_APP_PASSAGE_APP_ID}
             ></passage-login>

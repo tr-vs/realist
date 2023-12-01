@@ -1,7 +1,9 @@
-import { PassageRegister } from '@passageidentity/passage-react';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useEffect, useRef } from 'react';
+import '@passageidentity/passage-elements/passage-register';
 
 const SignUpPage = () => {
+    const ref = useRef();
     const { dispatch, user } = useAuthContext();
 
     const onSuccess = async (authResult) => {
@@ -28,9 +30,19 @@ const SignUpPage = () => {
         }
     };
 
+    useEffect(() => {
+        const { current } = ref;
+        current.onSuccess = onSuccess;
+        return () => {};
+    });
+
     return (
         <div className="full-container">
-            <PassageRegister onSuccess={onSuccess} />
+            <passage-register
+                ref={ref}
+                onSuccess={onSuccess}
+                app-id={process.env.REACT_APP_PASSAGE_APP_ID}
+            ></passage-register>
         </div>
     );
 };

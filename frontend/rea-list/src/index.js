@@ -4,15 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './context/AuthContext';
-import { PassageProvider } from '@passageidentity/passage-react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <AuthContextProvider>
-            <PassageProvider appId="p3g1mBImLM5FUPBfnbeodby2">
-                <App />
-            </PassageProvider>
+            <App />
         </AuthContextProvider>
     </React.StrictMode>
 );
