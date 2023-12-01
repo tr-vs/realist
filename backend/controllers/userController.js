@@ -12,7 +12,7 @@ const passage = new Passage({
 });
 
 const createToken = (_id) => {
-    return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
+    return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '999d' });
 };
 
 const checkValidUsername = async (req, res) => {
@@ -30,7 +30,8 @@ const checkValidUsername = async (req, res) => {
 const loginUser = async (req, res) => {
     try {
         // Authenticate request using Passage
-        let userID = await passage.authenticateRequest(req);
+        const userID = await passage.authenticateRequest(req);
+
         if (userID) {
             // User is authenticated
             const userData = await passage.user.get(userID);

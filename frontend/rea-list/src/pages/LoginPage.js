@@ -5,12 +5,15 @@ const SignInPage = () => {
     const { dispatch } = useAuthContext();
 
     const onSuccess = async (authResult) => {
-        const response = await fetch('http://localhost:3000/api/users/login', {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${authResult.auth_token}`,
-            },
-        });
+        const response = await fetch(
+            process.env.REACT_APP_BACKEND + 'api/users/login',
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${authResult.auth_token}`,
+                },
+            }
+        );
         const json = await response.json();
 
         if (response.ok) {
