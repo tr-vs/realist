@@ -9,11 +9,22 @@ import LoginPage from './pages/LoginPage';
 import Landing from './pages/Landing';
 import OtherProfile from './pages/OtherProfile';
 import { useAuthContext } from './hooks/useAuthContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UserNotFound from './pages/UserNotFound';
 
 function App() {
     const { user } = useAuthContext();
+    const [SignUpElement, setSignUpElement] = useState(null);
+
+    useEffect(() => {
+        if (!user) {
+            setSignUpElement(<Navigate to="/landing" />);
+        } else if (user.idToken === 'false') {
+            setSignUpElement(<SignUpPage />);
+        } else {
+            setSignUpElement(<Navigate to="/" />);
+        }
+    }, [user]);
 
     return (
         <BrowserRouter>
@@ -30,10 +41,7 @@ function App() {
 
                 <Route path="/user" element={<OtherProfile />} />
 
-                <Route
-                    path="/signup"
-                    element={!user ? <SignUpPage /> : <Navigate to="/" />}
-                />
+                <Route path="/signup" element={SignUpElement} />
                 <Route
                     path="/loginpage"
                     element={!user ? <LoginPage /> : <Navigate to="/" />}

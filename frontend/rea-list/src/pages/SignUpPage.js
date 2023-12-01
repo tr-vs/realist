@@ -1,22 +1,24 @@
-import SignUp from '../templates/SignUp';
 import { PassageRegister } from '@passageidentity/passage-react';
 import { useAuthContext } from '../hooks/useAuthContext';
 
 const SignUpPage = () => {
-    const { dispatch } = useAuthContext();
+    const { dispatch, user } = useAuthContext();
 
     const onSuccess = async (authResult) => {
-        const response = await fetch('http://localhost:3000/api/users/signup', {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${authResult.auth_token}`,
-            },
-        });
+        const response = await fetch(
+            process.env.REACT_APP_BACKEND + 'api/users/signup',
+            {
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify({ username: user.username }),
+                headers: {
+                    Authorization: `Bearer ${authResult.auth_token}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
         const json = await response.json();
 
-        if (response.status !== 200) {
-            return false;
-        }
         if (response.ok) {
             // save user to local storage
             localStorage.setItem('user', JSON.stringify(json));
@@ -25,6 +27,7 @@ const SignUpPage = () => {
             dispatch({ type: 'LOGIN', payload: json });
         }
     };
+
     return (
         <div className="full-container">
             <PassageRegister onSuccess={onSuccess} />

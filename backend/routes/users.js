@@ -4,6 +4,7 @@ const {
     loginUser,
     addToken,
     removeToken,
+    checkValidUsername,
 } = require('../controllers/userController');
 
 const router = express.Router();
@@ -18,5 +19,7 @@ router.post('/signup', signupUser);
 router.patch('/token', addToken);
 
 router.patch('/disconnectSpotify', removeToken);
+
+router.get('/usernameValidation/:username', checkValidUsername);
 
 module.exports = router;

@@ -15,6 +15,18 @@ const createToken = (_id) => {
     return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
 };
 
+const checkValidUsername = async (req, res) => {
+    const { username } = req.params;
+
+    const exists = await User.findOne({ username });
+
+    if (exists) {
+        res.status(400).json({ error: 'Username already in use' });
+    } else {
+        res.status(200).json({ username, idToken: 'false' });
+    }
+};
+
 const loginUser = async (req, res) => {
     try {
         // Authenticate request using Passage
@@ -38,15 +50,20 @@ const loginUser = async (req, res) => {
 };
 
 const signupUser = async (req, res) => {
+    const { username } = req.body;
+
     try {
         const userID = await passage.authenticateRequest(req);
 
         const passageUser = await passage.user.get(userID);
         const email = passageUser.email;
         const school = passageUser.user_metadata.school;
-        const username = passageUser.user_metadata.username;
 
-        const user = await User.signup(email, school, username);
+        const user = await User.create({
+            email,
+            username,
+            school: school.toLowerCase(),
+        });
 
         const idToken = createToken(user._id);
         const spotifyToken = false;
@@ -88,7 +105,6 @@ const addToken = async (req, res) => {
 
         res.status(200).json({ username, idToken, spotifyToken: true });
     } catch (error) {
-        console.error(error);
         res.status(401).json({ error: 'Request is not authorized' });
     }
 };
@@ -131,4 +147,5 @@ module.exports = {
     loginUser,
     addToken,
     removeToken,
+    checkValidUsername,
 };
