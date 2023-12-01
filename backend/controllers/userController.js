@@ -1,7 +1,12 @@
 require('dotenv').config({ path: '../.env' });
 
 const User = require('../models/userModel');
-const { getUserProfile } = require('../services/spotify');
+const {
+    getUserProfile,
+    getNowPlaying,
+    getTop,
+    recommendThreeTracks,
+} = require('../services/spotify');
 const jwt = require('jsonwebtoken');
 const Passage = require('@passageidentity/passage-node');
 
@@ -90,6 +95,48 @@ const addToken = async (req, res) => {
 
         const profile = await getUserProfile(access_token, refresh_token);
 
+        const nowPlaying = await getNowPlaying(access_token, refresh_token);
+        if (
+            nowPlaying === undefined ||
+            (nowPlaying.track === undefined &&
+                nowPlaying.currently_playing_type !== 'track')
+        ) {
+            res.status(401).json({ error: 'No recently played tracks' });
+        }
+
+        const topFive = await getTop(
+            access_token,
+            refresh_token,
+            'tracks',
+            5,
+            'short_term'
+        );
+
+        if (topFive === undefined)
+            res.status(401).json({ error: 'No top five songs' });
+
+        const artistIds = topFive.items
+            .slice(3, 5)
+            .map((item) => item.artists[0].id)
+            .join('&3C');
+
+        if (artistIds.length === 0)
+            res.status(401).json({ error: 'No artists' });
+
+        const trackIds = topFive.items
+            .slice(0, 3)
+            .map((item) => item.id)
+            .join('&3C');
+
+        const threeRec = await recommendThreeTracks(
+            access_token,
+            refresh_token,
+            artistIds,
+            trackIds
+        );
+
+        const threeRecID = threeRec.map((rec) => rec.id);
+
         let pfp = [];
         if (profile.images[0]?.url !== undefined) {
             pfp = profile.images.map((image) => image.url);
@@ -97,7 +144,13 @@ const addToken = async (req, res) => {
 
         const user = await User.findOneAndUpdate(
             { _id },
-            { refresh_token, access_token, pfp },
+            {
+                refresh_token,
+                access_token,
+                pfp,
+                nowPlaying: JSON.stringify(nowPlaying),
+                recommended: threeRecID,
+            },
             { returnNewDocument: true }
         );
 
@@ -106,6 +159,7 @@ const addToken = async (req, res) => {
 
         res.status(200).json({ username, idToken, spotifyToken: true });
     } catch (error) {
+        console.log(error);
         res.status(401).json({ error: 'Request is not authorized' });
     }
 };
