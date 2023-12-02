@@ -14,6 +14,7 @@ const OtherProfile = () => {
     const [artists, setArtists] = useState([]);
     const [songs, setSongs] = useState([]);
     const [following, setFollowing] = useState(false);
+    const [connected, setConnected] = useState(false);
 
     const fetchProfile = async () => {
         const response = await fetch(
@@ -30,14 +31,14 @@ const OtherProfile = () => {
 
         if (json.error === 'User does not exist') {
             navigate('/usernotfound');
-        } else {
-            setPfp(json.pfp[1]);
-
+        } else if (json.connected) {
             if (json.topArtists !== undefined) {
                 setArtists(json.topArtists.items);
                 setSongs(json.topSongs.items);
             }
             if (json.followers.includes(user.username)) setFollowing(true);
+            setConnected(true);
+            setPfp(json.pfp[1]);
         }
     };
 
@@ -80,16 +81,16 @@ const OtherProfile = () => {
 
     return (
         <>
-                <ProfileNavbar />
-                <div className="profile-contents">
-                    <div className='profile-info-container'>
-                        <UserHead pfp={pfp} username={username} />
-                        <button className='follow-button' onClick={followUnfollow}>
-                            {!following ? 'Follow' : 'Unfollow'}
-                        </button>
-                    </div>
-                    <UserStats artists={artists} songs={songs} />
+            <ProfileNavbar />
+            <div className="profile-contents">
+                <div className="profile-info-container">
+                    <UserHead pfp={pfp} username={username} />
+                    <button className="follow-button" onClick={followUnfollow}>
+                        {!following ? 'Follow' : 'Unfollow'}
+                    </button>
                 </div>
+                <UserStats user={connected} artists={artists} songs={songs} />
+            </div>
         </>
     );
 };

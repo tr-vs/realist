@@ -42,8 +42,8 @@ const SideBar = ({ isSidebarClicked }) => {
     };
 
     useEffect(() => {
-        if (user.spotifyToken) fetchProfile();
         if (user.spotifyToken) {
+            fetchProfile();
             setIsSpotifyConnected(true);
         } else {
             setIsSpotifyConnected(false);

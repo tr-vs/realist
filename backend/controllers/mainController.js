@@ -51,7 +51,7 @@ const profile = async (req, res) => {
         if (user === null)
             res.status(401).json({ error: 'User does not exist' });
         else if (user.access_token === undefined) {
-            const resultObject = { pfp: user.pfp };
+            const resultObject = { pfp: user.pfp, connected: false };
             res.status(200).json(resultObject);
         } else {
             const [topSongs, topArtists] = await Promise.all([
@@ -77,6 +77,7 @@ const profile = async (req, res) => {
                 topArtists,
                 followers: user.followers,
                 following: user.following,
+                connected: true,
             };
 
             res.status(200).json(resultObject);
