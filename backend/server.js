@@ -66,9 +66,7 @@ const checkTime = () => {
             const tomorrow = nowDate;
             tomorrow.setDate(tomorrow.getDate() + 1);
 
-            const hours = [...Array(3).keys()].concat(
-                Array.from({ length: 16 }, (_, index) => 8 + index)
-            );
+            const hours = Array.from({ length: 16 }, (_, index) => 8 + index);
 
             const randomHour = hours[Math.floor(Math.random() * hours.length)];
             const randomMinute = Math.floor(Math.random() * 60);
