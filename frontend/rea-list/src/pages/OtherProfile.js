@@ -75,8 +75,11 @@ const OtherProfile = () => {
     };
 
     useEffect(() => {
-        if (username === user.username) navigate('/profile');
-        fetchProfile();
+        if (username === user.username) {
+            navigate('/profile');
+        } else {
+            fetchProfile();
+        }
     }, []);
 
     return (
