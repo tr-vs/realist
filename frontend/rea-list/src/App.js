@@ -39,11 +39,9 @@ function App() {
                     element={user ? <Profile /> : <Navigate to="/landing" />}
                 />
 
-                <Route path="/user" element={<OtherProfile />} />
-
                 <Route path="/signup" element={SignUpElement} />
                 <Route
-                    path="/loginpage"
+                    path="/login"
                     element={!user ? <LoginPage /> : <Navigate to="/" />}
                 />
                 <Route path="/landing" element={<Landing />} />
