@@ -9,3 +9,13 @@ body {
 .page-content {
     width: 100%;
 }
+
+.page-title-time {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    text-align: center;
+    margin: 0%;
+    padding-left: 35px;
+    color: white;
+    margin-top: 105px;
+}

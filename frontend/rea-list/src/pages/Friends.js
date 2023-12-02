@@ -32,7 +32,6 @@ const Friends = () => {
 
     return (
         <div className="post-contents">
-            <h4 className='page-title-time'>Last ReaList: 2:45pm</h4>
             <h1 className="page-title">Following's Music</h1>
             {followingPosts}
         </div>
