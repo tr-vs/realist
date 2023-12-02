@@ -9,28 +9,38 @@ export const useCheckUsername = () => {
     const checkUsername = async (inputText) => {
         setIsLoading(true);
         setError(null);
+        const lower = inputText.toLowerCase();
 
-        const response = await fetch(
-            process.env.REACT_APP_BACKEND +
-                'api/users/usernameValidation/' +
-                inputText,
-            {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
-        if (response.ok) {
-            const json = await response.json();
-
-            localStorage.setItem('user', JSON.stringify(json));
-
-            dispatch({ type: 'LOGIN', payload: json });
+        if (
+            ['login', 'signup', 'landing', 'profile', 'usernotfound'].includes(
+                lower
+            )
+        ) {
+            setError('Username is prohibited!');
             setIsLoading(false);
         } else {
-            setError('Username already taken!');
-            setIsLoading(false);
+            const response = await fetch(
+                process.env.REACT_APP_BACKEND +
+                    'api/users/usernameValidation/' +
+                    inputText,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            if (response.ok) {
+                const json = await response.json();
+
+                localStorage.setItem('user', JSON.stringify(json));
+
+                dispatch({ type: 'LOGIN', payload: json });
+                setIsLoading(false);
+            } else {
+                setError('Username already taken!');
+                setIsLoading(false);
+            }
         }
     };
 
