@@ -121,7 +121,11 @@ const Profile = () => {
                         Log Out
                     </button>
                 </div>
-                <UserStats user={user} artists={artists} songs={songs} />
+                <UserStats
+                    user={user.spotifyToken}
+                    artists={artists}
+                    songs={songs}
+                />
             </div>
         </>
     );

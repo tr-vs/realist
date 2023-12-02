@@ -42,11 +42,11 @@ const SideBar = ({ isSidebarClicked }) => {
     };
 
     useEffect(() => {
-        if (user.spotifyToken) fetchProfile();
         if (user.spotifyToken) {
-            setIsSpotifyConnected(true)
+            fetchProfile();
+            setIsSpotifyConnected(true);
         } else {
-            setIsSpotifyConnected(false)
+            setIsSpotifyConnected(false);
         }
     }, []);
 
@@ -66,7 +66,7 @@ const SideBar = ({ isSidebarClicked }) => {
                         />
                         <SecondProfileIcon profile={userProfile} />
                     </div>
-                    
+
                     {isSpotifyConnected && (
                         <div className="information-container">
                             <div className="current-song-info">
@@ -81,8 +81,8 @@ const SideBar = ({ isSidebarClicked }) => {
                                 <h2 className="current-song-info-text">
                                     {currentSong?.artists !== undefined
                                         ? currentSong.artists.map(
-                                            (artist) => artist.name
-                                        )
+                                              (artist) => artist.name
+                                          )
                                         : 'Artist'}
                                 </h2>
                             </div>

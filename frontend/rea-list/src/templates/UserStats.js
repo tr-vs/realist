@@ -1,23 +1,12 @@
 import '../styles/UserStats.css';
-import { useEffect, useState } from 'react';
 const UserStats = ({ user, songs, artists }) => {
-    const [isSpotifyConnected, setIsSpotifyConnected] = useState(false)
-
-    useEffect(() => {
-        if(user.spotifyToken) {
-            setIsSpotifyConnected(true)
-        } else {
-            setIsSpotifyConnected(false)
-        }
-    }, [])
     return (
-        
         <div className="stats-container">
             <div className="user-top-artists">
                 <div className="titleTA">
                     <h2>Your Top Artists... </h2>
                 </div>
-                {isSpotifyConnected && (
+                {user && (
                     <div className=".user-top-artists">
                         <iframe
                             style={{ border: 12, height: 160 }}
@@ -51,15 +40,13 @@ const UserStats = ({ user, songs, artists }) => {
                         ></iframe>
                     </div>
                 )}
-                {!isSpotifyConnected && (
-                    <h2>Spotify needed</h2>
-                )}
+                {!user && <h2>Spotify needed</h2>}
             </div>
             <div className="user-top-songs">
                 <div className="titleTS">
                     <h2>Your Top Songs...</h2>
                 </div>
-                {isSpotifyConnected && (
+                {user && (
                     <>
                         <iframe
                             style={{ border: 12, height: 88 }}
@@ -113,9 +100,7 @@ const UserStats = ({ user, songs, artists }) => {
                         ></iframe>
                     </>
                 )}
-                {!isSpotifyConnected && (
-                    <h2>Spotify needed</h2>
-                )}
+                {!user && <h2>Spotify needed</h2>}
             </div>
         </div>
     );
