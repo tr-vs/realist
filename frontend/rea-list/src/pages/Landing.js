@@ -302,7 +302,7 @@ const Landing = () => {
                         {error && <div className="error">{error}</div>}
                         <div className="bottom-container">
                             <h3 className="modal-text bottom" onClick={check}>
-                                Sign In
+                                Sign Up
                             </h3>
                         </div>
                     </div>
