@@ -4,8 +4,10 @@ const {
     getTop,
     recommendThreeTracks,
 } = require('../services/spotify');
+
 const { getTopArtists } = require('../services/lastfm');
 const User = require('../models/userModel');
+const Time = require('../models/timeModel');
 
 const community = async (req, res) => {
     const user = req.user;
@@ -161,6 +163,16 @@ const unfollow = async (req, res) => {
     }
 };
 
+const timestamp = async (req, res) => {
+    try {
+        const { updatedAt } = await Time.findOne({});
+
+        res.status(200).json({ updatedAt });
+    } catch (err) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 module.exports = {
     community,
     profile,
@@ -168,5 +180,6 @@ module.exports = {
     sidebar,
     follow,
     unfollow,
+    timestamp,
     following,
 };
