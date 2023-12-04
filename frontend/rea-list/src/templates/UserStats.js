@@ -4,7 +4,7 @@ const UserStats = ({ user, songs, artists }) => {
         <div className="stats-container">
             <div className="user-top-artists">
                 <div className="titleTA">
-                    <h2>Your Top Artists... </h2>
+                    <h2>Top Artists... </h2>
                 </div>
                 {user && (
                     <div className=".user-top-artists">
@@ -44,7 +44,7 @@ const UserStats = ({ user, songs, artists }) => {
             </div>
             <div className="user-top-songs">
                 <div className="titleTS">
-                    <h2>Your Top Songs...</h2>
+                    <h2>Top Songs...</h2>
                 </div>
                 {user && (
                     <>
