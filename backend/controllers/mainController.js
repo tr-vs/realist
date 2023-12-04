@@ -95,7 +95,17 @@ const navbar = async (req, res) => {
     const user = req.user;
 
     try {
-        res.status(200).json({ pfp: user.pfp[1] });
+        const users = await User.find({}, 'username pfp');
+
+        const usernames = users.map((user) => user.username);
+        const pfps = users.map((user) => user.pfp[1]);
+
+        let userToPfp = {};
+
+        for (let i = 0; i < usernames.length; i++)
+            userToPfp[usernames[i]] = pfps[i];
+
+        res.status(200).json({ pfp: user.pfp[1], pfps, usernames, userToPfp });
     } catch (err) {
         res.status(401).json({
             error: 'User has no affiliated profile picture!',

@@ -17,17 +17,15 @@ const Navbar = ({
     setIsSidebarClicked,
 }) => {
     const [searchBar, setSearchBar] = useState(false);
+    const [searchUsernames, setSearchUsernames] = useState([]);
     const [rotationAngle, setRotationAngle] = useState(0);
     const [pfp, setPfp] = useState(
         'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'
     );
-    const [searchInput, setSearchInput] = useState([]); 
+    const [searchInput, setSearchInput] = useState([]);
+    const [userToPfp, setUserToPfp] = useState({});
     const inputRef = useRef(null);
     const { user } = useAuthContext();
-
-    //placeholder array for usernames 
-    //replace with fetched usernames
-    const sampleUsernames = ['kesdlvi', 'chasin_jasonnn', "gaby", "jacque", "travis", "brianna", "ssedric", "soupy", "jasibermejo", "teresalee"]
 
     const handleSearchClick = () => {
         if (!searchBar) {
@@ -79,16 +77,16 @@ const Navbar = ({
     };
 
     const handleSearchInputChange = (event) => {
-        const currentInput = event.target.value.toLowerCase(); 
+        const currentInput = event.target.value.toLowerCase();
 
         // Filter searches by character
-        const filteredUsernames = sampleUsernames.filter((username) =>
+        const filteredUsernames = searchUsernames.filter((username) =>
             username.toLowerCase().includes(currentInput)
         );
 
         setSearchInput(filteredUsernames);
-        if (event.target.value == '') setSearchInput([])
-    }
+        if (event.target.value == '') setSearchInput([]);
+    };
 
     const fetchPfp = async () => {
         const response = await fetch(
@@ -103,8 +101,12 @@ const Navbar = ({
         );
 
         const json = await response.json();
+
+        setUserToPfp(json.userToPfp);
+        setSearchUsernames(json.usernames);
         setPfp(json.pfp);
     };
+
     useEffect(() => {
         fetchPfp();
     }, []);
@@ -138,7 +140,7 @@ const Navbar = ({
 
                 {searchBar && (
                     <div className="search-bar-container">
-                        <div className='search-bar-and-menu-container'>
+                        <div className="search-bar-and-menu-container">
                             <input
                                 ref={inputRef}
                                 className="search-bar"
@@ -149,9 +151,12 @@ const Navbar = ({
                                 onChange={handleSearchInputChange}
                             />
                             {searchInput.length > 0 && (
-                                <div className='search-results'> 
+                                <div className="search-results">
                                     {searchInput.map((user) => (
-                                        <UsernameHolder username={user}/>
+                                        <UsernameHolder
+                                            pfp={userToPfp[user]}
+                                            username={user}
+                                        />
                                     ))}
                                 </div>
                             )}
@@ -161,7 +166,7 @@ const Navbar = ({
                 )}
 
                 <div className="side-bar-button">
-                    <ProfileIcon pfp={pfp}  onClick={handleSideBarClick} />
+                    <ProfileIcon pfp={pfp} onClick={handleSideBarClick} />
                 </div>
             </div>
         </div>

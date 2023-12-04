@@ -88,7 +88,7 @@ const OtherProfile = () => {
         } else {
             fetchProfile();
         }
-    }, [username, followers]);
+    }, [username, following]);
 
     return (
         <>
