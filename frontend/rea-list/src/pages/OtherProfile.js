@@ -80,7 +80,7 @@ const OtherProfile = () => {
         } else {
             fetchProfile();
         }
-    }, []);
+    }, [username]);
 
     return (
         <>
