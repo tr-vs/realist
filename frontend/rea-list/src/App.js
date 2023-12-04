@@ -11,6 +11,7 @@ import OtherProfile from './pages/OtherProfile';
 import { useAuthContext } from './hooks/useAuthContext';
 import { useState } from 'react';
 import UserNotFound from './pages/UserNotFound';
+import LoadingPage from './pages/LoadingPage';
 
 function App() {
     const { user } = useAuthContext();
@@ -46,6 +47,7 @@ function App() {
                     }
                 />
                 <Route path="/usernotfound" element={<UserNotFound />} />
+                <Route path="/loading" element={<LoadingPage />} />
             </Routes>
         </BrowserRouter>
     );
