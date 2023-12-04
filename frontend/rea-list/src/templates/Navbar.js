@@ -4,6 +4,7 @@ import MenuBar from '../svg/MenuBar';
 import CancelButton from '../svg/CancelButton';
 import Magnify from '../svg/Magnify';
 import ProfileIcon from './ProfileIcon';
+import UsernameHolder from './UsernameHolder';
 import { useState, useRef, useEffect } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 
@@ -20,8 +21,13 @@ const Navbar = ({
     const [pfp, setPfp] = useState(
         'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'
     );
+    const [searchInput, setSearchInput] = useState([]); 
     const inputRef = useRef(null);
     const { user } = useAuthContext();
+
+    //placeholder array for usernames 
+    //replace with fetched usernames
+    const sampleUsernames = ['kesdlvi', 'chasin_jasonnn', "gaby", "jacque", "travis", "brianna", "ssedric", "soupy", "jasibermejo", "teresalee"]
 
     const handleSearchClick = () => {
         if (!searchBar) {
@@ -72,6 +78,18 @@ const Navbar = ({
         event.target.placeholder = '🔍 Search...';
     };
 
+    const handleSearchInputChange = (event) => {
+        const currentInput = event.target.value.toLowerCase(); 
+
+        // Filter searches by character
+        const filteredUsernames = sampleUsernames.filter((username) =>
+            username.toLowerCase().includes(currentInput)
+        );
+
+        setSearchInput(filteredUsernames);
+        if (event.target.value == '') setSearchInput([])
+    }
+
     const fetchPfp = async () => {
         const response = await fetch(
             process.env.REACT_APP_BACKEND + 'api/main/navbar/' + user.username,
@@ -120,20 +138,30 @@ const Navbar = ({
 
                 {searchBar && (
                     <div className="search-bar-container">
-                        <input
-                            ref={inputRef}
-                            className="search-bar"
-                            type="text"
-                            name=""
-                            id=""
-                            placeholder="Search..."
-                        />
+                        <div className='search-bar-and-menu-container'>
+                            <input
+                                ref={inputRef}
+                                className="search-bar"
+                                type="text"
+                                name=""
+                                id=""
+                                placeholder="Search..."
+                                onChange={handleSearchInputChange}
+                            />
+                            {searchInput.length > 0 && (
+                                <div className='search-results'> 
+                                    {searchInput.map((user) => (
+                                        <UsernameHolder username={user}/>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                         <CancelButton onClick={closeSearchClick} />
                     </div>
                 )}
 
                 <div className="side-bar-button">
-                    <ProfileIcon pfp={pfp} onClick={handleSideBarClick} />
+                    <ProfileIcon pfp={pfp}  onClick={handleSideBarClick} />
                 </div>
             </div>
         </div>
