@@ -3,6 +3,8 @@ import FollowingPopup from './FollowingPopup';
 import { useState } from 'react';
 
 const UserHead = (props) => {
+    const following = props.following
+    const followers = props.followers
     const pfp = props.pfp
         ? props.pfp
         : 'https://i.pinimg.com/736x/a7/35/e0/a735e0682a89e2900abf4eace20cd863.jpg';
@@ -41,8 +43,8 @@ const UserHead = (props) => {
                     <h1 className="user-name">{username}</h1>
                 </div>
                 <div className="follower-stats">
-                    <h2 onClick={displayFollowerPopUp} className="followers">Followers: 10</h2>
-                    <h2 onClick={displayFollowingPopUp} className="following">Following: 100</h2>
+                    <h2 onClick={displayFollowerPopUp} className="followers">Followers: {followers.length}</h2>
+                    <h2 onClick={displayFollowingPopUp} className="following">Following: {following.length}</h2>
                 </div>
                 {showFollowerPopUp && (
                     <FollowingPopup onClick={closeFollowerPopUp}/>

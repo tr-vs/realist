@@ -79,6 +79,12 @@ const Profile = () => {
         if (json.topArtists !== undefined) {
             setArtists(json.topArtists.items);
             setSongs(json.topSongs.items);
+        } 
+        if (json.followers !== undefined) {
+            setFollowers(json.followers)
+        } 
+        if (json.following !== undefined) {
+            setFollowing(json.following)
         }
     };
 
@@ -99,7 +105,7 @@ const Profile = () => {
         <>
             <ProfileNavbar />
             <div className="profile-contents">
-                <UserHead pfp={pfp} username={user.username} />
+                <UserHead pfp={pfp} username={user.username} followers={followers} following={following} />
                 <div className="logout">
                     {!loggedIn ? (
                         <a
