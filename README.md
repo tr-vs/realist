@@ -19,8 +19,8 @@ cd realist
 
 Set up dependencies for the backend by running:
 
-- Whitelist IP Address in Mongo.db to access spotify.
-- "node mon"
+-   Whitelist IP Address in Mongo.db to access spotify.
+-   "node mon"
 
 ```
 cd backend
@@ -64,6 +64,7 @@ Create an `.env` file in the frontend\rea-list directory with the contents as fo
 ```
 REACT_APP_BACKEND=http://localhost:3000/
 REACT_APP_FRONTEND=http://localhost:3001/
+REACT_APP_PASSAGE_APP_ID=p3g1mBImLM5FUPBfnbeodby2
 ```
 
 #### Run it!
@@ -77,16 +78,16 @@ npm start
 
 ## Contributors
 
-- [Kevin Espinas](https://github.com/kesdlvi)
-- [Teresa Lee](https://github.com/teresalee99)
-- [Jason Lozada](https://github.com/jasonlozada)
-- [Jacqueline Nguyen](https://github.com/itsjacque) <!--- update github link-->
-- [Travis Nguyen](https://github.com/tr-vs)
+-   [Kevin Espinas](https://github.com/kesdlvi)
+-   [Teresa Lee](https://github.com/teresalee99)
+-   [Jason Lozada](https://github.com/jasonlozada)
+-   [Jacqueline Nguyen](https://github.com/itsjacque) <!--- update github link-->
+-   [Travis Nguyen](https://github.com/tr-vs)
 
 ## Special thanks to our (unpaid) UI/UX interns
 
-- Jasi Bermejo
-- Mikey Choi
-- Lance Giang
-- Hyun Kim
-- Brianna Tran
+-   Jasi Bermejo
+-   Mikey Choi
+-   Lance Giang
+-   Hyun Kim
+-   Brianna Tran
