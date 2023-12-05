@@ -1,36 +1,78 @@
+require('dotenv').config({ path: '../.env' });
+
 const User = require('../models/userModel');
-const { getUserProfile } = require('../services/spotify');
+const {
+    getUserProfile,
+    getNowPlaying,
+    getTop,
+    recommendThreeTracks,
+} = require('../services/spotify');
 const jwt = require('jsonwebtoken');
+const Passage = require('@passageidentity/passage-node');
+
+const passage = new Passage({
+    appID: process.env.PASSAGE_APP_ID,
+    apiKey: process.env.PASSAGE_API_KEY,
+    authStrategy: 'HEADER',
+});
 
 const createToken = (_id) => {
-    return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
+    return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '999d' });
+};
+
+const checkValidUsername = async (req, res) => {
+    const { username } = req.params;
+
+    const exists = await User.findOne({ username });
+
+    if (exists) {
+        res.status(400).json({ error: 'Username already in use' });
+    } else {
+        res.status(200).json({ username, idToken: 'false' });
+    }
 };
 
 const loginUser = async (req, res) => {
-    const { email, password } = req.body;
     try {
-        const user = await User.login(email, password);
+        // Authenticate request using Passage
+        const userID = await passage.authenticateRequest(req);
 
-        // create a token
-        const idToken = createToken(user._id);
-        const spotifyToken = user.access_token ? true : false;
-        const { username } = user;
+        if (userID) {
+            // User is authenticated
+            const userData = await passage.user.get(userID);
+            const email = userData.email;
+            const user = await User.findOne({ email });
+            const idToken = createToken(user._id);
+            const spotifyToken = user.access_token ? true : false;
 
-        res.status(200).json({ username, idToken, spotifyToken });
+            // create a token
+            const { username } = user;
+
+            res.status(200).json({ username, idToken, spotifyToken });
+        }
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
 
 const signupUser = async (req, res) => {
-    const { email, password, username, school, bio } = req.body;
+    const { username } = req.body;
 
     try {
-        const user = await User.signup(email, password, username, school, bio);
+        const userID = await passage.authenticateRequest(req);
 
-        // create a token
+        const passageUser = await passage.user.get(userID);
+        const email = passageUser.email;
+        const school = passageUser.user_metadata.school;
+
+        const user = await User.create({
+            email,
+            username,
+            school: school.toLowerCase(),
+        });
+
         const idToken = createToken(user._id);
-        const spotifyToken = user.access_token ? true : false;
+        const spotifyToken = false;
 
         res.status(200).json({ username, idToken, spotifyToken });
     } catch (error) {
@@ -53,6 +95,48 @@ const addToken = async (req, res) => {
 
         const profile = await getUserProfile(access_token, refresh_token);
 
+        const nowPlaying = await getNowPlaying(access_token, refresh_token);
+        if (
+            nowPlaying === undefined ||
+            (nowPlaying.track === undefined &&
+                nowPlaying.currently_playing_type !== 'track')
+        ) {
+            res.status(401).json({ error: 'No recently played tracks' });
+        }
+
+        const topFive = await getTop(
+            access_token,
+            refresh_token,
+            'tracks',
+            5,
+            'short_term'
+        );
+
+        if (topFive === undefined)
+            res.status(401).json({ error: 'No top five songs' });
+
+        const artistIds = topFive.items
+            .slice(3, 5)
+            .map((item) => item.artists[0].id)
+            .join('&3C');
+
+        if (artistIds.length === 0)
+            res.status(401).json({ error: 'No artists' });
+
+        const trackIds = topFive.items
+            .slice(0, 3)
+            .map((item) => item.id)
+            .join('&3C');
+
+        const threeRec = await recommendThreeTracks(
+            access_token,
+            refresh_token,
+            artistIds,
+            trackIds
+        );
+
+        const threeRecID = threeRec.map((rec) => rec.id);
+
         let pfp = [];
         if (profile.images[0]?.url !== undefined) {
             pfp = profile.images.map((image) => image.url);
@@ -60,7 +144,13 @@ const addToken = async (req, res) => {
 
         const user = await User.findOneAndUpdate(
             { _id },
-            { refresh_token, access_token, pfp },
+            {
+                refresh_token,
+                access_token,
+                pfp,
+                nowPlaying: JSON.stringify(nowPlaying),
+                recommended: threeRecID,
+            },
             { returnNewDocument: true }
         );
 
@@ -69,7 +159,7 @@ const addToken = async (req, res) => {
 
         res.status(200).json({ username, idToken, spotifyToken: true });
     } catch (error) {
-        console.error(error);
+        console.log(error);
         res.status(401).json({ error: 'Request is not authorized' });
     }
 };
@@ -112,4 +202,5 @@ module.exports = {
     loginUser,
     addToken,
     removeToken,
+    checkValidUsername,
 };

@@ -167,33 +167,51 @@ const recommendThreeTracks = async (
         return recall;
     }
 };
-// const getTrackImage = async (token, refresh_token, id) => {
-//     const response = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
-//         method: 'GET',
-//         headers: {
-//             Authorization: `Bearer ${token}`,
-//         },
-//     });
 
-//     if (response.status === 200) {
-//         response.json().then((data) => {
-//             console.log(data.album.images.url);
-//             return album.images.url;
-//         });
-//     } else {
-//         const errorHeader = response.headers.get('www-authenticate');
-//         const strippedError = errorHeader.substring(
-//             errorHeader.indexOf('error_description="') +
-//                 'error_description="'.length,
-//             errorHeader.length - 1
-//         );
+const createPlaylist = async (access_token, refresh_token, name, uris) => {
+    const playlist = await fetch(
+        `https://api.spotify.com/v1/users/${process.env.SPOTIFY_ACCOUNT_ID}/playlists`,
+        {
+            method: 'POST',
+            body: JSON.stringify({ name }),
+            headers: {
+                Authorization: `Bearer ${access_token}`,
+                'Content-Type': 'application/json',
+            },
+        }
+    );
+    if (playlist.ok) {
+        const p = await playlist.json();
+        const { id } = p;
 
-//         if (strippedError === 'The access token expired') {
-//             const refreshedToken = await refreshToken(refresh_token);
-//             getTrackImage(refreshedToken, refresh_token, id);
-//         }
-//     }
-// };
+        const addTracksToPlaylist = await fetch(
+            `https://api.spotify.com/v1/playlists/${id}/tracks`,
+            {
+                method: 'POST',
+                body: JSON.stringify({ uris }),
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
+        if (addTracksToPlaylist.ok) {
+            return id;
+        } else {
+            return 'failed';
+        }
+    } else if (playlist.status === 401) {
+        const refreshedToken = await refreshToken(refresh_token);
+        const recall = await createPlaylist(
+            access_token,
+            refreshedToken,
+            name,
+            uris
+        );
+        return recall;
+    }
+};
 
 module.exports = {
     refreshToken,
@@ -202,4 +220,5 @@ module.exports = {
     getNowPlaying,
     getRecentlyPlayed,
     recommendThreeTracks,
+    createPlaylist,
 };

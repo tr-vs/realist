@@ -4,8 +4,11 @@ const {
     getTop,
     recommendThreeTracks,
 } = require('../services/spotify');
+
 const { getTopArtists } = require('../services/lastfm');
 const User = require('../models/userModel');
+const Time = require('../models/timeModel');
+const Playlist = require('../models/playlistModel');
 
 const community = async (req, res) => {
     const user = req.user;
@@ -19,8 +22,20 @@ const community = async (req, res) => {
             },
             'username nowPlaying pfp'
         );
+        if (communityUsers.length === 0) {
+            res.status(400);
+        } else {
+            const playlist = await Playlist.findOne({
+                school: user.school,
+            });
 
-        res.status(200).json(communityUsers);
+            if (playlist === null) {
+                res.status(201).json({ communityUsers });
+            } else {
+                const { playlistID } = playlist;
+                res.status(200).json({ communityUsers, playlistID });
+            }
+        }
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -51,7 +66,7 @@ const profile = async (req, res) => {
         if (user === null)
             res.status(401).json({ error: 'User does not exist' });
         else if (user.access_token === undefined) {
-            const resultObject = { pfp: user.pfp };
+            const resultObject = { pfp: user.pfp, connected: false };
             res.status(200).json(resultObject);
         } else {
             const [topSongs, topArtists] = await Promise.all([
@@ -77,6 +92,7 @@ const profile = async (req, res) => {
                 topArtists,
                 followers: user.followers,
                 following: user.following,
+                connected: true,
             };
 
             res.status(200).json(resultObject);
@@ -92,7 +108,17 @@ const navbar = async (req, res) => {
     const user = req.user;
 
     try {
-        res.status(200).json({ pfp: user.pfp[1] });
+        const users = await User.find({}, 'username pfp');
+
+        const usernames = users.map((user) => user.username);
+        const pfps = users.map((user) => user.pfp[1]);
+
+        let userToPfp = {};
+
+        for (let i = 0; i < usernames.length; i++)
+            userToPfp[usernames[i]] = pfps[i];
+
+        res.status(200).json({ pfp: user.pfp[1], pfps, usernames, userToPfp });
     } catch (err) {
         res.status(401).json({
             error: 'User has no affiliated profile picture!',
@@ -160,6 +186,16 @@ const unfollow = async (req, res) => {
     }
 };
 
+const timestamp = async (req, res) => {
+    try {
+        const { updatedAt } = await Time.findOne({});
+
+        res.status(200).json({ updatedAt });
+    } catch (err) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 module.exports = {
     community,
     profile,
@@ -167,5 +203,6 @@ module.exports = {
     sidebar,
     follow,
     unfollow,
+    timestamp,
     following,
 };

@@ -1,7 +1,14 @@
 require('dotenv').config({ path: '../.env' });
 
 const User = require('../models/userModel');
-const { getTop, getNowPlaying, recommendThreeTracks } = require('./spotify');
+const Playlist = require('../models/playlistModel');
+
+const {
+    getTop,
+    getNowPlaying,
+    recommendThreeTracks,
+    createPlaylist,
+} = require('./spotify');
 
 const updateNowPlaying = async () => {
     const users = await User.find({
@@ -71,7 +78,55 @@ const updateRecommended = async () => {
     }
 };
 
+const generatePlaylists = async () => {
+    const realist = await User.findOne({ username: 'realist' });
+    const { access_token, refresh_token } = realist;
+
+    const users = await User.find(
+        {
+            nowPlaying: { $exists: true },
+        },
+        'nowPlaying school'
+    );
+
+    const myDate = new Date();
+    const year = myDate.getFullYear();
+    const month = myDate.getMonth() + 1;
+    const day = myDate.getDate();
+
+    let schoolToUsers = users.reduce((accumulator, user) => {
+        const school = user.school;
+        if (!accumulator[school]) accumulator[school] = [];
+        let songID;
+        const nowPlaying = JSON.parse(user.nowPlaying);
+        if (nowPlaying?.item) {
+            songID = `spotify:track:${nowPlaying.item.id}`;
+        } else if (nowPlaying?.track) {
+            songID = `spotify:track:${nowPlaying.track.id}`;
+        }
+        accumulator[school].push(songID);
+        return accumulator;
+    }, {});
+    for (const [school, IDs] of Object.entries(schoolToUsers)) {
+        const playlistID = await createPlaylist(
+            access_token,
+            refresh_token,
+            `${school}'s realist - ${month}/${day}/${year}`,
+            IDs
+        );
+
+        if (playlistID !== 'failed') {
+            const playlist = await Playlist.findOneAndUpdate(
+                { school },
+                { playlistID },
+                { upsert: true }
+            );
+        }
+    }
+};
+
 module.exports = {
     updateNowPlaying,
     updateRecommended,
+    generatePlaylists,
 };

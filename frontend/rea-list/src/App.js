@@ -9,11 +9,23 @@ import LoginPage from './pages/LoginPage';
 import Landing from './pages/Landing';
 import OtherProfile from './pages/OtherProfile';
 import { useAuthContext } from './hooks/useAuthContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UserNotFound from './pages/UserNotFound';
+import LoadingPage from './pages/LoadingPage';
 
 function App() {
     const { user } = useAuthContext();
+    const [SignUpElement, setSignUpElement] = useState(null);
+
+    useEffect(() => {
+        if (!user) {
+            setSignUpElement(<Navigate to="/landing" />);
+        } else if (user.idToken === 'false') {
+            setSignUpElement(<SignUpPage />);
+        } else {
+            setSignUpElement(<Navigate to="/" />);
+        }
+    }, [user]);
 
     return (
         <BrowserRouter>
@@ -28,14 +40,9 @@ function App() {
                     element={user ? <Profile /> : <Navigate to="/landing" />}
                 />
 
-                <Route path="/user" element={<OtherProfile />} />
-
+                <Route path="/signup" element={SignUpElement} />
                 <Route
-                    path="/signup"
-                    element={!user ? <SignUpPage /> : <Navigate to="/" />}
-                />
-                <Route
-                    path="/loginpage"
+                    path="/login"
                     element={!user ? <LoginPage /> : <Navigate to="/" />}
                 />
                 <Route path="/landing" element={<Landing />} />
@@ -46,6 +53,7 @@ function App() {
                     }
                 />
                 <Route path="/usernotfound" element={<UserNotFound />} />
+                <Route path="/loading" element={<LoadingPage />} />
             </Routes>
         </BrowserRouter>
     );

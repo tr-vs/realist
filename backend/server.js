@@ -5,7 +5,11 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/users');
 const spotifyRoutes = require('./routes/spotify');
 const mainRoutes = require('./routes/main');
-const { updateNowPlaying, updateRecommended } = require('./services/home');
+const {
+    updateNowPlaying,
+    updateRecommended,
+    generatePlaylists,
+} = require('./services/home');
 
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -113,9 +117,7 @@ const checkTime = () => {
             const tomorrow = nowDate;
             tomorrow.setDate(tomorrow.getDate() + 1);
 
-            const hours = [...Array(3).keys()].concat(
-                Array.from({ length: 16 }, (_, index) => 8 + index)
-            );
+            const hours = Array.from({ length: 16 }, (_, index) => 8 + index);
 
             const randomHour = hours[Math.floor(Math.random() * hours.length)];
             const randomMinute = Math.floor(Math.random() * 60);
@@ -134,6 +136,7 @@ const checkTime = () => {
 
             updateRecommended();
             updateNowPlaying();
+            generatePlaylists();
             await nextDate.save();
         }
         checkTime();
