@@ -1,0 +1,24 @@
+.username-pfp-container {
+    display: flex;
+    padding: 5px;
+    background-color: #161617;
+    border-radius: 2px;
+}
+
+.username-pfp-container:hover {
+    cursor: pointer;
+    background-color: #343438;
+}
+
+.search-menu-pfp {
+    margin-top: 5px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.username-input {
+    color: white; 
+    padding-left:10px; 
+
+}

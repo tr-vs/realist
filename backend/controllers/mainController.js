@@ -4,8 +4,10 @@ const {
     getTop,
     recommendThreeTracks,
 } = require('../services/spotify');
+
 const { getTopArtists } = require('../services/lastfm');
 const User = require('../models/userModel');
+const Time = require('../models/timeModel');
 
 const community = async (req, res) => {
     const user = req.user;
@@ -93,7 +95,17 @@ const navbar = async (req, res) => {
     const user = req.user;
 
     try {
-        res.status(200).json({ pfp: user.pfp[1] });
+        const users = await User.find({}, 'username pfp');
+
+        const usernames = users.map((user) => user.username);
+        const pfps = users.map((user) => user.pfp[1]);
+
+        let userToPfp = {};
+
+        for (let i = 0; i < usernames.length; i++)
+            userToPfp[usernames[i]] = pfps[i];
+
+        res.status(200).json({ pfp: user.pfp[1], pfps, usernames, userToPfp });
     } catch (err) {
         res.status(401).json({
             error: 'User has no affiliated profile picture!',
@@ -161,6 +173,16 @@ const unfollow = async (req, res) => {
     }
 };
 
+const timestamp = async (req, res) => {
+    try {
+        const { updatedAt } = await Time.findOne({});
+
+        res.status(200).json({ updatedAt });
+    } catch (err) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 module.exports = {
     community,
     profile,
@@ -168,5 +190,6 @@ module.exports = {
     sidebar,
     follow,
     unfollow,
+    timestamp,
     following,
 };

@@ -5,6 +5,7 @@ import Community from './Community';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import SideBar from '../templates/SideBar';
+import TimeStamp from '../templates/TimeStamp';
 
 const Home = () => {
     const [isCommunityClicked, setIsCommunityClicked] = useState(false);
@@ -21,6 +22,7 @@ const Home = () => {
                 setIsSidebarClicked={setIsSidebarClicked}
                 isSidebarClicked={isSidebarClicked}
             />
+            <TimeStamp/>
 
             <div className="full-page">
                 {/* <-- Two pages for community and friends and statistics-> */}

@@ -7,6 +7,7 @@ const {
     follow,
     unfollow,
     following,
+    timestamp,
 } = require('../controllers/mainController');
 const requireAuth = require('../middleware/requireAuth');
 
@@ -32,5 +33,7 @@ router.patch('/follow', follow);
 router.patch('/unfollow', unfollow);
 
 router.get('/following', following);
+
+router.get('/timestamp', timestamp);
 
 module.exports = router;

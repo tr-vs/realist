@@ -1,0 +1,26 @@
+.following-popup-container {
+    background-color: rgba(0, 0, 0, 0.9); /* Adjust the alpha value for more transparency */
+    width: 100%;
+    height: 100%; 
+    justify-content: center;
+    z-index: 1000;
+    position: fixed; /* You can use 'absolute' or 'fixed' based on your layout needs */
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+    overflow-y: auto;
+}
+
+.following-popup {
+    width: 50%;
+    height: 80vh; 
+    background-color: #161617;
+    justify-content: center;
+    z-index: 1000;
+    position: fixed; /* You can use 'absolute' or 'fixed' based on your layout needs */
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    border-radius: 15px;
+}

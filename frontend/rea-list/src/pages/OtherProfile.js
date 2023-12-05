@@ -15,6 +15,8 @@ const OtherProfile = () => {
     const [songs, setSongs] = useState([]);
     const [following, setFollowing] = useState(false);
     const [connected, setConnected] = useState(false);
+    const [followingarray, setFollowingArray] = useState([]);
+    const [followers, setFollowers] = useState([]);
 
     const fetchProfile = async () => {
         const response = await fetch(
@@ -39,6 +41,12 @@ const OtherProfile = () => {
             if (json.followers.includes(user.username)) setFollowing(true);
             setConnected(true);
             setPfp(json.pfp[1]);
+        }
+        if (json.followers !== undefined) {
+            setFollowers(json.followers);
+        }
+        if (json.following !== undefined) {
+            setFollowingArray(json.following);
         }
     };
 
@@ -75,16 +83,24 @@ const OtherProfile = () => {
     };
 
     useEffect(() => {
-        if (username === user.username) navigate('/profile');
-        fetchProfile();
-    }, []);
+        if (username === user.username) {
+            navigate('/profile');
+        } else {
+            fetchProfile();
+        }
+    }, [username, following]);
 
     return (
         <>
             <ProfileNavbar />
             <div className="profile-contents">
                 <div className="profile-info-container">
-                    <UserHead pfp={pfp} username={username} />
+                    <UserHead
+                        pfp={pfp}
+                        username={username}
+                        followers={followers}
+                        following={followingarray}
+                    />
                     <button className="follow-button" onClick={followUnfollow}>
                         {!following ? 'Follow' : 'Unfollow'}
                     </button>

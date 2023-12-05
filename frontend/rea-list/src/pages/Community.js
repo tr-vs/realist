@@ -32,7 +32,6 @@ const Community = () => {
 
     return (
         <div className="post-contents">
-            <h4 className='page-title-time'>Last ReaList: 2:45pm</h4>
             <h1 className="page-title">Community Music</h1>
             {communityPosts}
         </div>
