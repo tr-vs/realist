@@ -32,24 +32,46 @@ function App() {
             <Routes>
                 <Route
                     path="/"
-                    element={user ? <Home /> : <Navigate to="/landing" />}
+                    element={
+                        user && user.idToken !== 'false' ? (
+                            <Home />
+                        ) : (
+                            <Navigate to="/landing" />
+                        )
+                    }
                     exact
                 />
                 <Route
                     path="/profile"
-                    element={user ? <Profile /> : <Navigate to="/landing" />}
+                    element={
+                        user && user.idToken !== 'false' ? (
+                            <Profile />
+                        ) : (
+                            <Navigate to="/landing" />
+                        )
+                    }
                 />
 
                 <Route path="/signup" element={SignUpElement} />
                 <Route
                     path="/login"
-                    element={!user ? <LoginPage /> : <Navigate to="/" />}
+                    element={
+                        user && user.idToken !== 'false' ? (
+                            <LoginPage />
+                        ) : (
+                            <Navigate to="/" />
+                        )
+                    }
                 />
                 <Route path="/landing" element={<Landing />} />
                 <Route
                     path="/:username"
                     element={
-                        user ? <OtherProfile /> : <Navigate to="/landing" />
+                        user && user.idToken !== 'false' ? (
+                            <OtherProfile />
+                        ) : (
+                            <Navigate to="/landing" />
+                        )
                     }
                 />
                 <Route path="/usernotfound" element={<UserNotFound />} />
