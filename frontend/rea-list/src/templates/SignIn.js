@@ -16,7 +16,9 @@ import '../styles/SignUp.css';
 // change to sign in.cc
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useLogin } from '../hooks/useLogin';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
+import '../styles/LoginPage.css';
 
 function Copyright(props) {
     return (
@@ -47,6 +49,28 @@ const darkTheme = createTheme({
 const lightTheme = createTheme();
 
 export default function SignIn() {
+    const ref = useRef();
+    const { dispatch } = useAuthContext();
+
+    const onSuccess = async (authResult) => {
+        const response = await fetch(
+            process.env.REACT_APP_BACKEND + 'api/users/login',
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${authResult.auth_token}`,
+                },
+            }
+        );
+        const json = await response.json();
+
+        if (response.ok) {
+            localStorage.setItem('user', JSON.stringify(json));
+
+            dispatch({ type: 'LOGIN', payload: json });
+        }
+    };
+
     const { login, error, isLoading } = useLogin();
     const [showPassword, setShowPassword] = useState(false);
     const handleSubmit = async (event) => {
@@ -54,9 +78,13 @@ export default function SignIn() {
         const data = new FormData(event.currentTarget);
 
         await login(data);
-    
     };
 
+    useEffect(() => {
+        const { current } = ref;
+        current.onSuccess = onSuccess;
+        return () => {};
+    });
 
     return (
         <ThemeProvider theme={darkTheme}>
@@ -76,10 +104,7 @@ export default function SignIn() {
                         borderImageSlice: 1,
                     }}
                 >
-                    
-                        <ProfileIcon/>
-                    
-                    {/* i removed the avatar image above*/}
+                    <ProfileIcon />
                     <Typography
                         component="h1"
                         variant="h5"
@@ -92,68 +117,11 @@ export default function SignIn() {
                     >
                         Sign In
                     </Typography>
-                    <Box
-                        component="form"
-                        onSubmit={handleSubmit}
-                        noValidate
-                        sx={{ mt: 1 }}
-                    >
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type={showPassword ? "text" : "password"}
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        <Button
-                            onClick={() => setShowPassword(!showPassword)}
-                            sx={{ mt: 1 }}
-                        >
-                            {" "}
-                            {showPassword ? "Hide Password" : "Show Password"}
-                        </Button>
-                        {/* <FormControlLabel
-                            control={
-                                <Checkbox value="remember" color="primary" />
-                            }
-                            label="Remember me"
-                        /> */}
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                            disabled={isLoading}
-                        >
-                            Sign In
-                        </Button>
-                        {error && <div className="error">{error}</div>}
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link href="/signup" variant="body2">
-                                    {'Sign Up'}
-                                </Link>
-                            </Grid>
-                        </Grid>
-                    </Box>
+                    <passage-login
+                        ref={ref}
+                        onSuccess={onSuccess}
+                        app-id={process.env.REACT_APP_PASSAGE_APP_ID}
+                    ></passage-login>
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>

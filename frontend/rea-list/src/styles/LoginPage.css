@@ -1,3 +1,10 @@
 passage-login {
-    --passage-container-background-color: #c31414;
+    --passage-container-background-color: black;
+    --passage-body-text-color: blue;
+    --passage-input-box-background-color: gray;
+    --passage-input-text-color: blue;
+}
+
+passage-login::part(input-box) {
+    border-color: blue;
 }
