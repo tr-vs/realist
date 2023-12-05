@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 
 const SideBar = ({ isSidebarClicked }) => {
     const { user } = useAuthContext();
-    const [error, setError] = useState(null);
     const [userProfile, setUserProfile] = useState(
         'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'
     );
@@ -34,7 +33,8 @@ const SideBar = ({ isSidebarClicked }) => {
 
         setUserProfile(json.pfp);
 
-        if (json.nowPlaying.item !== undefined) {
+        if (json.nowPlaying === undefined) {
+        } else if (json.nowPlaying.item !== undefined) {
             setCurrentSong(json.nowPlaying.item);
         } else {
             setCurrentSong(json.nowPlaying.track);

@@ -9,13 +9,14 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import ProfileIcon from './ProfileIcon';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import '../styles/SignUp.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { useSignup } from '../hooks/useSignup';
+import { useState, useEffect, useRef } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 function Copyright(props) {
     return (
@@ -44,17 +45,38 @@ const darkTheme = createTheme({
 const lightTheme = createTheme();
 
 export default function SignUp() {
-    const [showPassReq, setShowPassReq] = useState(false);
-    const { signup, error, isLoading } = useSignup();
-    const [showPassword, setShowPassword] = useState(false);
+    const ref = useRef();
+    const { dispatch, user } = useAuthContext();
 
-    // Add new user to database
-    const createUser = async (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+    const onSuccess = async (authResult) => {
+        const response = await fetch(
+            process.env.REACT_APP_BACKEND + 'api/users/signup',
+            {
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify({ username: user.username }),
+                headers: {
+                    Authorization: `Bearer ${authResult.auth_token}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+        const json = await response.json();
 
-        await signup(data);
+        if (response.ok) {
+            // save user to local storage
+            localStorage.setItem('user', JSON.stringify(json));
+
+            // update the auth context
+            dispatch({ type: 'LOGIN', payload: json });
+        }
     };
+
+    useEffect(() => {
+        const { current } = ref;
+        current.onSuccess = onSuccess;
+        return () => {};
+    });
 
     return (
         <ThemeProvider theme={darkTheme}>
@@ -74,6 +96,7 @@ export default function SignUp() {
                         borderImageSlice: 1,
                     }}
                 >
+                    <ProfileIcon />
                     <Typography
                         component="h1"
                         variant="h5"
@@ -86,99 +109,11 @@ export default function SignUp() {
                     >
                         Sign Up
                     </Typography>
-                    <Box
-                        component="form"
-                        onSubmit={createUser}
-                        noValidate
-                        sx={{ mt: 1 }}
-                    >
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="username"
-                            label="Username"
-                            type="username"
-                            id="username"
-                            autoComplete="username"
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="school"
-                            label="School"
-                            type="school"
-                            id="school"
-                            autoComplete="school"
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type={showPassword ? "text" : "password"}                            id="password"
-                            autoComplete="current-password"
-                            onFocus={() => setShowPassReq(true)}
-                            onBlur={() => setShowPassReq(false)}
-                        />
-
-                        <Button
-                            onClick={() => setShowPassword(!showPassword)}
-                            sx={{ mt: 1 }}
-                        >
-                            {" "}
-                            {showPassword ? "Hide Password" : "Show Password"}
-
-                        </Button>
-                        {showPassReq && (
-                            <ul className="password-requirement">
-                                <li>8 Characters Minimum</li>
-                                <li>1 or more lowercase characters</li>
-                                <li>1 or more Uppercase characters</li>
-                                <li>1 or more numbers</li>
-                                <li>1 or more special characters</li>
-                            </ul>
-                        )}
-
-                        {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                            disabled={isLoading}
-                        >
-                            Sign Up
-                        </Button>
-                        {error && <div className="error">{error}</div>}
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link href="/loginpage" variant="body2">
-                                    {'Sign In'}
-                                </Link>
-                            </Grid>
-                        </Grid>
-                    </Box>
+                    <passage-register
+                        ref={ref}
+                        onSuccess={onSuccess}
+                        app-id={process.env.REACT_APP_PASSAGE_APP_ID}
+                    ></passage-register>
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
