@@ -5,6 +5,8 @@ import { Link as ScrollLink } from 'react-scroll';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCheckUsername } from '../hooks/useCheckUsername';
+import { Link } from 'react-router-dom';
+
 
 register();
 
@@ -304,6 +306,11 @@ const Landing = () => {
                             <h3 className="modal-text bottom" onClick={check}>
                                 Sign Up
                             </h3>
+                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <Link to="/login" className="modal-link" style={{ marginLeft: '90px' }}>
+                                    <h3 className="modal-text bottom">Already have an account? Sign In</h3>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
