@@ -1,0 +1,37 @@
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.footer-container {
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+    border-top: 1px solid grey;
+}
+
+.footer-list-title {
+    color: #eaebed;
+    font-size: 15px;
+    margin-top: 22px;
+}
+
+.footer-list {
+
+}   
+
+.footer-list-item {
+    font-style: normal;
+    color: #d6d6d6;
+    margin: 7px 0;
+    font-size: 12px;
+}
+
+.footer-list-item:hover {
+    cursor:pointer;
+    text-decoration: underline;
+} 

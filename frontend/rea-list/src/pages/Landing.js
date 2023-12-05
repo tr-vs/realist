@@ -1,5 +1,6 @@
 import '../styles/LandingPage.css';
 import CancelButton from '../svg/CancelButton';
+import Footer from '../templates/Footer';
 import { register } from 'swiper/element/bundle';
 import { Link as ScrollLink } from 'react-scroll';
 import { useEffect, useState } from 'react';
@@ -284,6 +285,7 @@ const Landing = () => {
                     </p>
                 </div>
             </div>
+            
 
             {isPopUp && (
                 <div className="sign-up-popup">
@@ -315,6 +317,7 @@ const Landing = () => {
                     </div>
                 </div>
             )}
+            <Footer/>
         </>
     );
 };
