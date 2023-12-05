@@ -8,6 +8,7 @@ const {
 const { getTopArtists } = require('../services/lastfm');
 const User = require('../models/userModel');
 const Time = require('../models/timeModel');
+const Playlist = require('../models/playlistModel');
 
 const community = async (req, res) => {
     const user = req.user;
@@ -21,8 +22,20 @@ const community = async (req, res) => {
             },
             'username nowPlaying pfp'
         );
+        if (communityUsers.length === 0) {
+            res.status(400);
+        } else {
+            const playlist = await Playlist.findOne({
+                school: user.school,
+            });
 
-        res.status(200).json(communityUsers);
+            if (playlist === null) {
+                res.status(201).json({ communityUsers });
+            } else {
+                const { playlistID } = playlist;
+                res.status(200).json({ communityUsers, playlistID });
+            }
+        }
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

@@ -5,7 +5,11 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/users');
 const spotifyRoutes = require('./routes/spotify');
 const mainRoutes = require('./routes/main');
-const { updateNowPlaying, updateRecommended } = require('./services/home');
+const {
+    updateNowPlaying,
+    updateRecommended,
+    generatePlaylists,
+} = require('./services/home');
 
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -85,6 +89,7 @@ const checkTime = () => {
 
             updateRecommended();
             updateNowPlaying();
+            generatePlaylists();
             await nextDate.save();
         }
         checkTime();
