@@ -1,10 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
 passage-login {
-    --passage-container-background-color: black;
-    --passage-body-text-color: blue;
-    --passage-input-box-background-color: gray;
-    --passage-input-text-color: blue;
+    width: 80vh;
+    --passage-container-background-color: #121212;
+    --passage-container-padding: 14px 10px 10px;
+    --passage-body-text-color: black;
+    --passage-input-box-background-color: white;
+    --passage-input-text-color: black;
+    --passage-primary-button-background-color: white;
+    --passage-primary-button-text-color: black;
+    --passage-primary-button-background-hover-color: #6DB7EF;
+    --passage-body-font-family: 'Inter';
+    --passage-body-font-size: 14.5px;
+    --passage-body-font-weight: 550;
+    --passage-body-text-color: white;
+    --passage-input-box-border-radius: 5px;
+    --passage-primary-button-text-hover-color: white;
 }
 
 passage-login::part(input-box) {
     border-color: blue;
 }
+
