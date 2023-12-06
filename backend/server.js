@@ -87,9 +87,9 @@ const checkTime = () => {
 
             nextDate.nextPostDate = nextPostDate;
 
-            updateRecommended();
-            updateNowPlaying();
-            generatePlaylists();
+            await updateRecommended();
+            await updateNowPlaying();
+            await generatePlaylists();
             await nextDate.save();
         }
         checkTime();
