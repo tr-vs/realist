@@ -88,12 +88,6 @@ const Profile = () => {
         if (json.following !== undefined) {
             setFollowing(json.following);
         }
-        if (json.followers !== undefined) {
-            setFollowers(json.followers);
-        }
-        if (json.following !== undefined) {
-            setFollowing(json.following);
-        }
 
         setLoading(false);
     };
@@ -109,7 +103,7 @@ const Profile = () => {
         if (data.access_token !== null && !user.spotifyToken) updateDB(data);
 
         fetchProfile();
-    }, []);
+    }, [loggedIn]);
 
     return (
         <div>
