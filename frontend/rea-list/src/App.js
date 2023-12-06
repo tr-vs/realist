@@ -55,13 +55,7 @@ function App() {
                 <Route path="/signup" element={SignUpElement} />
                 <Route
                     path="/login"
-                    element={
-                        user && user.idToken !== 'false' ? (
-                            <LoginPage />
-                        ) : (
-                            <Navigate to="/" />
-                        )
-                    }
+                    element={!user ? <LoginPage /> : <Navigate to="/" />}
                 />
                 <Route path="/landing" element={<Landing />} />
                 <Route
