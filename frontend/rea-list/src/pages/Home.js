@@ -26,7 +26,7 @@ const Home = () => {
             />
             <TimeStamp/>
 
-            <div className="full-page" style={{ paddingBottom: '100px' }}>
+            <div className="full-page" style={{ paddingBottom: '80px' }}>
                 {/* <-- Two pages for community and friends and statistics-> */}
                 <div className="page-content">
                     {isFriendsClicked && <Friends></Friends>}
