@@ -142,22 +142,44 @@ const addToken = async (req, res) => {
             pfp = profile.images.map((image) => image.url);
         }
 
-        const user = await User.findOneAndUpdate(
-            { _id },
-            {
-                refresh_token,
-                access_token,
-                pfp,
-                nowPlaying: JSON.stringify(nowPlaying),
-                recommended: threeRecID,
-            },
-            { returnNewDocument: true }
-        );
+        if (pfp.length === 0) {
+            const user = await User.findOneAndUpdate(
+                { _id },
+                {
+                    refresh_token,
+                    access_token,
+                    nowPlaying: JSON.stringify(nowPlaying),
+                    recommended: threeRecID,
+                },
+                { returnNewDocument: true }
+            );
 
-        const { username } = user;
-        const idToken = createToken(user._id);
+            const { username } = user;
+            const idToken = createToken(user._id);
 
-        res.status(200).json({ username, idToken, spotifyToken: true });
+            res.status(200).json({
+                username,
+                idToken,
+                spotifyToken: true,
+            });
+        } else {
+            const user = await User.findOneAndUpdate(
+                { _id },
+                {
+                    refresh_token,
+                    access_token,
+                    pfp,
+                    nowPlaying: JSON.stringify(nowPlaying),
+                    recommended: threeRecID,
+                },
+                { returnNewDocument: true }
+            );
+
+            const { username } = user;
+            const idToken = createToken(user._id);
+
+            res.status(200).json({ username, idToken, spotifyToken: true });
+        }
     } catch (error) {
         console.log(error);
         res.status(401).json({ error: 'Request is not authorized' });
@@ -186,7 +208,7 @@ const removeToken = async (req, res) => {
                 $unset: {
                     access_token: 1,
                     refresh_token: 1,
-                    now_playing: 1,
+                    nowPlaying: 1,
                 },
             }
         );
