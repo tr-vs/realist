@@ -35,22 +35,23 @@ const OtherProfile = () => {
 
         if (json.error === 'User does not exist') {
             navigate('/usernotfound');
-        } else if (json.connected) {
-            if (json.artists !== undefined) {
-                setArtists(json.artists);
-                setSongs(json.songs);
+        } else {
+            if (json.connected) {
+                if (json.artists !== undefined) {
+                    setArtists(json.artists);
+                    setSongs(json.songs);
+                }
+                setConnected(true);
             }
             if (json.followers.includes(user.username)) setFollowing(true);
-            setConnected(true);
             setPfp(json.pfp[1]);
+            if (json.followers !== undefined) {
+                setFollowers(json.followers);
+            }
+            if (json.following !== undefined) {
+                setFollowingArray(json.following);
+            }
         }
-        if (json.followers !== undefined) {
-            setFollowers(json.followers);
-        }
-        if (json.following !== undefined) {
-            setFollowingArray(json.following);
-        }
-
         setLoading(false);
     };
 
