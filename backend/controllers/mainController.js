@@ -75,21 +75,24 @@ const profile = async (req, res) => {
                     user.refresh_token,
                     'tracks',
                     10,
-                    'long_term'
+                    'short_term'
                 ),
                 getTop(
                     user.access_token,
                     user.refresh_token,
                     'artists',
                     10,
-                    'long_term'
+                    'short_term'
                 ),
             ]);
 
+            songs = topSongs.items.map((item) => item.id)
+            artists = topArtists.items.map((item) => item.id)
+
             const resultObject = {
                 pfp: user.pfp,
-                topSongs,
-                topArtists,
+                songs,
+                artists,
                 followers: user.followers,
                 following: user.following,
                 connected: true,

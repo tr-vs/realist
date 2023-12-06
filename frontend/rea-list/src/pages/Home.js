@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import SideBar from '../templates/SideBar';
 import TimeStamp from '../templates/TimeStamp';
+import Footer from '../templates/Footer';
+
 
 const Home = () => {
     const [isCommunityClicked, setIsCommunityClicked] = useState(false);
@@ -24,7 +26,7 @@ const Home = () => {
             />
             <TimeStamp/>
 
-            <div className="full-page">
+            <div className="full-page" style={{ paddingBottom: '80px' }}>
                 {/* <-- Two pages for community and friends and statistics-> */}
                 <div className="page-content">
                     {isFriendsClicked && <Friends></Friends>}
@@ -32,6 +34,7 @@ const Home = () => {
                 </div>
                 {<SideBar isSidebarClicked={isSidebarClicked} />}
             </div>
+            <Footer />
         </div>
     );
 };

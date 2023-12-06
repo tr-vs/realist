@@ -7,6 +7,7 @@ import { useLogout } from '../hooks/useLogout.js';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext.js';
 import { useNavigate } from 'react-router-dom';
+import LoadingPage from './LoadingPage';
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ const Profile = () => {
     const [songs, setSongs] = useState([]);
     const [following, setFollowing] = useState([]);
     const [followers, setFollowers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const updateDB = async (data) => {
         const response = await fetch(
@@ -76,16 +78,24 @@ const Profile = () => {
         const json = await response.json();
         setPfp(json.pfp[1]);
 
-        if (json.topArtists !== undefined) {
-            setArtists(json.topArtists.items);
-            setSongs(json.topSongs.items);
-        } 
-        if (json.followers !== undefined) {
-            setFollowers(json.followers)
-        } 
-        if (json.following !== undefined) {
-            setFollowing(json.following)
+        if (json.songs !== undefined) {
+            setArtists(json.artists);
+            setSongs(json.songs);
         }
+        if (json.followers !== undefined) {
+            setFollowers(json.followers);
+        }
+        if (json.following !== undefined) {
+            setFollowing(json.following);
+        }
+        if (json.followers !== undefined) {
+            setFollowers(json.followers);
+        }
+        if (json.following !== undefined) {
+            setFollowing(json.following);
+        }
+
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -102,38 +112,49 @@ const Profile = () => {
     }, []);
 
     return (
-        <>
-            <ProfileNavbar />
-            <div className="profile-contents">
-                <UserHead pfp={pfp} username={user.username} followers={followers} following={following} />
-                <div className="logout">
-                    {!loggedIn ? (
-                        <a
-                            href={`${process.env.REACT_APP_BACKEND}api/spotify/auth`}
-                        >
-                            <button className="SpotifyConnect">
-                                Connect to Spotify
+        <div>
+            {loading ? (
+                <LoadingPage />
+            ) : (
+                <div>
+                    <ProfileNavbar />
+                    <div className="profile-contents">
+                        <UserHead
+                            pfp={pfp}
+                            username={user.username}
+                            followers={followers}
+                            following={following}
+                        />
+                        <div className="logout">
+                            {!loggedIn ? (
+                                <a
+                                    href={`${process.env.REACT_APP_BACKEND}api/spotify/auth`}
+                                >
+                                    <button className="SpotifyConnect">
+                                        Connect to Spotify
+                                    </button>
+                                </a>
+                            ) : (
+                                <button
+                                    className="SpotifyConnect"
+                                    onClick={disconnectSpotify}
+                                >
+                                    Disconnect Spotify
+                                </button>
+                            )}
+                            <button className="LogoutButton" onClick={logout}>
+                                Log Out
                             </button>
-                        </a>
-                    ) : (
-                        <button
-                            className="SpotifyConnect"
-                            onClick={disconnectSpotify}
-                        >
-                            Disconnect Spotify
-                        </button>
-                    )}
-                    <button className="LogoutButton" onClick={logout}>
-                        Log Out
-                    </button>
+                        </div>
+                        <UserStats
+                            user={user.spotifyToken}
+                            artists={artists}
+                            songs={songs}
+                        />
+                    </div>
                 </div>
-                <UserStats
-                    user={user.spotifyToken}
-                    artists={artists}
-                    songs={songs}
-                />
-            </div>
-        </>
+            )}
+        </div>
     );
 };
 
