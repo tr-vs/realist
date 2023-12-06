@@ -20,8 +20,10 @@ const Profile = () => {
     const [following, setFollowing] = useState([]);
     const [followers, setFollowers] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const updateDB = async (data) => {
+        setError(null);
         const response = await fetch(
             process.env.REACT_APP_BACKEND + 'api/users/token',
             {
@@ -33,13 +35,17 @@ const Profile = () => {
                 },
             }
         );
-
         const json = await response.json();
 
-        setLoggedIn(true);
-        localStorage.setItem('user', JSON.stringify(json));
-        dispatch({ type: 'LOGIN', payload: json });
-        navigate('/profile');
+        if (response.ok) {
+            localStorage.setItem('user', JSON.stringify(json));
+            dispatch({ type: 'LOGIN', payload: json });
+            navigate('/profile');
+            setLoggedIn(true);
+        } else {
+            setError(json.error);
+        }
+        setLoading(false);
     };
 
     const disconnectSpotify = async () => {
@@ -88,7 +94,6 @@ const Profile = () => {
         if (json.following !== undefined) {
             setFollowing(json.following);
         }
-
         setLoading(false);
     };
 
@@ -100,9 +105,12 @@ const Profile = () => {
         const refresh_token = decipher.get('refresh_token');
         const data = { access_token, refresh_token };
 
-        if (data.access_token !== null && !user.spotifyToken) updateDB(data);
-
-        fetchProfile();
+        if (data.access_token !== null && !user.spotifyToken) {
+            setLoading(true);
+            updateDB(data);
+        } else {
+            fetchProfile();
+        }
     }, [loggedIn]);
 
     return (
@@ -140,11 +148,15 @@ const Profile = () => {
                                 Log Out
                             </button>
                         </div>
-                        <UserStats
-                            user={user.spotifyToken}
-                            artists={artists}
-                            songs={songs}
-                        />
+                        {error ? (
+                            <div className="error">{error}</div>
+                        ) : (
+                            <UserStats
+                                user={user.spotifyToken}
+                                artists={artists}
+                                songs={songs}
+                            />
+                        )}
                     </div>
                 </div>
             )}

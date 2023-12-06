@@ -48,6 +48,7 @@ const following = async (req, res) => {
         const followingUsers = await User.find(
             {
                 username: { $in: following },
+                nowPlaying: { $exists: true },
             },
             'username nowPlaying pfp'
         );
