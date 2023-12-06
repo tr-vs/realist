@@ -66,7 +66,12 @@ const profile = async (req, res) => {
         if (user === null)
             res.status(401).json({ error: 'User does not exist' });
         else if (user.access_token === undefined) {
-            const resultObject = { pfp: user.pfp, connected: false };
+            const resultObject = {
+                pfp: user.pfp,
+                connected: false,
+                followers: user.followers,
+                following: user.following,
+            };
             res.status(200).json(resultObject);
         } else {
             const [topSongs, topArtists] = await Promise.all([
@@ -86,8 +91,8 @@ const profile = async (req, res) => {
                 ),
             ]);
 
-            songs = topSongs.items.map((item) => item.id)
-            artists = topArtists.items.map((item) => item.id)
+            songs = topSongs.items.map((item) => item.id);
+            artists = topArtists.items.map((item) => item.id);
 
             const resultObject = {
                 pfp: user.pfp,
