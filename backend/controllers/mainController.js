@@ -75,14 +75,14 @@ const profile = async (req, res) => {
                     user.refresh_token,
                     'tracks',
                     10,
-                    'long_term'
+                    'short_term'
                 ),
                 getTop(
                     user.access_token,
                     user.refresh_token,
                     'artists',
                     10,
-                    'long_term'
+                    'short_term'
                 ),
             ]);
 

@@ -10,7 +10,7 @@ const UserStats = ({ user, songs, artists }) => {
                     <div className=".user-top-artists">
                         <iframe
                             style={{ border: 12, height: 160 }}
-                            src="https://open.spotify.com/embed/artist/06HL4z0CvFAxyc27GXpf02?utm_source=generator&theme=0"
+                            src={`https://open.spotify.com/embed/artist/${artists[0]}`}
                             width="120%"
                             height="120%"
                             frameBorder="0"
@@ -20,7 +20,7 @@ const UserStats = ({ user, songs, artists }) => {
                         ></iframe>
                         <iframe
                             style={{ border: 12, height: 160 }}
-                            src="https://open.spotify.com/embed/artist/2kxP07DLgs4xlWz8YHlvfh?utm_source=generator&theme=0"
+                            src={`https://open.spotify.com/embed/artist/${artists[1]}`}
                             width="120%"
                             height="120%"
                             frameBorder="0"
@@ -30,7 +30,7 @@ const UserStats = ({ user, songs, artists }) => {
                         ></iframe>
                         <iframe
                             style={{ border: 12, height: 160 }}
-                            src="https://open.spotify.com/embed/artist/2h93pZq0e7k5yf4dywlkpM?utm_source=generator&theme=0"
+                            src={`https://open.spotify.com/embed/artist/${artists[2]}`}
                             width="120%"
                             height="120%"
                             frameBorder="0"
@@ -50,7 +50,7 @@ const UserStats = ({ user, songs, artists }) => {
                     <>
                         <iframe
                             style={{ border: 12, height: 88 }}
-                            src="https://open.spotify.com/embed/track/1Iq8oo9XkmmvCQiGOfORiz?utm_source=generator&theme=0"
+                            src={`https://open.spotify.com/embed/track/${songs[0]}`}
                             width="100%"
                             height="352"
                             frameBorder="0"
@@ -60,7 +60,7 @@ const UserStats = ({ user, songs, artists }) => {
                         ></iframe>
                         <iframe
                             style={{ border: 12, height: 88 }}
-                            src="https://open.spotify.com/embed/track/1cuYCAodLWgzhwE2KFZ8rC?utm_source=generator&theme=0"
+                            src={`https://open.spotify.com/embed/track/${songs[1]}`}
                             width="100%"
                             height="50%"
                             frameBorder="0"
@@ -70,7 +70,7 @@ const UserStats = ({ user, songs, artists }) => {
                         ></iframe>
                         <iframe
                             style={{ border: 12, height: 88 }}
-                            src="https://open.spotify.com/embed/track/0SA0mMXWh23raZ6xzOCU2V?utm_source=generator&theme=0"
+                            src={`https://open.spotify.com/embed/track/${songs[2]}`}
                             width="100%"
                             height="50%"
                             frameBorder="0"
@@ -80,7 +80,7 @@ const UserStats = ({ user, songs, artists }) => {
                         ></iframe>
                         <iframe
                             style={{ border: 12, height: 88 }}
-                            src="https://open.spotify.com/embed/track/28wmzW39UTv4iYCKKkhIQP?utm_source=generator&theme=0"
+                            src={`https://open.spotify.com/embed/track/${songs[3]}`}
                             width="100%"
                             height="352"
                             frameBorder="0"
@@ -90,7 +90,7 @@ const UserStats = ({ user, songs, artists }) => {
                         ></iframe>
                         <iframe
                             style={{ border: 12, height: 88 }}
-                            src="https://open.spotify.com/embed/track/70YTBH8vOGJNMhy6186yFm?utm_source=generator&theme=0"
+                            src={`https://open.spotify.com/embed/track/${songs[4]}`}
                             width="100%"
                             height="352"
                             frameBorder="0"

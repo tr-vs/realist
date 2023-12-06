@@ -76,9 +76,11 @@ const Profile = () => {
         const json = await response.json();
         setPfp(json.pfp[1]);
 
-        if (json.topArtists !== undefined) {
-            setArtists(json.topArtists.items);
-            setSongs(json.topSongs.items);
+        if (json.songs !== undefined) {
+            setArtists(json.artists);
+            setSongs(json.songs);
+            console.log("artista: ", artists);
+  
         } 
         if (json.followers !== undefined) {
             setFollowers(json.followers)
@@ -99,7 +101,9 @@ const Profile = () => {
         if (data.access_token !== null && !user.spotifyToken) updateDB(data);
 
         fetchProfile();
+
     }, []);
+
 
     return (
         <>

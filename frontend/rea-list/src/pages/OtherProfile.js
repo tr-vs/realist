@@ -34,9 +34,9 @@ const OtherProfile = () => {
         if (json.error === 'User does not exist') {
             navigate('/usernotfound');
         } else if (json.connected) {
-            if (json.topArtists !== undefined) {
-                setArtists(json.topArtists.items);
-                setSongs(json.topSongs.items);
+            if (json.artists !== undefined) {
+                setArtists(json.artists);
+                setSongs(json.songs);
             }
             if (json.followers.includes(user.username)) setFollowing(true);
             setConnected(true);
