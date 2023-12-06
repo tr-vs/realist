@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCheckUsername } from '../hooks/useCheckUsername';
 import { Link } from 'react-router-dom';
-
+import { useAuthContext } from '../hooks/useAuthContext';
 
 register();
 
@@ -16,6 +16,7 @@ const Landing = () => {
     const { checkUsername, error, isLoading } = useCheckUsername();
     const navigate = useNavigate();
     const [inputText, setInputText] = useState('');
+    const { user } = useAuthContext();
 
     const openPopUp = () => {
         setIsPopUp(true);
@@ -32,11 +33,16 @@ const Landing = () => {
     };
 
     const check = async () => {
-        await checkUsername(inputText);
+        if (user && user.idToken !== 'false') {
+            navigate('/');
+        } else {
+            await checkUsername(inputText);
+        }
     };
 
     useEffect(() => {
         if (!error && isLoading === false) {
+            console.log('asdf');
             navigate('/signup');
         }
     }, [error, isLoading, navigate]);
@@ -285,7 +291,6 @@ const Landing = () => {
                     </p>
                 </div>
             </div>
-            
 
             {isPopUp && (
                 <div className="sign-up-popup">
@@ -308,16 +313,27 @@ const Landing = () => {
                             <h3 className="modal-text bottom" onClick={check}>
                                 Sign Up
                             </h3>
-                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                <Link to="/login" className="modal-link" style={{ marginLeft: '90px' }}>
-                                    <h3 className="modal-text bottom">Already have an account? Sign In</h3>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'flex-end',
+                                }}
+                            >
+                                <Link
+                                    to="/login"
+                                    className="modal-link"
+                                    style={{ marginLeft: '90px' }}
+                                >
+                                    <h3 className="modal-text bottom">
+                                        Already have an account? Sign In
+                                    </h3>
                                 </Link>
                             </div>
                         </div>
                     </div>
                 </div>
             )}
-            <Footer/>
+            <Footer />
         </>
     );
 };
