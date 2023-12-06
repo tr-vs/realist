@@ -86,10 +86,13 @@ const profile = async (req, res) => {
                 ),
             ]);
 
+            songs = topSongs.items.map((item) => item.id)
+            artists = topArtists.items.map((item) => item.id)
+
             const resultObject = {
                 pfp: user.pfp,
-                topSongs,
-                topArtists,
+                songs,
+                artists,
                 followers: user.followers,
                 following: user.following,
                 connected: true,
