@@ -56,7 +56,7 @@ const Community = () => {
                     <div className="side-container">
                         <div className="left-arrow-container">
                             <svg
-                                className="left-arrow"
+                                className={showPlaylist ? 'flip-arrow' : 'left-arrow'}
                                 onClick={() => setShowPlaylist(!showPlaylist)}
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -75,19 +75,19 @@ const Community = () => {
                             </svg>
                         </div>
 
-                        {showPlaylist && (
-                            <div className="playlist-container">
-                                <iframe
-                                    style={{ border: 12 }}
-                                    src={playlistLink}
-                                    width="95%"
-                                    height="20%"
-                                    allowfullscreen=""
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                    loading="lazy"
-                                ></iframe>
-                            </div>
-                        )}
+                        
+                        <div className={`playlist-container ${showPlaylist ? 'slide-in' : ''}`}>
+                            <iframe
+                                style={{ border: 12 }}
+                                src={playlistLink}
+                                width="95%"
+                                height="100%"
+                                allowfullscreen=""
+                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                loading="lazy"
+                            ></iframe>
+                        </div>
+                        
                     </div>
                 )}
             </div>
