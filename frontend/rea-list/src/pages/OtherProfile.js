@@ -5,6 +5,7 @@ import '../styles/OtherProfile.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext.js';
 import { useEffect, useState } from 'react';
+import LoadingPage from './LoadingPage';
 
 const OtherProfile = () => {
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ const OtherProfile = () => {
     const [connected, setConnected] = useState(false);
     const [followingarray, setFollowingArray] = useState([]);
     const [followers, setFollowers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const fetchProfile = async () => {
         const response = await fetch(
@@ -48,6 +50,8 @@ const OtherProfile = () => {
         if (json.following !== undefined) {
             setFollowingArray(json.following);
         }
+
+        setLoading(false);
     };
 
     const followUnfollow = async () => {
@@ -91,23 +95,36 @@ const OtherProfile = () => {
     }, [username, following]);
 
     return (
-        <>
-            <ProfileNavbar />
-            <div className="profile-contents">
-                <div className="profile-info-container">
-                    <UserHead
-                        pfp={pfp}
-                        username={username}
-                        followers={followers}
-                        following={followingarray}
-                    />
-                    <button className="follow-button" onClick={followUnfollow}>
-                        {!following ? 'Follow' : 'Unfollow'}
-                    </button>
+        <div>
+            {loading ? (
+                <LoadingPage />
+            ) : (
+                <div>
+                    <ProfileNavbar />
+                    <div className="profile-contents">
+                        <div className="profile-info-container">
+                            <UserHead
+                                pfp={pfp}
+                                username={username}
+                                followers={followers}
+                                following={followingarray}
+                            />
+                            <button
+                                className="follow-button"
+                                onClick={followUnfollow}
+                            >
+                                {!following ? 'Follow' : 'Unfollow'}
+                            </button>
+                        </div>
+                        <UserStats
+                            user={connected}
+                            artists={artists}
+                            songs={songs}
+                        />
+                    </div>
                 </div>
-                <UserStats user={connected} artists={artists} songs={songs} />
-            </div>
-        </>
+            )}
+        </div>
     );
 };
 
