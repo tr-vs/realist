@@ -1,4 +1,3 @@
-
 passage-register {
     width: 80vh;
     --passage-container-background-color: #121212;
@@ -11,17 +10,9 @@ passage-register {
     --passage-anchor-active-color: white;
     --passage-primary-button-background-color: white;
     --passage-primary-button-text-color: black;
-    --passage-primary-button-background-hover-color: #6DB7EF;
+    --passage-primary-button-background-hover-color: #6db7ef;
     --passage-container-padding: 14px 10px 10px;
     --passage-primary-button-border-radius: 28px;
     --passage-primary-button-border-width: 20px;
+    --passage-header-text-color: white;
 }
-
-
-
-
-
- 
-
-
-  

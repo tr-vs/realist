@@ -14,7 +14,9 @@ export const useCheckUsername = () => {
         if (
             ['login', 'signup', 'landing', 'profile', 'usernotfound'].includes(
                 lower
-            )
+            ) ||
+            lower.length === 0 ||
+            lower.length > 25
         ) {
             setError('Username is prohibited!');
             setIsLoading(false);
