@@ -55,12 +55,16 @@
   
 .left-arrow:hover {
     transform: translateX(-10px); 
+    cursor: pointer;
 }
 
 .flip-arrow {
     transform: scaleX(-1);
 }
 
+.flip-arrow:hover {
+    cursor: pointer;
+}
 
 
 .bounce-left {

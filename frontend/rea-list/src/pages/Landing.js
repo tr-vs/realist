@@ -43,6 +43,11 @@ const Landing = () => {
 
     useEffect(() => {
 
+        if (!error && isLoading === false) {
+            console.log('asdf');
+            navigate('/signup');
+        }
+
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
             const threshold = 5; 
@@ -57,10 +62,8 @@ const Landing = () => {
         };
 
 
-        if (!error && isLoading === false) {
-            console.log('asdf');
-            navigate('/signup');
-        }
+        
+
     }, [error, isLoading, navigate]);
 
     return (
