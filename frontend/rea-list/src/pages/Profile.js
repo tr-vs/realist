@@ -44,6 +44,7 @@ const Profile = () => {
             setLoggedIn(true);
         } else {
             setError(json.error);
+            await fetchProfile();
         }
         setLoading(false);
     };
