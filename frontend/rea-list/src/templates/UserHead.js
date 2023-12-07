@@ -31,6 +31,7 @@ const UserHead = (props) => {
         setShowFollowingPopUp(false)
         document.body.style.overflow = 'auto'
     }
+    console.log("Userhead following ", following);
 
 
     return (
@@ -47,10 +48,10 @@ const UserHead = (props) => {
                     <h2 onClick={displayFollowingPopUp} className="following">Following: {following.length}</h2>
                 </div>
                 {showFollowerPopUp && (
-                    <FollowingPopup onClick={closeFollowerPopUp}/>
+                    <FollowingPopup follow={followers} onClick={closeFollowerPopUp}/>
                 )}
                 {showFollowingPopUp && (
-                    <FollowingPopup onClick={closeFollowingPopUp}/>
+                    <FollowingPopup follow={following} onClick={closeFollowingPopUp}/>
                 )}
                 
             </div>
