@@ -329,7 +329,7 @@ const Landing = () => {
                             placeholder="your username"
                             onChange={handleInputChange}
                         />
-                        {error && <div className="error">{error}</div>}
+                        {error && <div style={{color: '#CA3433', marginLeft: '5px', fontWeight:'bold' }}className="error">{error}</div>}
                         <div className="bottom-container">
                             <h3 className="modal-text bottom" onClick={check}>
                                 Sign Up
