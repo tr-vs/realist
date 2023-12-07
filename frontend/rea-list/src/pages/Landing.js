@@ -295,13 +295,17 @@ const Landing = () => {
             {isPopUp && (
                 <div className="sign-up-popup">
                     <div className="sign-up-container">
-                        <div className="close-button-container">
-                            <CancelButton
-                                className="close-button"
-                                onClick={closePopUp}
-                            />
+                        <div className="top-part">
+                            <div className="modal-text-top">
+                                <h1>Enter a username</h1>
+                            </div>
+                            <div className="close-button-container">
+                                <CancelButton
+                                    className="close-button"
+                                    onClick={closePopUp}
+                                />
+                            </div>
                         </div>
-                        <h1 className="modal-text top">Enter a username</h1>
                         <input
                             className="username-field"
                             type="text"
