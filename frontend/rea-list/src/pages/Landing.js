@@ -27,6 +27,7 @@ const Landing = () => {
     const closePopUp = () => {
         setIsPopUp(false);
         document.body.style.overflow = 'auto';
+        document.body.style.overflowX = "hidden";
     };
 
     const handleInputChange = (event) => {
