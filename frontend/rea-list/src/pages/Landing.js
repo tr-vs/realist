@@ -42,16 +42,14 @@ const Landing = () => {
     };
 
     useEffect(() => {
-
         if (!error && isLoading === false) {
             console.log('asdf');
             navigate('/signup');
         }
-
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
-            const threshold = 5; 
-      
+            const threshold = 5;
+
             setIsSticky(scrollPosition > threshold);
         };
 
@@ -60,10 +58,6 @@ const Landing = () => {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-
-
-        
-
     }, [error, isLoading, navigate]);
 
     return (
@@ -300,9 +294,12 @@ const Landing = () => {
                         }
                     </swiper-slide>
                 </swiper-container>
-                <div className={`button-holder ${isSticky ? 'sticky-button' : ''}`}>
+                <div
+                    className={`button-holder ${
+                        isSticky ? 'sticky-button' : ''
+                    }`}
+                >
                     <p
-                    
                         onClick={openPopUp}
                         href="/signup"
                         className="button-text"
