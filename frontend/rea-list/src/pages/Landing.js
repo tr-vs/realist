@@ -17,6 +17,7 @@ const Landing = () => {
     const navigate = useNavigate();
     const [inputText, setInputText] = useState('');
     const { user } = useAuthContext();
+    const [isSticky, setIsSticky] = useState(false);
 
     const openPopUp = () => {
         setIsPopUp(true);
@@ -41,6 +42,21 @@ const Landing = () => {
     };
 
     useEffect(() => {
+
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY;
+            const threshold = 5; 
+      
+            setIsSticky(scrollPosition > threshold);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+
+
         if (!error && isLoading === false) {
             console.log('asdf');
             navigate('/signup');
@@ -281,8 +297,9 @@ const Landing = () => {
                         }
                     </swiper-slide>
                 </swiper-container>
-                <div className="button-holder">
+                <div className={`button-holder ${isSticky ? 'sticky-button' : ''}`}>
                     <p
+                    
                         onClick={openPopUp}
                         href="/signup"
                         className="button-text"
