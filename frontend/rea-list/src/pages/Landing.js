@@ -39,6 +39,7 @@ const Landing = () => {
         } else {
             await checkUsername(inputText);
         }
+        closePopUp(); 
     };
 
     useEffect(() => {
@@ -345,7 +346,8 @@ const Landing = () => {
                                     className="modal-link"
                                     style={{ marginLeft: '90px' }}
                                 >
-                                    <h3 className="modal-text bottom">
+                                    <h3 className="modal-text bottom"
+                                        onClick={closePopUp}>
                                         Already have an account? Sign In
                                     </h3>
                                 </Link>
