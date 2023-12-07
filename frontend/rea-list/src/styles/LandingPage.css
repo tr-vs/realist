@@ -295,7 +295,7 @@ swiper-button-prev {
 
 .button-holder {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  position: fixed;
+  position: sticky;
   bottom: 0;
   min-width: 80px;
   width: 5%;
@@ -314,6 +314,12 @@ swiper-button-prev {
   transform: scale(1.1);
 }
 
+.sticky-button {
+  position: sticky;
+  bottom: 10px;
+  z-index: 1000;
+}
+
 .button-text {
   color:white; 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -327,7 +333,7 @@ swiper-button-prev {
 
 /* Sign Up PopUp */
 
-.sign-up-popup {
+/* .sign-up-popup {
   position: 'fixed';
   top: '50%';
   left: '50%';
@@ -335,6 +341,12 @@ swiper-button-prev {
   background-color: 'white';
   padding: '20px';
   z-index: 999;
+} */
+
+.modal-text-top {
+  color: white;
+  flex: 1;
+  padding-left: 3px;
 }
 
 .sign-up-popup {
@@ -342,7 +354,7 @@ swiper-button-prev {
   top: 35%;
   left: 32%;
   width: 35%;
-  height: 25%;
+  max-height: 80vh;
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
@@ -364,10 +376,11 @@ swiper-button-prev {
   
 }
 
-.close-button-container {
+.top-part {
   display: flex;
-  justify-content: end;
+  flex-direction: row;
 }
+
 
 .username-field {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

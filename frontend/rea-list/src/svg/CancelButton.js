@@ -7,7 +7,7 @@ const CancelButton = ({onClick, rotationAngle}) => {
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ marginTop: '15' }}
+            style={{ marginTop: '15', cursor:'pointer'}}
             onClick={onClick}
         >
             <path

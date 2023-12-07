@@ -17,6 +17,7 @@ const Landing = () => {
     const navigate = useNavigate();
     const [inputText, setInputText] = useState('');
     const { user } = useAuthContext();
+    const [isSticky, setIsSticky] = useState(false);
 
     const openPopUp = () => {
         setIsPopUp(true);
@@ -45,6 +46,18 @@ const Landing = () => {
             console.log('asdf');
             navigate('/signup');
         }
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY;
+            const threshold = 5;
+
+            setIsSticky(scrollPosition > threshold);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, [error, isLoading, navigate]);
 
     return (
@@ -281,7 +294,11 @@ const Landing = () => {
                         }
                     </swiper-slide>
                 </swiper-container>
-                <div className="button-holder">
+                <div
+                    className={`button-holder ${
+                        isSticky ? 'sticky-button' : ''
+                    }`}
+                >
                     <p
                         onClick={openPopUp}
                         href="/signup"
@@ -295,13 +312,17 @@ const Landing = () => {
             {isPopUp && (
                 <div className="sign-up-popup">
                     <div className="sign-up-container">
-                        <div className="close-button-container">
-                            <CancelButton
-                                className="close-button"
-                                onClick={closePopUp}
-                            />
+                        <div className="top-part">
+                            <div className="modal-text-top">
+                                <h1>Enter a username</h1>
+                            </div>
+                            <div className="close-button-container">
+                                <CancelButton
+                                    className="close-button"
+                                    onClick={closePopUp}
+                                />
+                            </div>
                         </div>
-                        <h1 className="modal-text top">Enter a username</h1>
                         <input
                             className="username-field"
                             type="text"

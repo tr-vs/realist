@@ -77,11 +77,19 @@
     justify-content: top;
 }
 
+.username {
+    padding-right: 5px
+}
 
 .user-profile-container {
     display: flex;
     width: auto;
     align-items: center;
+    cursor: pointer;
+}
+
+.user-profile-container:hover {
+    text-decoration: underline;
 }
 
 .reaction {

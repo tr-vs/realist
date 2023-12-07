@@ -72,7 +72,9 @@ const Posts = ({ data }) => {
             />
             <div className="song-info">
                 <div className="user-profile-container">
-                    <h4 onClick={() => navigate('/' + username)}>{username}</h4>
+                    <div className="username">
+                        <h4 onClick={() => navigate('/' + username)}>{username}</h4>
+                    </div>
                     <ProfileIcon
                         onClick={() => navigate('/' + username)}
                         pfp={pfp}

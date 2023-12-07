@@ -13,14 +13,35 @@
 }
 
 .following-popup {
-    width: 50%;
-    height: 80vh; 
+    width: 25%;
+    height: 45vh; 
     background-color: #161617;
     justify-content: center;
     z-index: 1000;
     position: fixed; /* You can use 'absolute' or 'fixed' based on your layout needs */
-    top: 55%;
-    left: 50%;
+    top: 50%;
+    left: 55%;
     transform: translate(-50%, -60%);
     border-radius: 15px;
+    overflow-y: auto;
+}
+
+.user-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.user-and-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.button-container {
+    width: 98%;
+    display: flex;
+    justify-content: flex-end;
 }
