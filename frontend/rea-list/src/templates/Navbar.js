@@ -26,6 +26,11 @@ const Navbar = ({
     const [userToPfp, setUserToPfp] = useState({});
     const inputRef = useRef(null);
     const { user } = useAuthContext();
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    const updateScreenWidth = () => {
+        setScreenWidth(window.innerWidth);
+      };
 
     const handleSearchClick = () => {
         if (!searchBar) {
@@ -109,6 +114,13 @@ const Navbar = ({
 
     useEffect(() => {
         fetchPfp();
+        window.addEventListener("resize", updateScreenWidth);
+        console.log("screen width: ",screenWidth)
+        
+
+        return () => {
+            window.removeEventListener("resize", updateScreenWidth);
+        };
     }, []);
 
     return (
@@ -136,38 +148,45 @@ const Navbar = ({
             </div>
 
             <div className="right-side">
-                <Magnify className="search-image" onClick={handleSearchClick} />
+            {screenWidth > 770 && (
+                <>
+                {screenWidth > 1180 && (
+                    <Magnify className="search-image" onClick={handleSearchClick} />
+                )}
 
-                {searchBar && (
+                {screenWidth > 1180 && searchBar && (
                     <div className="search-bar-container">
-                        <div className="search-bar-and-menu-container">
-                            <input
-                                ref={inputRef}
-                                className="search-bar"
-                                type="text"
-                                name=""
-                                id=""
-                                placeholder="Search..."
-                                onChange={handleSearchInputChange}
+                    <div className="search-bar-and-menu-container">
+                        <input
+                        ref={inputRef}
+                        className="search-bar"
+                        type="text"
+                        name=""
+                        id=""
+                        placeholder="Search..."
+                        onChange={handleSearchInputChange}
+                        />
+                        {searchInput.length > 0 && (
+                        <div className="search-results">
+                            {searchInput.map((user) => (
+                            <UsernameHolder
+                                key={user} // Make sure to add a unique key prop
+                                pfp={userToPfp[user]}
+                                username={user}
                             />
-                            {searchInput.length > 0 && (
-                                <div className="search-results">
-                                    {searchInput.map((user) => (
-                                        <UsernameHolder
-                                            pfp={userToPfp[user]}
-                                            username={user}
-                                        />
-                                    ))}
-                                </div>
-                            )}
+                            ))}
                         </div>
-                        <CancelButton onClick={closeSearchClick} />
+                        )}
+                    </div>
+                    <CancelButton onClick={closeSearchClick} />
                     </div>
                 )}
 
                 <div className="side-bar-button">
                     <ProfileIcon pfp={pfp} onClick={handleSideBarClick} />
                 </div>
+                </>
+            )}
             </div>
         </div>
     );
