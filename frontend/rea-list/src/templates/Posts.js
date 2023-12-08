@@ -72,13 +72,15 @@ const Posts = ({ data }) => {
             />
             <div className="song-info">
                 <div className="user-profile-container">
+                    <div className="profile-pic">
+                        <ProfileIcon
+                            onClick={() => navigate('/' + username)}
+                            pfp={pfp}
+                        />
+                    </div>
                     <div className="username">
                         <h4 onClick={() => navigate('/' + username)}>{username}</h4>
                     </div>
-                    <ProfileIcon
-                        onClick={() => navigate('/' + username)}
-                        pfp={pfp}
-                    />
                 </div>
 
                 {!showSongInfo && (

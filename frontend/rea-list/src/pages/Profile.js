@@ -110,6 +110,7 @@ const Profile = () => {
             setLoading(true);
             updateDB(data);
         } else {
+            setLoading(true);
             fetchProfile();
         }
     }, [loggedIn]);
@@ -150,10 +151,20 @@ const Profile = () => {
                             </button>
                         </div>
                         {error ? (
-                            <div className="error">{error}</div>
+                            <UserStats
+                                error={error}
+                                artists={artists}
+                                songs={songs}
+                            />
+                        ) : loggedIn ? (
+                            <UserStats
+                                error={null}
+                                artists={artists}
+                                songs={songs}
+                            />
                         ) : (
                             <UserStats
-                                user={user.spotifyToken}
+                                error={'No data available...'}
                                 artists={artists}
                                 songs={songs}
                             />

@@ -70,29 +70,28 @@ const SideBar = ({ isSidebarClicked }) => {
                     {isSpotifyConnected && (
                         <div className="information-container">
                             <div className="current-song-info">
-                                <h1 className="current-song-info-text">
+                                <h2 className="current-song-title">
                                     Listening to:
-                                </h1>
-                                <h2 className="current-song-info-text">
+                                </h2>
+                                <h3 className="current-song-name">
                                     {currentSong?.name !== undefined
                                         ? currentSong.name
                                         : 'Song Name'}
-                                </h2>
-                                <h2 className="current-song-info-text">
+                                </h3>
+                                <h3 className="current-song-artist">
                                     {currentSong?.artists !== undefined
                                         ? currentSong.artists.map(
-                                              (artist) => artist.name
+                                              (artist) => artist.name + " "
                                           )
                                         : 'Artist'}
-                                </h2>
+                                </h3>
                             </div>
                             <div className="recommended-song">
-                                <h3 className="recommended-song-text">
-                                    {' '}
-                                    songs for you{' '}
-                                </h3>
+                                <h2 className="recommended-song-title">
+                                    Songs for you:
+                                </h2>
                                 <iframe
-                                    style={{ border: 12, height: 80 }}
+                                    style={{ border: 12, height: 80, padding:5}}
                                     src={`https://open.spotify.com/embed/track/${recSongs[0]}`}
                                     width="80%"
                                     height="100%"
@@ -101,7 +100,7 @@ const SideBar = ({ isSidebarClicked }) => {
                                     loading="lazy"
                                 ></iframe>
                                 <iframe
-                                    style={{ border: 12, height: 80 }}
+                                    style={{ border: 12, height: 80, padding: 5}}
                                     src={`https://open.spotify.com/embed/track/${recSongs[1]}`}
                                     width="80%"
                                     height="100%"
@@ -110,7 +109,7 @@ const SideBar = ({ isSidebarClicked }) => {
                                     loading="lazy"
                                 ></iframe>
                                 <iframe
-                                    style={{ border: 12, height: 80 }}
+                                    style={{ border: 12, height: 80, padding: 5, marginBottom:30}}
                                     src={`https://open.spotify.com/embed/track/${recSongs[2]}`}
                                     width="80%"
                                     height="100%"

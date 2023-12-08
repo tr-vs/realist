@@ -131,6 +131,8 @@ const getUserProfile = async (token, refresh_token) => {
         const refreshedToken = await refreshToken(refresh_token);
         const recall = await getUserProfile(refreshedToken, refresh_token);
         return recall;
+    } else if (response.status === 403) {
+        return 'Not whitelisted';
     }
 };
 
