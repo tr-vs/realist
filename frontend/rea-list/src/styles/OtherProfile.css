@@ -5,13 +5,13 @@
     border: none;
     border-radius: 15px;
     padding: 10px 10px;
-    margin-bottom: 15px;
     font-size: 16px;
     height: 35px;
-    margin-left: 20px;
+    margin-left: 40px;
     display: flex;
     flex: 1;
     justify-content: center;    
+    margin-bottom: 15px;
 }
 
 .follow-button:hover {
@@ -21,6 +21,5 @@
 }
 
 .profile-info-container {
-    border-bottom: 1px solid #86868b;
     margin-bottom: 10px;
 }

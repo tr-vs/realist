@@ -1,6 +1,5 @@
 .profile-image {
     border-radius: 50%;
-    padding: none;
     width: 160px; 
     height: 160px;
     transition: transform 0.3s ease;
@@ -11,6 +10,7 @@
     color: white; 
     display: flex;
     padding: 20px;
+    padding-left: 35px;
 }
 .user-name {
     height: 70px;
@@ -31,15 +31,16 @@
     background-image: linear-gradient(45deg, #61f4de, #6e78ff);
     background-clip: text;
     -webkit-background-clip: text;
+    padding-left: 10px;
 }
 
 .followers { 
     margin: none;
     font-size: 30px;
     color: #fafafa;
-    padding-left: 20px;
-   
+    padding-left: 30px;  
 }
+
 .following {
     margin-left:30px;
     font-size: 30px;
