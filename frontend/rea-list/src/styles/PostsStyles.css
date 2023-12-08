@@ -24,6 +24,7 @@
 
 .profile-content {
     display: flex;
+    
 }
 
 .song-info {
@@ -53,6 +54,19 @@
     display: flex;
     flex-direction: column; 
     /* should be included */
+}
+
+.reduced {
+    height: 20vh; 
+}
+
+.reduced-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.reduced-profile {
+    padding-left: 17px;
 }
 
 .slide-in {

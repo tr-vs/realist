@@ -101,6 +101,18 @@ animation: bounceLeft 0.5s ease-in-out;
     transition: transform 1.0s ease-in-out;
     transform: translateX(100%); /* Initially move the container out of view */
 }
+
+.playlist-container-reduced {
+    position: absolute; 
+    top: 200px; /* Adjust top position as needed */
+    right: 0; /* Adjust right position as needed */
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    margin-top: 0;
+    transition: transform 1.0s ease-in-out;
+    transform: translateX(100%); /* Initially move the container out of view */
+}
   
   .side-container {
     display: flex;
