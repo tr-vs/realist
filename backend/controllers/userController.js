@@ -93,19 +93,28 @@ const addToken = async (req, res) => {
     }
 
     const token = authorization.split(' ')[1];
+    let _id;
+    try {
+        ({ _id } = jwt.verify(token, process.env.SECRET));
+    } catch (err) {
+        return res.status(401).json({ error: 'Authorization token invalid' });
+    }
 
     try {
-        const { _id } = jwt.verify(token, process.env.SECRET);
-
         const profile = await getUserProfile(access_token, refresh_token);
 
         const nowPlaying = await getNowPlaying(access_token, refresh_token);
-        if (
+
+        if (profile === 'Not whitelisted') {
+            return res.status(401).json({
+                error: 'Your Spotify account is not whitelisted! Please contact us at support@realist.top',
+            });
+        } else if (
             nowPlaying === undefined ||
             (nowPlaying.track === undefined &&
                 nowPlaying.currently_playing_type !== 'track')
         ) {
-            res.status(401).json({ error: 'No recently played tracks' });
+            return res.status(401).json({ error: 'No recently played tracks' });
         }
 
         const topFive = await getTop(
@@ -117,7 +126,7 @@ const addToken = async (req, res) => {
         );
 
         if (topFive === undefined)
-            res.status(401).json({ error: 'No top five songs' });
+            return res.status(401).json({ error: 'No top five songs' });
 
         const artistIds = topFive.items
             .slice(3, 5)
@@ -125,7 +134,7 @@ const addToken = async (req, res) => {
             .join('&3C');
 
         if (artistIds.length === 0)
-            res.status(401).json({ error: 'No artists' });
+            return res.status(401).json({ error: 'No artists' });
 
         const trackIds = topFive.items
             .slice(0, 3)
@@ -161,7 +170,7 @@ const addToken = async (req, res) => {
             const { username } = user;
             const idToken = createToken(user._id);
 
-            res.status(200).json({
+            return res.status(200).json({
                 username,
                 idToken,
                 spotifyToken: true,
@@ -182,11 +191,13 @@ const addToken = async (req, res) => {
             const { username } = user;
             const idToken = createToken(user._id);
 
-            res.status(200).json({ username, idToken, spotifyToken: true });
+            return res
+                .status(200)
+                .json({ username, idToken, spotifyToken: true });
         }
     } catch (error) {
         console.log(error);
-        res.status(401).json({ error: 'Request is not authorized' });
+        return res.status(401).json({ error: 'Request is not authorized' });
     }
 };
 

@@ -19,6 +19,7 @@ const OtherProfile = () => {
     const [followingarray, setFollowingArray] = useState([]);
     const [followers, setFollowers] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('No data available...');
 
     const fetchProfile = async () => {
         const response = await fetch(
@@ -41,6 +42,7 @@ const OtherProfile = () => {
                     setArtists(json.artists);
                     setSongs(json.songs);
                 }
+                setError(null);
                 setConnected(true);
             }
             if (Object.keys(json.followers).includes(user.username))
@@ -119,6 +121,7 @@ const OtherProfile = () => {
                             </button>
                         </div>
                         <UserStats
+                            error={error}
                             user={connected}
                             artists={artists}
                             songs={songs}
