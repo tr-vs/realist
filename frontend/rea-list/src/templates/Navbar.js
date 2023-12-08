@@ -30,7 +30,7 @@ const Navbar = ({
 
     const updateScreenWidth = () => {
         setScreenWidth(window.innerWidth);
-      };
+    };
 
     const handleSearchClick = () => {
         if (!searchBar) {
