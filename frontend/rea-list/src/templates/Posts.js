@@ -11,7 +11,6 @@ const Posts = ({ data }) => {
 
     const [predominantColor, setPredominantColor] = useState('');
     const [showSongPlayer, setShowSongPlayer] = useState(false);
-    const [showReactions, setShowReactions] = useState(false);
     const [animateLeft, setAnimateLeft] = useState(false);
     const [showSongInfo, setShowSongInfo] = useState(false);
     const navigate = useNavigate();
@@ -67,7 +66,6 @@ const Posts = ({ data }) => {
                 }}
                 onClick={() => {
                     setShowSongPlayer(!showSongPlayer);
-                    setShowReactions(!showReactions);
                 }}
             />
             <div className="song-info">
@@ -115,14 +113,6 @@ const Posts = ({ data }) => {
                         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                         loading="lazy"
                     ></iframe>
-                )}
-                {showReactions && (
-                    <div className="reaction-emoji-container slide-in">
-                        <h2>😻</h2>
-                        <h2>😸</h2>
-                        <h2>😾</h2>
-                        <h2>😐</h2>
-                    </div>
                 )}
             </div>
         </div>
