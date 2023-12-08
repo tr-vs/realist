@@ -95,12 +95,36 @@ const profile = async (req, res) => {
             songs = topSongs.items.map((item) => item.id);
             artists = topArtists.items.map((item) => item.id);
 
+            const followingArray = await User.find(
+                { username: { $in: user.following } },
+                'username pfp'
+            );
+
+            const followersArray = await User.find(
+                { username: { $in: user.followers } },
+                'username pfp'
+            );
+
+            const following = followingArray.reduce((accumulator, user) => {
+                accumulator[user.username] = {
+                    pfp: user.pfp,
+                };
+                return accumulator;
+            }, {});
+
+            const followers = followersArray.reduce((accumulator, user) => {
+                accumulator[user.username] = {
+                    pfp: user.pfp,
+                };
+                return accumulator;
+            }, {});
+
             const resultObject = {
                 pfp: user.pfp,
                 songs,
                 artists,
-                followers: user.followers,
-                following: user.following,
+                followers,
+                following,
                 connected: true,
             };
 
