@@ -43,7 +43,8 @@ const OtherProfile = () => {
                 }
                 setConnected(true);
             }
-            if (json.followers.includes(user.username)) setFollowing(true);
+            if (Object.keys(json.followers).includes(user.username))
+                setFollowing(true);
             setPfp(json.pfp[1]);
             if (json.followers !== undefined) {
                 setFollowers(json.followers);
