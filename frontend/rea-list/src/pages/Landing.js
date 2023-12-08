@@ -27,7 +27,7 @@ const Landing = () => {
     const closePopUp = () => {
         setIsPopUp(false);
         document.body.style.overflow = 'auto';
-        document.body.style.overflowX = "hidden";
+        document.body.style.overflowX = 'hidden';
     };
 
     const handleInputChange = (event) => {
@@ -40,12 +40,11 @@ const Landing = () => {
         } else {
             await checkUsername(inputText);
         }
-        closePopUp(); 
     };
 
     useEffect(() => {
         if (!error && isLoading === false) {
-            console.log('asdf');
+            closePopUp();
             navigate('/signup');
         }
         const handleScroll = () => {
@@ -331,7 +330,18 @@ const Landing = () => {
                             placeholder="your username"
                             onChange={handleInputChange}
                         />
-                        {error && <div style={{color: '#CA3433', marginLeft: '5px', fontWeight:'bold' }}className="error">{error}</div>}
+                        {error && (
+                            <div
+                                style={{
+                                    color: '#CA3433',
+                                    marginLeft: '5px',
+                                    fontWeight: 'bold',
+                                }}
+                                className="error"
+                            >
+                                {error}
+                            </div>
+                        )}
                         <div className="bottom-container">
                             <h3 className="modal-text bottom" onClick={check}>
                                 Sign Up
@@ -347,8 +357,10 @@ const Landing = () => {
                                     className="modal-link"
                                     style={{ marginLeft: '90px' }}
                                 >
-                                    <h3 className="modal-text bottom"
-                                        onClick={closePopUp}>
+                                    <h3
+                                        className="modal-text bottom"
+                                        onClick={closePopUp}
+                                    >
                                         Already have an account? Sign In
                                     </h3>
                                 </Link>
