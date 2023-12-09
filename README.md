@@ -1,14 +1,10 @@
-# Access our Website
+# Welcome to ReaList
+
+### Before getting started:
+ReaList requires a whitelisting Spotify acccount. Please email Travis Nguyen (travisnguyen@g.ucla.edu) or (support@realist.top) and provide him with the email associated to your Spotify account.
+ 
+### Our Website:
 https://realist.top/
-
-### Setting up dependencies
-Since ReaList requires a Spotify acccount, please contact Travis Nguyen (travisnguyen@g.ucla.edu) and provide him with the email associated to your Spotify account to access the full features to our website.
-
-Credits to '' for access to the Spotify API.
-
-### Tech Stack
-
-The MERN stack (MongoDB, Express.js, React.js, Node.js) was used in order to create this project.
 
 ## Development Setup (Run Locally)
 
@@ -92,3 +88,23 @@ npm start
 -   Lance Giang
 -   Hyun Kim
 -   Brianna Tran
+
+## Tech Stack
+
+The MERN stack (MongoDB, Express.js, React.js, Node.js) was used in order to create this project.
+
+## Resources Used
+
+- Spotify. Spotify for Developers. Spotify. https://developer.spotify.com/. 
+
+- Color Thief React. NPM Registry. Available from: https://www.npmjs.com/package/color-thief-react. 
+
+- Material-UI. Material-UI: The core components for React. Available from: https://mui.com/material-ui/. 
+
+- 1Password. Passage. Available from: https://passage.1password.com/. 2023.
+
+- Net Ninja. MERN Stack Crash Course Tutorial. YouTube. Available from: https://youtube.com/playlist?list=PL4cUxeGkcC9iJ_KkrkBZWZRHVwnzLIoUE&feature=shared. 
+
+- BeReal. BeReal. Available from: https://bereal.com/en/. 
+
+- Swiper. React - Swiper.js. Available from: https://swiperjs.com/react. Accessed: December 8, 2023.
