@@ -53,7 +53,7 @@ npm start
 Set up dependencies for the frontend by running:
 
 ```
-cd frontend
+cd frontend/rea-list
 npm install
 ```
 
@@ -70,9 +70,10 @@ REACT_APP_PASSAGE_APP_ID=p3g1mBImLM5FUPBfnbeodby2
 #### Run it!
 
 ```
-cd frontend
+cd frontend/rea-list
 npm start
 ```
+Make sure that both backend and frontend processes are running together with the backend ran before the frontend. If they are, then you can access the page at https://localhost:3001 :D
 
 ## Acknowledgements
 
