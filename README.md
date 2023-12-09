@@ -74,6 +74,7 @@ cd frontend/rea-list
 npm start
 ```
 Make sure that both backend and frontend processes are running together with the backend ran before the frontend. If they are, then you can access the page at https://localhost:3001 :D
+<br />Note: Passkeys biometrics do <ins>not</ins> work on localhost due to the requirement of TLS. To use biometric authentication, visit our site--https://realist.top
 
 ## Acknowledgements
 
