@@ -1,12 +1,16 @@
-# ReaList
-
+# Access our Website
 https://realist.top/
 
-## Tech Stack
+### Setting up dependencies
+Since ReaList requires a Spotify acccount, please contact Travis Nguyen (travisnguyen@g.ucla.edu) and provide him with the email associated to your Spotify account to access the full features to our website.
+
+Credits to '' for access to the Spotify API.
+
+### Tech Stack
 
 The MERN stack (MongoDB, Express.js, React.js, Node.js) was used in order to create this project.
 
-## Development Setup
+## Development Setup (Run Locally)
 
 ### Cloning Repo
 
@@ -18,9 +22,6 @@ cd realist
 ### Backend Setup
 
 Set up dependencies for the backend by running:
-
--   Whitelist IP Address in Mongo.db to access spotify.
--   "node mon"
 
 ```
 cd backend
@@ -50,7 +51,7 @@ npm start
 
 ### Frontend Setup
 
-Set up dependencies for the backend by running:
+Set up dependencies for the frontend by running:
 
 ```
 cd frontend
