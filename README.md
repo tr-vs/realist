@@ -1,12 +1,12 @@
-# ReaList
+# Welcome to ReaList
 
+### Before getting started:
+ReaList requires a whitelisting Spotify acccount. Please email Travis Nguyen (travisnguyen@g.ucla.edu) or (support@realist.top) and provide him with the email associated to your Spotify account.
+ 
+### Our Website:
 https://realist.top/
 
-## Tech Stack
-
-The MERN stack (MongoDB, Express.js, React.js, Node.js) was used in order to create this project.
-
-## Development Setup
+## Development Setup (Run Locally)
 
 ### Cloning Repo
 
@@ -18,9 +18,6 @@ cd realist
 ### Backend Setup
 
 Set up dependencies for the backend by running:
-
--   Whitelist IP Address in Mongo.db to access spotify.
--   "node mon"
 
 ```
 cd backend
@@ -38,7 +35,10 @@ SECRET=eCYnhZr.u!_L6qXvLXU@u*YZWFXJNMLqx7@TP4iw
 SPOTIFY_CLIENT_ID=a8a847ca5ed14e64b16219206363ee5a
 SPOTIFY_CLIENT_SECRET=61793825b72d4c0bbf03bd316a672486
 SPOTIFY_REDIRECT_URI=http://localhost:3000/api/spotify/call_back
+PASSAGE_APP_ID=p3g1mBImLM5FUPBfnbeodby2
+PASSAGE_API_KEY=7d8lLpm3Hf.3cf1DkjE3B3kocMbXmqwXdQYfUfE0jrWDbJtlKJ3aOOrOtVwecVoBPHMZ5LJh88y
 FRONTEND=http://localhost:3001
+SPOTIFY_ACCOUNT_ID=31vihtxadq4ycnc5ges7ha5tl36m
 ```
 
 #### Run It!
@@ -50,10 +50,10 @@ npm start
 
 ### Frontend Setup
 
-Set up dependencies for the backend by running:
+Set up dependencies for the frontend by running:
 
 ```
-cd frontend
+cd frontend/rea-list
 npm install
 ```
 
@@ -70,9 +70,11 @@ REACT_APP_PASSAGE_APP_ID=p3g1mBImLM5FUPBfnbeodby2
 #### Run it!
 
 ```
-cd frontend
+cd frontend/rea-list
 npm start
 ```
+Make sure that both backend and frontend processes are running together with the backend ran before the frontend. If they are, then you can access the page at https://localhost:3001 :D
+<br />Note: Passkeys biometrics do <ins>not</ins> work on localhost due to the requirement of TLS. To use biometric authentication, visit our site--https://realist.top
 
 ## Acknowledgements
 
@@ -91,3 +93,23 @@ npm start
 -   Lance Giang
 -   Hyun Kim
 -   Brianna Tran
+
+## Tech Stack
+
+The MERN stack (MongoDB, Express.js, React.js, Node.js) was used in order to create this project.
+
+## Resources Used
+
+- Spotify for Developers: https://developer.spotify.com/. 
+
+- Color Thief React. NPM Registry. Available from: https://www.npmjs.com/package/color-thief-react. 
+
+- Material-UI. Material-UI: The core components for React. Available from: https://mui.com/material-ui/
+
+- 1Password. Available from: https://passage.1password.com/
+
+- Net Ninja. MERN Stack Crash Course Tutorial. YouTube. Available from: https://youtube.com/playlist?list=PL4cUxeGkcC9iJ_KkrkBZWZRHVwnzLIoUE&feature=shared
+
+- BeReal. BeReal. Available from: https://bereal.com/en/. 
+
+- Swiper. React - Swiper.js. Available from: https://swiperjs.com/react.

@@ -13,6 +13,11 @@ const SideBar = ({ isSidebarClicked }) => {
     const [currentSong, setCurrentSong] = useState(undefined);
     const [recSongs, setRecSongs] = useState([]);
     const [isSpotifyConnected, setIsSpotifyConnected] = useState(false);
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    const updateScreenWidth = () => {
+        setScreenWidth(window.innerWidth);
+    };
 
     const fetchProfile = async () => {
         const response = await fetch(
@@ -48,86 +53,98 @@ const SideBar = ({ isSidebarClicked }) => {
         } else {
             setIsSpotifyConnected(false);
         }
+
+        window.addEventListener("resize", updateScreenWidth);
+        console.log("screen width: ",screenWidth)
+        
+
+        return () => {
+            window.removeEventListener("resize", updateScreenWidth);
+        };
     }, []);
 
     return (
-        <div className="resize-handle">
-            <div className={isSidebarClicked ? 'Sidebar active' : 'Sidebar'}>
-                <div className="content-container">
-                    <div className="profile-icon">
-                        <img
-                            className="listening-album-cover"
-                            src={
-                                currentSong?.album?.images !== undefined
-                                    ? currentSong.album.images[0].url
-                                    : 'https://t3.ftcdn.net/jpg/04/63/51/28/360_F_463512856_GEk2IrQkYatpRVR9YDhiZgRY2z00Zet3.jpg'
-                            }
-                            alt=""
-                        />
-                        <SecondProfileIcon profile={userProfile} />
-                    </div>
-
-                    {isSpotifyConnected && (
-                        <div className="information-container">
-                            <div className="current-song-info">
-                                <h2 className="current-song-title">
-                                    Listening to:
-                                </h2>
-                                <h3 className="current-song-name">
-                                    {currentSong?.name !== undefined
-                                        ? currentSong.name
-                                        : 'Song Name'}
-                                </h3>
-                                <h3 className="current-song-artist">
-                                    {currentSong?.artists !== undefined
-                                        ? currentSong.artists.map(
-                                              (artist) => artist.name + " "
-                                          )
-                                        : 'Artist'}
-                                </h3>
-                            </div>
-                            <div className="recommended-song">
-                                <h2 className="recommended-song-title">
-                                    Songs for you:
-                                </h2>
-                                <iframe
-                                    style={{ border: 12, height: 80, padding:5}}
-                                    src={`https://open.spotify.com/embed/track/${recSongs[0]}`}
-                                    width="80%"
-                                    height="100%"
-                                    allowfullscreen=""
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                    loading="lazy"
-                                ></iframe>
-                                <iframe
-                                    style={{ border: 12, height: 80, padding: 5}}
-                                    src={`https://open.spotify.com/embed/track/${recSongs[1]}`}
-                                    width="80%"
-                                    height="100%"
-                                    allowfullscreen=""
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                    loading="lazy"
-                                ></iframe>
-                                <iframe
-                                    style={{ border: 12, height: 80, padding: 5, marginBottom:30}}
-                                    src={`https://open.spotify.com/embed/track/${recSongs[2]}`}
-                                    width="80%"
-                                    height="100%"
-                                    allowfullscreen=""
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                    loading="lazy"
-                                ></iframe>
-                            </div>
+         
+            <div className="resize-handle">
+                {screenWidth > 770 && (
+                <div className={isSidebarClicked ? 'Sidebar active' : 'Sidebar'}>
+                    <div className="content-container">
+                        <div className="profile-icon">
+                            <img
+                                className="listening-album-cover"
+                                src={
+                                    currentSong?.album?.images !== undefined
+                                        ? currentSong.album.images[0].url
+                                        : 'https://t3.ftcdn.net/jpg/04/63/51/28/360_F_463512856_GEk2IrQkYatpRVR9YDhiZgRY2z00Zet3.jpg'
+                                }
+                                alt=""
+                            />
+                            <SecondProfileIcon profile={userProfile} />
                         </div>
-                    )}
-                    {!isSpotifyConnected && (
-                        <h3 className="recommended-song-text">
-                            Connect to Spotify to see your music
-                        </h3>
-                    )}
+
+                        {isSpotifyConnected && (
+                            <div className="information-container">
+                                <div className="current-song-info">
+                                    <h2 className="current-song-title">
+                                        Listening to:
+                                    </h2>
+                                    <h3 className="current-song-name">
+                                        {currentSong?.name !== undefined
+                                            ? currentSong.name
+                                            : 'Song Name'}
+                                    </h3>
+                                    <h3 className="current-song-artist">
+                                        {currentSong?.artists !== undefined
+                                            ? currentSong.artists.map(
+                                                (artist) => artist.name + " "
+                                            )
+                                            : 'Artist'}
+                                    </h3>
+                                </div>
+                                <div className="recommended-song">
+                                    <h2 className="recommended-song-title">
+                                        Songs for you:
+                                    </h2>
+                                    <iframe
+                                        style={{ border: 12, height: 80, padding:5}}
+                                        src={`https://open.spotify.com/embed/track/${recSongs[0]}`}
+                                        width="80%"
+                                        height="100%"
+                                        allowfullscreen=""
+                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                        loading="lazy"
+                                    ></iframe>
+                                    <iframe
+                                        style={{ border: 12, height: 80, padding: 5}}
+                                        src={`https://open.spotify.com/embed/track/${recSongs[1]}`}
+                                        width="80%"
+                                        height="100%"
+                                        allowfullscreen=""
+                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                        loading="lazy"
+                                    ></iframe>
+                                    <iframe
+                                        style={{ border: 12, height: 80, padding: 5, marginBottom:30}}
+                                        src={`https://open.spotify.com/embed/track/${recSongs[2]}`}
+                                        width="80%"
+                                        height="100%"
+                                        allowfullscreen=""
+                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                        loading="lazy"
+                                    ></iframe>
+                                </div>
+                            </div>
+                        )}
+                        {!isSpotifyConnected && (
+                            <h3 className="recommended-song-text">
+                                Connect to Spotify to see your music
+                            </h3>
+                        )}
+                    </div>
                 </div>
+                )}
             </div>
-        </div>
+        
     );
 };
 

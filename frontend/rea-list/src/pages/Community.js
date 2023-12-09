@@ -8,6 +8,11 @@ const Community = () => {
     const [communityPosts, setCommunityPosts] = useState([]);
     const [showPlaylist, setShowPlaylist] = useState(false);
     const [playlistLink, setPlaylistLink] = useState(false);
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    const updateScreenWidth = () => {
+        setScreenWidth(window.innerWidth);
+    };
 
     const fetchCommunityPostData = async () => {
         let response = await fetch(
@@ -43,6 +48,13 @@ const Community = () => {
 
     useEffect(() => {
         fetchCommunityPostData();
+        window.addEventListener("resize", updateScreenWidth);
+        console.log("screen width: ",screenWidth)
+        
+
+        return () => {
+            window.removeEventListener("resize", updateScreenWidth);
+        };
     }, []);
 
     return (
@@ -75,18 +87,37 @@ const Community = () => {
                             </svg>
                         </div>
 
-                        
-                        <div className={`playlist-container ${showPlaylist ? 'slide-in' : ''}`}>
-                            <iframe
-                                style={{ border: 12 }}
-                                src={playlistLink}
-                                width="95%"
-                                height="100%"
-                                allowfullscreen=""
-                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                loading="lazy"
-                            ></iframe>
-                        </div>
+                        {screenWidth > 770 && (
+
+                            <div className={`playlist-container ${showPlaylist ? 'slide-in' : ''}`}>
+                                <iframe
+                                    style={{ border: 12 }}
+                                    src={playlistLink}
+                                    width="95%"
+                                    height="100%"
+                                    allowfullscreen=""
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                    loading="lazy"
+                                ></iframe>
+                            </div>
+                        )}
+
+                        {screenWidth < 769 && 
+                        (
+                            <div className={`playlist-container-reduced ${showPlaylist ? 'slide-in' : ''}`}>
+                                <iframe
+                                    style={{ border: 12 }}
+                                    src={playlistLink}
+                                    width="95%"
+                                    height="100%"
+                                    allowfullscreen=""
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                    loading="lazy"
+                                ></iframe>
+                            </div>
+                        )}
+
+
                         
                     </div>
                 )}
